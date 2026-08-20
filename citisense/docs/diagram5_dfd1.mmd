@@ -2,38 +2,36 @@ flowchart TD
     Citizen[Citizen]
     Official[Barangay Official<br>Monitoring]
     Admin[System Admin<br>Maintenance]
-    
-    P1((1.0<br>User<br>Authentication))
-    P2((2.0<br>Feedback<br>Management))
-    P3((3.0<br>Sentiment &<br>Recommendation Engine))
-    P4((4.0<br>Feedback Monitoring<br>& Dashboards))
-    P5((5.0<br>System Administration<br>& Maintenance))
-    
-    D1[(D1: Users Data Store)]
-    D2[(D2: Feedback Database)]
-    
-    %% Auth
+
+    P1((1.0 User<br>Authentication))
+    P2((2.0 Complaint<br>Submission))
+    P3((3.0 Sentiment &<br>Recommendation Engine))
+    P4((4.0 Complaint Monitoring<br>& Resolution))
+    P5((5.0 System Administration<br>& Maintenance))
+
+    D1[(D1: Users<br>Data Store)]
+    D2[(D2: Complaints<br>Data Store)]
+    D3[(D3: Audit Logs<br>Data Store)]
+
     Citizen -- "Login Credentials" --> P1
     Official -- "Login Credentials" --> P1
     Admin -- "Login Credentials" --> P1
-    P1 <-- "Verify / Save User" --> D1
-    
-    %% Citizen Feedback Submission
-    Citizen -- "Submit Feedback" --> P2
-    P2 -- "Display Sentiment & Recommendation" --> Citizen
-    P2 -- "Write Feedback (Pending)" --> D2
-    
-    %% Core Engines
-    P2 -- "Send Message Text" --> P3
-    P3 -- "Return Score & Recommendation" --> P2
-    
-    %% Barangay Official Monitoring
-    Official -- "Resolve / Ignore Feedbacks" --> P4
-    P4 -- "Display Stats & Trend Reports" --> Official
-    P4 <-- "Fetch & Update Status" --> D2
-    
-    %% Admin Maintenance
-    Admin -- "Configure Access Rules" --> P5
-    P5 -- "Activity / Error logs" --> Admin
-    P5 <-- "Manage D1 Profiles" --> D1
-    P5 <-- "Backup D2 Audits" --> D2
+    P1 <-- "Verify / Create User" --> D1
+
+    Citizen -- "Description, Category,\nEvidence Photo,\nMap Coordinates" --> P2
+    P2 -- "Sentiment Score &\nRecommendation" --> Citizen
+    P2 -- "Write Complaint (Pending)" --> D2
+
+    P2 -- "Description Text" --> P3
+    P3 -- "Sentiment + Recommendation" --> P2
+
+    Official -- "Acknowledge / Resolve\n(Proof Photo) / Reject" --> P4
+    P4 -- "Complaint List,\nDashboard Stats,\nDetail View" --> Official
+    P4 <-- "Read / Update Complaint" --> D2
+    P4 -- "Log Action" --> D3
+
+    Admin -- "Manage Users,\nDelete Complaints" --> P5
+    P5 -- "User List,\nAll Complaints,\nAudit Logs" --> Admin
+    P5 <-- "Read / Write Users" --> D1
+    P5 <-- "Read / Delete Complaints" --> D2
+    P5 <-- "Read Logs" --> D3

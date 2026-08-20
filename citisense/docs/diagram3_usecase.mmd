@@ -1,26 +1,43 @@
 usecaseDiagram
-    actor "Users (Citizens)" as U
-    actor "Barangay Officials\n(Monitoring & Management)" as B
-    actor "System Admin\n(Fixing & Maintenance)" as A
+    actor "Citizen" as C
+    actor "Barangay Official" as O
+    actor "System Admin" as A
 
-    package "CitiSense System Boundary" {
+    package "CitiSense Native Flutter App" {
         usecase "UC1: Create Account / Log In" as UC1
-        usecase "UC2: Submit Community Feedback\n(Category, Message, Image)" as UC2
-        usecase "UC3: View Sentiment Analysis &\nSystem Recommendation Results" as UC3
-        usecase "UC4: Monitor Statistics Dashboard\n(Real-Time Community Metrics)" as UC4
-        usecase "UC5: Manage Pending Feedbacks\n(Resolve or Ignore Logs)" as UC5
-        usecase "UC6: Manage User Access Control &\nSystem Configurations" as UC6
-        usecase "UC7: Review System Error Logs &\nPerform Database Backups" as UC7
+        usecase "UC2: Submit Complaint\n(Category, Description, Evidence Photo,\nMap Pin Location)" as UC2
+        usecase "UC3: View Sentiment Analysis\n& Auto-Recommendation" as UC3
+        usecase "UC4: Track Complaint Status\n(With Status Timeline)" as UC4
+        usecase "UC5: View Dashboard Statistics\n(Charts & Metrics)" as UC5
+        usecase "UC6: Acknowledge Complaint" as UC6
+        usecase "UC7: Resolve Complaint\n(Upload Proof Photo)" as UC7
+        usecase "UC8: Reject Complaint\n(Provide Reason)" as UC8
+        usecase "UC9: Manage Users\n(Add Officer, Revoke/Restore)" as UC9
+        usecase "UC10: View All Complaints\n(Delete if needed)" as UC10
+        usecase "UC11: View Audit Logs" as UC11
+        usecase "UC12: Change Theme\n(Light/Dark/System, High Contrast)" as UC12
+        usecase "UC13: View Privacy Policy" as UC13
     }
 
-    U --> UC1
-    U --> UC2
-    U --> UC3
+    C --> UC1
+    C --> UC2
+    C --> UC3
+    C --> UC4
+    C --> UC12
+    C --> UC13
 
-    B --> UC1
-    B --> UC4
-    B --> UC5
+    O --> UC1
+    O --> UC5
+    O --> UC6
+    O --> UC7
+    O --> UC8
+    O --> UC12
+    O --> UC13
 
     A --> UC1
-    A --> UC6
-    A --> UC7
+    A --> UC5
+    A --> UC9
+    A --> UC10
+    A --> UC11
+    A --> UC12
+    A --> UC13

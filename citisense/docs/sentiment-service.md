@@ -1,7 +1,21 @@
 # Sentiment Analysis Service — Recommendation & Real-System Setup
 
-## Why the current engine is not enough
-`lib/services/sentiment_engine.dart` is a **keyword/lexicon heuristic** (word lists + negation for Tagalog/English). It is fast and works offline, but it cannot understand meaning — e.g. *"hindi naman masyado mabaho pero makalat"* or sarcasm. For the paper, a **machine-learning model** is the real system.
+## Current: Offline Taglish Lexicon Engine (v3)
+
+The app ships with `lib/services/sentiment_engine.dart` — a rule-based Taglish (Tagalog + English) analyzer that works **fully offline**:
+
+1. Tokenizes input and strips Tagalog particles (`po`, `naman`, `kasi`, `lang`, etc.)
+2. Checks for negation in the previous meaningful token (`hindi naman mabaho` → positive)
+3. Matches against phrase lists (longer matches first) and word lists
+4. Returns sentiment (negative/neutral/positive), confidence (0.0–1.0), and a per-category recommendation
+
+This is fast, requires zero internet, and is sufficient for demos and the paper's prototype.
+
+## Why an ML model may still be needed
+
+The lexicon engine is a heuristic — it cannot understand meaning, context, or sarcasm.
+For the paper's "real system" section, a **machine-learning model** served as a tiny
+Python microservice demonstrates a production-grade approach.
 
 ## Recommended NLP approach
 Use a **multilingual transformer model** served as a tiny Python microservice. The Flutter app POSTs the complaint text and receives a sentiment JSON.

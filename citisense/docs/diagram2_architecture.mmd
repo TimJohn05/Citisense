@@ -1,32 +1,42 @@
 flowchart TD
-    subgraph Client Layer
-        C[Citizen Mobile App<br>Mobile Feedback Form, Image Upload]
-        B[Barangay Web Portal<br>Sentiment Stats, Feedback Console]
-        A[Admin Maintenance Console<br>User Management, System Configs]
+    subgraph Mobile["Flutter Mobile App (CitiSense)"]
+        direction TB
+        subgraph Screens["Role-Based Screens"]
+            C[Citizen<br>Home, Report Issue,<br>My Reports]
+            O[Barangay Official<br>Dashboard, Complaints Feed]
+            A[System Admin<br>Dashboard, Users,<br>Complaints, Audit Logs]
+        end
+
+        subgraph State["State Management"]
+            AS[AppState<br>ChangeNotifier + Provider<br>Auth, Complaints, Users, Logs]
+        end
+
+        subgraph Engines["Core Services"]
+            SE[Sentiment Engine<br>Taglish Lexicon v3<br>EN + Filipino + Negation]
+            CS[Camera Service<br>image_picker +<br>permission_handler]
+            LS[Location Service<br>geolocator +<br>flutter_map]
+        end
     end
 
-    subgraph Service Layer
-        S[Core Application Server<br>Route Handlers, State Management]
+    subgraph Repo["Repository Layer (Abstraction)"]
+        R[AppRepository<br>Abstract Interface]
+        subgraph Impl["Implementations"]
+            MR[MockRepository<br>In-Memory Demo Data<br>Works Offline]
+            FR[FirebaseRepository<br>Firebase Auth +<br>Cloud Firestore + Storage]
+        end
     end
 
-    subgraph Core Engines Layer
-        SE[Sentiment Analysis Engine<br>Naïve Bayes Classifier]
-        RE[Recommendation Engine<br>Rule-Based Mapper]
+    subgraph Data["Data Stores"]
+        MD[(Mock Data<br>5 Users, 10 Complaints,<br>3 Audit Logs)]
+        FB[(Google Firebase<br>Auth, Firestore,<br>Storage)]
     end
 
-    subgraph Data Layer
-        DB[(Database Storage<br>Users, Feedbacks, Sentiment Logs)]
-    end
-
-    C -- "Submit Feedback (Signal: Message Text)" --> S
-    S -- "Sentiment & Recommendation Result" --> C
-    
-    B <-- "Query Stats / Update Status Action" --> S
-    A <-- "Update System Rules / Audit Logs" --> S
-
-    S -- "Send Text" --> SE
-    SE -- "Return Class" --> S
-
-    S <-- "Get Recommendation" --> RE
-    
-    S <-- "Read / Write Data" --> DB
+    C & O & A --> AS
+    AS --> SE
+    AS --> CS
+    AS --> LS
+    AS --> R
+    R --> MR
+    R --> FR
+    MR --> MD
+    FR --> FB

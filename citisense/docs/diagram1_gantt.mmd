@@ -1,22 +1,26 @@
 gantt
     title Figure 3.6. Gantt Chart - CitiSense Software Development Process Schedule
     dateFormat  YYYY-MM-DD
-    axisFormat  W%W
-    
+    axisFormat  %b %d
+
     section 1. Planning Phase
-    Requirements Gathering & Scoping :active, p1, 2024-01-01, 14d
-    
+    Requirements Gathering & Scoping     :active, p1, 2026-06-01, 14d
+
     section 2. Design Phase
-    Architecture, UI/UX, & DFDs      :active, d1, 2024-01-15, 14d
-    
+    Architecture, UI/UX, & DFDs          :active, d1, 2026-06-15, 14d
+
     section 3. Development Phase
-    Mobile App & Admin Dashboard     :active, dev1, 2024-01-29, 42d
-    
+    Core App (Auth, Citizen, Officer)    :active, dev1, 2026-06-29, 21d
+    Admin Dashboard & User Mgmt          :active, dev2, after dev1, 14d
+    Sentiment Engine & ML Pipeline       :active, dev3, after dev2, 10d
+    Theme System & UI Polish             :active, dev4, after dev3, 7d
+    Firebase Integration & Map Picker    :active, dev5, after dev4, 7d
+
     section 4. Testing Phase
-    Functional Testing & Validation  :active, t1, 2024-03-11, 14d
-    
-    section 5. Evaluation Phase
-    Quality & Security Assessment    :active, e1, 2024-03-25, 7d
-    
+    Functional Testing & Validation      :active, t1, after dev5, 10d
+
+    section 5. Documentation Phase
+    Paper Writing & Diagrams             :active, doc1, after t1, 14d
+
     section 6. Deployment Phase
-    Release & User Training          :active, dep1, 2024-04-01, 7d
+    Release APK & User Training          :active, dep1, after doc1, 7d

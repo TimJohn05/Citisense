@@ -1,15 +1,15 @@
 flowchart LR
     Citizen[Citizen]
-    Official[Barangay Official<br>Monitoring & Mgmt]
-    Admin[System Admin<br>Fixing & Maintenance]
-    
-    System((0.0<br>CitiSense Urban Feedback<br>Intelligence System))
-    
-    Citizen -- "1. Signup / Login Credentials<br>2. Submit Feedback (Text, Category, Image)" --> System
-    System -- "1. Sentiment Result & Recommendation<br>2. Feedback Action Status Updates" --> Citizen
-    
-    Official -- "1. Login Credentials<br>2. Feedback Resolve/Ignore Action" --> System
-    System -- "1. Dashboard Sentiment Statistics<br>2. Detail Feedback Log List" --> Official
-    
-    Admin -- "1. Admin Credentials<br>2. System Configs & Access Rules" --> System
-    System -- "1. Security Backups<br>2. System Error Logs reports" --> Admin
+    Official[Barangay Official<br>Monitoring & Resolution]
+    Admin[System Admin<br>User & System Mgmt]
+
+    System((0.0 CitiSense<br>Native Flutter App<br>Calamba City))
+
+    Citizen -- "1. Signup / Login Credentials\n2. Submit Complaint\n   (Category, Description,\n    Evidence Photo, Map Coordinates)" --> System
+    System -- "1. Sentiment Result & Recommendation\n2. Complaint Status Updates\n3. Privacy Policy" --> Citizen
+
+    Official -- "1. Login Credentials\n2. Acknowledge / Resolve (Proof Photo)\n   / Reject (Reason)" --> System
+    System -- "1. Complaint Feed & Filters\n2. Dashboard Statistics\n3. Complaint Detail + Map" --> Official
+
+    Admin -- "1. Admin Credentials\n2. Add/Revoke Officers\n3. Delete Complaints" --> System
+    System -- "1. System Dashboard (Charts)\n2. User Management\n3. Audit Logs" --> Admin
