@@ -1,0 +1,1001 @@
+text,category,sentiment,urgency
+"Good day po kapitan at mga tanod, Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa Block 8 Lot 15.",peace_order,positive,low
+"Hello po admin / desk officer, Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa tapat ng covered court.",water,negative,moderate
+"Attention po barangay officials, Malinaw at malakas na po ulit ang tulo ng tubig sa may crossing papuntang palengke, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Paki-check naman po, May scheduled water interruption po ba bukas sa aming area sa tapat ng covered court?",water,neutral,low
+Nais ko lang i-report na Maliwanag na po ulit ang buong street sa gilid ng barangay hall dahil napalitan na ang solar light. Salamat po!,lighting,positive,low
+"Nais ko lang i-report na Basag po ang duyan at sirang slide sa children's playground sa may tulay ng San Cristobal, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Grabe po talaga, Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?",public_facilities,neutral,low
+"Nais ko lang i-report na Basag po ang duyan at sirang slide sa children's playground sa may crossing papuntang palengke, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Pakitulungan po kami dito, Nais lang po malaman kung bukas ang daan para sa mga delivery van sa may Bucal bypass road.",road,neutral,low
+"Good day po kapitan at mga tanod, May mga sasakyan na nag-iillegal double parking sa tapat ng daycare center, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+"Grabe po talaga, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa kahabaan ng main avenue.",waste,neutral,low
+"Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa may crossing papuntang palengke, salamat po!",electrical_hazard,positive,low
+Nais ko lang i-report na Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa may Bucal bypass road.,public_facilities,negative,moderate
+"Magandang araw po, Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?",public_facilities,neutral,low
+Concerned citizen here: Nais lang po humingi ng temporary one-side parking permit para sa family event sa may Bucal bypass road.,traffic_obstruction,neutral,low
+"Pakitulungan po kami dito, Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.",general_inquiry,positive,low
+"Pakitulungan po kami dito, May nakalaylay at nakalantad na live wire sa kanto ng Barandal, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Hello po admin / desk officer, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa tapat ng daycare center!",flood_drainage,negative,emergency
+"Hello po admin / desk officer, Paano po magpareserba ng covered court para sa inter-purok basketball tournament?",public_facilities,neutral,low
+"Nais ko lang i-report na Mahina po ang tulo ng tubig tuwing umaga sa tabi ng chapel, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Good day po kapitan at mga tanod, Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",peace_order,neutral,low
+Concerned citizen here: Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa kanto ng Barandal.,lighting,neutral,low
+"Attention po barangay officials, Maliwanag na po ulit ang buong street sa may tulay ng San Cristobal dahil napalitan na ang solar light. Salamat po!",lighting,positive,low
+"Nais ko lang i-report na Kukurap-kurap ang ilaw sa poste sa tapat ng covered court, baka mapundi na rin anumang oras.",lighting,negative,moderate
+"Good day po kapitan at mga tanod, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa may Phase 2 subdivision gate.",lighting,neutral,low
+"Concerned citizen here: May nakalaylay at nakalantad na live wire sa may crossing papuntang palengke, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+Nais ko lang i-report na Hindi pa rin nahahakot ang mga nabubulok na kalat sa may tulay ng San Cristobal simula pa noong isang linggo.,waste,negative,moderate
+"Magandang araw po, Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",peace_order,neutral,low
+"Sirang-sira na po ang semento sa may tulay ng San Cristobal, baku-bako at delikado kapag gabi.",road,negative,moderate
+"Paki-check naman po, May nakalaylay at nakalantad na live wire sa kanto ng Barandal, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Magandang araw po, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa may Bucal bypass road?",flood_drainage,neutral,low
+"Good day po kapitan at mga tanod, Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.",general_inquiry,positive,low
+"Grabe po talaga, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa may Phase 2 subdivision gate.",lighting,neutral,low
+"Report ko lang po: Kukurap-kurap ang ilaw sa poste sa Block 8 Lot 15, baka mapundi na rin anumang oras.",lighting,negative,moderate
+"Paki-check naman po, May malalim na sinkhole o bitak sa kalsada sa may tulay ng San Cristobal, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Good day po kapitan at mga tanod, May schedule po ba ng libreng dengue misting o fogging operation sa tapat ng daycare center?",health_sanitation,neutral,low
+"Good day po kapitan at mga tanod, May malaking lubak sa kalsada sa may tulay ng San Cristobal, sumasabit ang ilalim ng mga sasakyan at motor.",road,negative,moderate
+Report ko lang po: Nais lang po malaman kung bukas ang daan para sa mga delivery van sa may tulay ng San Cristobal.,road,neutral,low
+"Nawawala po ang bakal na takip ng manhole sa tabi ng bakery, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Good day po kapitan at mga tanod, Pundido po ang bumbilya ng streetlight sa may Bucal bypass road, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tabi ng chapel.,water,neutral,low
+Report ko lang po: Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tapat ng covered court.,water,neutral,low
+"Attention po barangay officials, Pumutok po ang main water pipe sa may Purok 4, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Attention po barangay officials, Maayos na po ang supply ng tubig ngayon, wala nang problema.",water,positive,low
+Report ko lang po: Nalinis na po at maluwag na ang daan sa may Bucal bypass road pagkatapos ng road clearing operation ng tanod.,traffic_obstruction,positive,low
+"Good day po kapitan at mga tanod, May schedule po ba ng libreng dengue misting o fogging operation sa may tulay ng San Cristobal?",health_sanitation,neutral,low
+"Nais ko lang i-report na Pumutok po ang main water pipe sa kahabaan ng main avenue, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Magandang araw po, May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa Block 8 Lot 15.",health_sanitation,negative,moderate
+"Nais ko lang i-report na May mga sasakyan na nag-iillegal double parking sa may Bucal bypass road, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+"Nais ko lang i-report na May nakalaylay at nakalantad na live wire sa may Purok 4, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Attention po barangay officials, Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa kanto ng Barandal.",peace_order,positive,low
+Report ko lang po: Nais lang po malaman kung bukas ang daan para sa mga delivery van sa may Phase 2 subdivision gate.,road,neutral,low
+"Attention po barangay officials, Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad.",health_sanitation,positive,low
+"Paki-check naman po, Bilis po ng aksyon ng barangay electrician, gumagana na ang ilaw sa poste sa may tulay ng San Cristobal.",lighting,positive,low
+"Pakitulungan po kami dito, May schedule po ba ng libreng dengue misting o fogging operation sa gilid ng barangay hall?",health_sanitation,neutral,low
+"Attention po barangay officials, Hindi pa rin nahahakot ang mga nabubulok na kalat sa tapat ng daycare center simula pa noong isang linggo.",waste,negative,moderate
+Concerned citizen here: Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa kahabaan ng main avenue!,flood_drainage,negative,emergency
+"Grabe po talaga, Napakalinis na po ng paligid sa Block 8 Lot 15 pagkatapos ng cleanup drive kaninang umaga!",waste,positive,low
+"Grabe po talaga, Maayos na po ang daloy ng trapiko sa may Phase 2 subdivision gate, good job po!",traffic_obstruction,positive,low
+"Paki-check naman po, Ano po ba ang bagong schedule ng collection ng biodegradable waste sa may tulay ng San Cristobal?",waste,neutral,low
+"Pakitulungan po kami dito, Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.",electrical_hazard,positive,low
+"Magandang araw po, Inukupa ng sidewalk vendor ang buong daanan ng tao sa tapat ng daycare center, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Good day po kapitan at mga tanod, Pumutok po ang main water pipe sa tapat ng daycare center, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Hello po admin / desk officer, Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa Purok 6 extension.",peace_order,positive,low
+"Nais ko lang i-report na Napakaganda na po ng bagong pintura at ilaw sa covered court sa may Purok 4, salamat sa barangay council!",public_facilities,positive,low
+"May rabid/nangangagat na stray dog sa tapat ng covered court, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Paki-check naman po, Kukurap-kurap ang ilaw sa poste sa may Purok 4, baka mapundi na rin anumang oras.",lighting,negative,moderate
+"Magandang araw po, May scheduled water interruption po ba bukas sa aming area sa may Phase 2 subdivision gate?",water,neutral,low
+"Attention po barangay officials, Naaspalto at napatag na po ang kalsada sa tabi ng bakery, maayos at smooth na ang biyahe!",road,positive,low
+"Attention po barangay officials, Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",peace_order,neutral,low
+"Attention po barangay officials, May scheduled water interruption po ba bukas sa aming area sa tapat ng covered court?",water,neutral,low
+"Pakitulungan po kami dito, Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",health_sanitation,positive,low
+"Hello po admin / desk officer, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may Phase 2 subdivision gate.",waste,neutral,low
+"Grabe po talaga, Tambak na naman po ang basura sa Block 8 Lot 15, nangangamoy na at nilalangaw.",waste,negative,moderate
+"Attention po barangay officials, Tatlong araw na pong putol-putol ang serbisyo ng tubig sa Purok 6 extension.",water,negative,moderate
+"Magandang araw po, Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa may crossing papuntang palengke.",public_facilities,negative,moderate
+"Hello po admin / desk officer, May road repair signage po ba na ilalagay habang ongoing ang construction sa kanto ng Barandal?",road,neutral,low
+Concerned citizen here: May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa tabi ng bakery?,traffic_obstruction,neutral,low
+"Magandang araw po, Maganda ang pagkakagawa ng humps sa kanto ng Barandal, safe na tumawid ang mga bata.",road,positive,low
+Nais ko lang i-report na Kailan po kaya masisimulan ang road widening project sa tapat ng covered court?,road,neutral,low
+"Report ko lang po: Naaspalto at napatag na po ang kalsada sa tapat ng covered court, maayos at smooth na ang biyahe!",road,positive,low
+"Hello po admin / desk officer, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa Block 8 Lot 15.",water,neutral,low
+"Walang-wala pong tubig simula pa kahapon sa tapat ng covered court, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Paki-check naman po, Maraming salamat po sa matagumpay na declogging ng mga kanal sa kanto ng Barandal, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+Report ko lang po: Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tapat ng daycare center.,water,neutral,low
+Concerned citizen here: Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.,electrical_hazard,positive,low
+"Attention po barangay officials, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tapat ng daycare center.",water,neutral,low
+"Magandang araw po, Malinaw at malakas na po ulit ang tulo ng tubig sa may Phase 2 subdivision gate, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Pakitulungan po kami dito, Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?",health_sanitation,neutral,low
+"Attention po barangay officials, Nalinis na po at maluwag na ang daan sa gilid ng barangay hall pagkatapos ng road clearing operation ng tanod.",traffic_obstruction,positive,low
+"Attention po barangay officials, May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa may Bucal bypass road.",health_sanitation,negative,moderate
+"Report ko lang po: Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Bilis po ng aksyon ng barangay electrician, gumagana na ang ilaw sa poste sa may Phase 2 subdivision gate.",lighting,positive,low
+"Good day po kapitan at mga tanod, May transformer na umuusok at may sparks ng apoy sa poste sa gilid ng barangay hall, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Paki-check naman po, Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa tabi ng bakery.",peace_order,positive,low
+Tatlong araw na pong putol-putol ang serbisyo ng tubig sa may crossing papuntang palengke.,water,negative,moderate
+"Paki-check naman po, May malaking lubak sa kalsada sa kahabaan ng main avenue, sumasabit ang ilalim ng mga sasakyan at motor.",road,negative,moderate
+"Report ko lang po: Nangungulit at nagwawala po ang lasing sa may crossing papuntang palengke, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+"Pakitulungan po kami dito, Thank you po kapitan sa mabilis na pag-aksyon sa tambak na basura sa may street namin.",waste,positive,low
+"Grabe po talaga, Pumutok po ang main water pipe sa may Bucal bypass road, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Grabe po talaga, Nalinis na po at maluwag na ang daan sa tabi ng chapel pagkatapos ng road clearing operation ng tanod.",traffic_obstruction,positive,low
+"Hello po admin / desk officer, Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa tabi ng chapel.",peace_order,positive,low
+"Nais ko lang i-report na Pundido po ang bumbilya ng streetlight sa may Phase 2 subdivision gate, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Grabe po talaga, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa tapat ng elementary school.",lighting,neutral,low
+"Pakitulungan po kami dito, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa kanto ng Barandal?",flood_drainage,neutral,low
+"Pakitulungan po kami dito, Nawawala po ang bakal na takip ng manhole sa may tulay ng San Cristobal, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+Concerned citizen here: Nakatabingi at mabubuwal na ang poste ng kuryente sa tapat ng elementary school baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+"Pakitulungan po kami dito, Paano po magpareserba ng covered court para sa inter-purok basketball tournament?",public_facilities,neutral,low
+"Hello po admin / desk officer, Maayos na po ang supply ng tubig ngayon, wala nang problema.",water,positive,low
+"Grabe po talaga, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tapat ng elementary school.",water,neutral,low
+"Grabe po talaga, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa kahabaan ng main avenue.",electrical_hazard,neutral,low
+"Magandang araw po, Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa kahabaan ng main avenue.",public_facilities,negative,moderate
+"Attention po barangay officials, Maraming salamat po sa matagumpay na declogging ng mga kanal sa kahabaan ng main avenue, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Attention po barangay officials, Thank you po sa pag-aksyon sa reklamo namin sa maingay na kapitbahay.",peace_order,positive,low
+"May mga sasakyan na nag-iillegal double parking sa Block 8 Lot 15, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+"Attention po barangay officials, Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?",peace_order,neutral,low
+Concerned citizen here: Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa tapat ng elementary school.,water,negative,moderate
+"Good day po kapitan at mga tanod, Malinaw at malakas na po ulit ang tulo ng tubig sa may Bucal bypass road, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Good day po kapitan at mga tanod, Pumutok po ang main water pipe sa tabi ng bakery, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+Report ko lang po: Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa tabi ng chapel!,flood_drainage,negative,emergency
+"Pakitulungan po kami dito, Barado po ang kanal at estero sa tabi ng chapel, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Attention po barangay officials, Thank you po kapitan sa mabilis na pag-aksyon sa tambak na basura sa may street namin.",waste,positive,low
+Thank you po kapitan sa mabilis na pag-aksyon sa tambak na basura sa may street namin.,waste,positive,low
+"Hello po admin / desk officer, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa Purok 6 extension.",waste,neutral,low
+"Attention po barangay officials, Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura sa kahabaan ng main avenue.",waste,positive,low
+Report ko lang po: Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?,peace_order,neutral,low
+"Magandang araw po, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa tabi ng bakery.",waste,neutral,low
+"Nais ko lang i-report na Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",health_sanitation,positive,low
+"Paki-check naman po, Nangangamoy dumi ng baboy/manok ang hangin sa tabi ng bakery, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Good day po kapitan at mga tanod, Maaliwalas at walang amoy na ang paligid sa tabi ng bakery, saludo sa sanitation team.",waste,positive,low
+"Nais ko lang i-report na Sobrang lakas ng videoke at sigawan sa kahabaan ng main avenue kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Report ko lang po: Lagpas tuhod na po ang baha sa Block 8 Lot 15 at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Hello po admin / desk officer, Tambak na naman po ang basura sa Block 8 Lot 15, nangangamoy na at nilalangaw.",waste,negative,moderate
+"Good day po kapitan at mga tanod, May rabid/nangangagat na stray dog sa kahabaan ng main avenue, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Attention po barangay officials, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may crossing papuntang palengke.",electrical_hazard,neutral,low
+"Grabe po talaga, Walang-wala pong tubig simula pa kahapon sa kahabaan ng main avenue, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Magandang araw po, Hindi pa rin nahahakot ang mga nabubulok na kalat sa may crossing papuntang palengke simula pa noong isang linggo.",waste,negative,moderate
+"Attention po barangay officials, May nagsisiga po ng mga goma at plastic sa may tulay ng San Cristobal, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Good day po kapitan at mga tanod, Nangangamoy dumi ng baboy/manok ang hangin sa kanto ng Barandal, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Grabe po talaga, Lagpas tuhod na po ang baha sa may Bucal bypass road at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Hello po admin / desk officer, Masyadong madulas ang putik sa kalsada sa may tulay ng San Cristobal dahil sa mga truck na labas-pasok.",road,negative,moderate
+"Paki-check naman po, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa tapat ng covered court?",electrical_hazard,neutral,low
+"Grabe po talaga, Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+"Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad.",health_sanitation,positive,low
+"Paki-check naman po, May transformer na umuusok at may sparks ng apoy sa poste sa Block 8 Lot 15, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Hello po admin / desk officer, Sobrang lakas ng videoke at sigawan sa gilid ng barangay hall kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Madilim na daanan sa may tulay ng San Cristobal, takot dumaan ang mga estudyante at trabahador kapag gabi.",lighting,negative,moderate
+"Paki-check naman po, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa kanto ng Barandal.",waste,neutral,low
+"Hello po admin / desk officer, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa tabi ng chapel!",flood_drainage,negative,emergency
+Nais ko lang i-report na Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tabi ng chapel.,flood_drainage,neutral,low
+"Attention po barangay officials, Malinaw at malakas na po ulit ang tulo ng tubig sa tapat ng elementary school, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Grabe po talaga, May nagtatapon po ng patapong construction debris at sirang gamit sa kanto ng Barandal.",waste,negative,moderate
+"Magandang araw po, Paano po magpareserba ng covered court para sa inter-purok basketball tournament?",public_facilities,neutral,low
+"Hello po admin / desk officer, Nakalubog po sa baha ang kalsada sa gilid ng barangay hall dahil walang labasan ang tubig-ulan.",flood_drainage,negative,moderate
+"Magandang araw po, Bilis po ng aksyon ng barangay electrician, gumagana na ang ilaw sa poste sa Purok 6 extension.",lighting,positive,low
+"Nais ko lang i-report na Nangungulit at nagwawala po ang lasing sa may Phase 2 subdivision gate, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+Concerned citizen here: Nakatabingi at mabubuwal na ang poste ng kuryente sa may tulay ng San Cristobal baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+"Pakitulungan po kami dito, Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa gilid ng barangay hall.",public_facilities,negative,moderate
+"Hello po admin / desk officer, May transformer na umuusok at may sparks ng apoy sa poste sa Purok 6 extension, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Good day po kapitan at mga tanod, Nakalubog po sa baha ang kalsada sa may crossing papuntang palengke dahil walang labasan ang tubig-ulan.",flood_drainage,negative,moderate
+"Grabe po talaga, Pundido po ang bumbilya ng streetlight sa Block 8 Lot 15, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Concerned citizen here: Nawawala po ang bakal na takip ng manhole sa Purok 6 extension, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Pakitulungan po kami dito, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa Block 8 Lot 15, salamat po!",electrical_hazard,positive,low
+"Good day po kapitan at mga tanod, Nais lang po malaman kung bukas ang daan para sa mga delivery van sa tapat ng covered court.",road,neutral,low
+"Grabe po talaga, May malaking lubak sa kalsada sa Block 8 Lot 15, sumasabit ang ilalim ng mga sasakyan at motor.",road,negative,moderate
+"Magandang araw po, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa gilid ng barangay hall?",traffic_obstruction,neutral,low
+"Paki-check naman po, Nais lang po humingi ng temporary one-side parking permit para sa family event sa Purok 6 extension.",traffic_obstruction,neutral,low
+"Nais ko lang i-report na Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"Good day po kapitan at mga tanod, Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?",public_facilities,neutral,low
+Report ko lang po: May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa may Purok 4?,traffic_obstruction,neutral,low
+"Hello po admin / desk officer, Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",electrical_hazard,positive,low
+"Good day po kapitan at mga tanod, Pumutok po ang main water pipe sa gilid ng barangay hall, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Attention po barangay officials, Gumuho po ang maliit na riprap sa tabi ng kalsada sa tabi ng chapel dahil sa ulan kahapon.",road,negative,emergency
+"Grabe po talaga, Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Hello po admin / desk officer, May nagsisiga po ng mga goma at plastic sa may Phase 2 subdivision gate, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Concerned citizen here: Nawawala po ang bakal na takip ng manhole sa tabi ng bakery, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Good day po kapitan at mga tanod, Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",electrical_hazard,positive,low
+"Good day po kapitan at mga tanod, Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?",general_inquiry,neutral,low
+"Report ko lang po: Nalagyan na po ng bagong takip ang manhole sa gilid ng barangay hall, safe na ulit ang daan.",flood_drainage,positive,low
+"Magandang araw po, Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+Report ko lang po: Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may crossing papuntang palengke.,waste,neutral,low
+"Magandang araw po, Gumuho po ang maliit na riprap sa tabi ng kalsada sa may crossing papuntang palengke dahil sa ulan kahapon.",road,negative,emergency
+"Good day po kapitan at mga tanod, Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?",peace_order,neutral,low
+"Good day po kapitan at mga tanod, May nagtatapon po ng patapong construction debris at sirang gamit sa tapat ng covered court.",waste,negative,moderate
+"Magandang araw po, Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.",electrical_hazard,positive,low
+Nais ko lang i-report na Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?,peace_order,neutral,low
+"Hello po admin / desk officer, Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa gilid ng barangay hall.",public_facilities,negative,moderate
+"Pakitulungan po kami dito, May nagsisiga po ng mga goma at plastic sa may Purok 4, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?,peace_order,neutral,low
+"Paki-check naman po, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa Block 8 Lot 15?",flood_drainage,neutral,low
+"Hello po admin / desk officer, Barado po ang kanal at estero sa gilid ng barangay hall, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Hello po admin / desk officer, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may Phase 2 subdivision gate.",electrical_hazard,neutral,low
+Nais ko lang i-report na Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tabi ng chapel.,water,neutral,low
+"Attention po barangay officials, May nagsisiga po ng mga goma at plastic sa may Phase 2 subdivision gate, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Magandang araw po, Maliwanag na po ulit ang buong street sa tapat ng covered court dahil napalitan na ang solar light. Salamat po!",lighting,positive,low
+"Attention po barangay officials, Lagpas tuhod na po ang baha sa may Purok 4 at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Paki-check naman po, Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?",health_sanitation,neutral,low
+May schedule po ba ng libreng dengue misting o fogging operation sa gilid ng barangay hall?,health_sanitation,neutral,low
+"Pakitulungan po kami dito, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa may tulay ng San Cristobal, salamat po!",electrical_hazard,positive,low
+"Attention po barangay officials, Naaspalto at napatag na po ang kalsada sa may tulay ng San Cristobal, maayos at smooth na ang biyahe!",road,positive,low
+Ano po ba ang bagong schedule ng collection ng biodegradable waste sa may crossing papuntang palengke?,waste,neutral,low
+"Attention po barangay officials, Inukupa ng sidewalk vendor ang buong daanan ng tao sa tabi ng bakery, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Attention po barangay officials, Barado po ang kanal at estero sa may Bucal bypass road, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Pakitulungan po kami dito, May road repair signage po ba na ilalagay habang ongoing ang construction sa tapat ng daycare center?",road,neutral,low
+"Paki-check naman po, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa may Purok 4.",lighting,neutral,low
+"Magandang araw po, Lagpas tuhod na po ang baha sa tabi ng bakery at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Report ko lang po: Puno na po at umaapaw ang garbage bin sa Block 8 Lot 15, kumakalat na ang dumi sa kalsada.",waste,negative,moderate
+"Grabe po talaga, Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa tabi ng bakery.",health_sanitation,positive,low
+"Paki-check naman po, Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?",peace_order,neutral,low
+"Hello po admin / desk officer, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa Block 8 Lot 15, salamat po!",electrical_hazard,positive,low
+"Hello po admin / desk officer, Kailangan po ng speed humps sa tapat ng elementary school, mabilis magpatakbo ang mga tricycle at motor.",road,negative,moderate
+"Hello po admin / desk officer, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa tapat ng covered court.",waste,neutral,low
+"Report ko lang po: Mahina po ang tulo ng tubig tuwing umaga sa gilid ng barangay hall, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Pakitulungan po kami dito, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may crossing papuntang palengke.",waste,neutral,low
+"Good day po kapitan at mga tanod, Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa may Bucal bypass road.,lighting,neutral,low
+Nais ko lang i-report na Nais lang po humingi ng temporary one-side parking permit para sa family event sa may Purok 4.,traffic_obstruction,neutral,low
+"Grabe po talaga, Nalinis na po at maluwag na ang daan sa tapat ng elementary school pagkatapos ng road clearing operation ng tanod.",traffic_obstruction,positive,low
+"Grabe po talaga, Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.",electrical_hazard,positive,low
+"Paki-check naman po, Mahina po ang tulo ng tubig tuwing umaga sa may crossing papuntang palengke, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Paki-check naman po, May malalim na sinkhole o bitak sa kalsada sa tapat ng covered court, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Pakitulungan po kami dito, Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa may tulay ng San Cristobal.",traffic_obstruction,negative,moderate
+"Report ko lang po: Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+"May transformer na umuusok at may sparks ng apoy sa poste sa kahabaan ng main avenue, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Good day po kapitan at mga tanod, May schedule po ba ng libreng dengue misting o fogging operation sa Block 8 Lot 15?",health_sanitation,neutral,low
+"Good day po kapitan at mga tanod, Nawawala po ang bakal na takip ng manhole sa may crossing papuntang palengke, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Report ko lang po: Napakaganda na po ng bagong pintura at ilaw sa covered court sa Block 8 Lot 15, salamat sa barangay council!",public_facilities,positive,low
+"Good day po kapitan at mga tanod, Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa Block 8 Lot 15.",public_facilities,negative,moderate
+"Grabe po talaga, Nawawala po ang bakal na takip ng manhole sa may crossing papuntang palengke, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Good day po kapitan at mga tanod, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa may Purok 4?",traffic_obstruction,neutral,low
+Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?,public_facilities,neutral,low
+"Attention po barangay officials, Basag po ang duyan at sirang slide sa children's playground sa may crossing papuntang palengke, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"May transformer na umuusok at may sparks ng apoy sa poste sa may Bucal bypass road, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Paki-check naman po, Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+"Concerned citizen here: Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Pakitulungan po kami dito, Lagpas tuhod na po ang baha sa may Purok 4 at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Magandang araw po, Sobrang lakas ng videoke at sigawan sa Purok 6 extension kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Grabe po talaga, Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa gilid ng barangay hall.",traffic_obstruction,negative,moderate
+"Nais ko lang i-report na Maaliwalas at walang amoy na ang paligid sa tapat ng covered court, saludo sa sanitation team.",waste,positive,low
+"Good day po kapitan at mga tanod, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa may tulay ng San Cristobal?",flood_drainage,neutral,low
+"Paki-check naman po, May rabid/nangangagat na stray dog sa tabi ng bakery, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Magandang araw po, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa Block 8 Lot 15.",electrical_hazard,neutral,low
+"Good day po kapitan at mga tanod, Nais lang po humingi ng temporary one-side parking permit para sa family event sa kanto ng Barandal.",traffic_obstruction,neutral,low
+Concerned citizen here: May road repair signage po ba na ilalagay habang ongoing ang construction sa gilid ng barangay hall?,road,neutral,low
+"Hello po admin / desk officer, Laging may nagpapatakbo ng motor na may open pipe muffler sa may tulay ng San Cristobal dis-oras ng gabi.",peace_order,negative,moderate
+"Attention po barangay officials, May malalim na sinkhole o bitak sa kalsada sa tapat ng elementary school, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Nais ko lang i-report na May mga sasakyan na nag-iillegal double parking sa gilid ng barangay hall, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+"Attention po barangay officials, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa kahabaan ng main avenue?",flood_drainage,neutral,low
+"Hello po admin / desk officer, Saan po ba pwede mag-request ng karagdagang streetlight sa tapat ng covered court?",lighting,neutral,low
+"Good day po kapitan at mga tanod, May road repair signage po ba na ilalagay habang ongoing ang construction sa tabi ng bakery?",road,neutral,low
+"Paki-check naman po, Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",electrical_hazard,positive,low
+Report ko lang po: Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa tapat ng daycare center?,electrical_hazard,neutral,low
+"Hello po admin / desk officer, Nakaharang ang abandonadong van sa tapat ng driveway sa tapat ng covered court, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Magandang araw po, Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?",health_sanitation,neutral,low
+"Paki-check naman po, Nangangamoy dumi ng baboy/manok ang hangin sa may Purok 4, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Pakitulungan po kami dito, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa may crossing papuntang palengke.",flood_drainage,neutral,low
+"Report ko lang po: May mga sasakyan na nag-iillegal double parking sa tabi ng bakery, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+"Good day po kapitan at mga tanod, Nalinis na po at maluwag na ang daan sa tabi ng bakery pagkatapos ng road clearing operation ng tanod.",traffic_obstruction,positive,low
+Concerned citizen here: Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may Phase 2 subdivision gate.,waste,neutral,low
+"Hello po admin / desk officer, Salamat sa engineering team, naayos na agad ang sirang gutter at lubak sa gilid ng barangay hall.",road,positive,low
+"Magandang araw po, Lagpas tuhod na po ang baha sa kahabaan ng main avenue at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Magandang araw po, Kailangan po ng speed humps sa may tulay ng San Cristobal, mabilis magpatakbo ang mga tricycle at motor.",road,negative,moderate
+Concerned citizen here: Ano po ang mga kailangang dalhin para kumuha ng Barangay Clearance at Indigency certificate?,general_inquiry,neutral,low
+Nais ko lang i-report na May scheduled water interruption po ba bukas sa aming area sa may Purok 4?,water,neutral,low
+"Nais ko lang i-report na Mahina po ang tulo ng tubig tuwing umaga sa tapat ng daycare center, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Magandang araw po, Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa gilid ng barangay hall.",water,negative,moderate
+"Grabe po talaga, Sobrang lakas ng videoke at sigawan sa may Purok 4 kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Hello po admin / desk officer, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa kahabaan ng main avenue.",electrical_hazard,neutral,low
+"Concerned citizen here: Inukupa ng sidewalk vendor ang buong daanan ng tao sa tabi ng chapel, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"May nakalaylay at nakalantad na live wire sa may Purok 4, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Hello po admin / desk officer, Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+Concerned citizen here: Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa may Purok 4.,traffic_obstruction,negative,moderate
+"Magandang araw po, Lagpas tuhod na po ang baha sa may Bucal bypass road at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Magandang araw po, Madilim na daanan sa tapat ng elementary school, takot dumaan ang mga estudyante at trabahador kapag gabi.",lighting,negative,moderate
+Bukas po ba ang barangay hall bukas ng Sabado para sa pag-claim ng senior citizen pension?,general_inquiry,neutral,low
+"Paki-check naman po, Nakatabingi at mabubuwal na ang poste ng kuryente sa gilid ng barangay hall baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+Concerned citizen here: Salamat po sa pag-warning sa may-ari ng nakaharang na truck sa kanto.,traffic_obstruction,positive,low
+Kailan po kaya masisimulan ang road widening project sa may Purok 4?,road,neutral,low
+"Concerned citizen here: Walang-wala pong tubig simula pa kahapon sa may Bucal bypass road, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Magandang araw po, Naaspalto at napatag na po ang kalsada sa kahabaan ng main avenue, maayos at smooth na ang biyahe!",road,positive,low
+"Concerned citizen here: Pumutok po ang main water pipe sa tabi ng chapel, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Inukupa ng sidewalk vendor ang buong daanan ng tao sa may tulay ng San Cristobal, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Attention po barangay officials, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may tulay ng San Cristobal.",waste,neutral,low
+"Pakitulungan po kami dito, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa Block 8 Lot 15.",flood_drainage,neutral,low
+"Magandang araw po, Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.",general_inquiry,positive,low
+Report ko lang po: May scheduled water interruption po ba bukas sa aming area sa tapat ng daycare center?,water,neutral,low
+"Nais ko lang i-report na Mahina po ang tulo ng tubig tuwing umaga sa kahabaan ng main avenue, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Paki-check naman po, May malalim na sinkhole o bitak sa kalsada sa tabi ng bakery, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Hello po admin / desk officer, Pundido po ang bumbilya ng streetlight sa may tulay ng San Cristobal, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Grabe po talaga, Maayos na po ang daloy ng trapiko sa tabi ng chapel, good job po!",traffic_obstruction,positive,low
+"Grabe po talaga, Lagpas tuhod na po ang baha sa may tulay ng San Cristobal at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Magandang araw po, Saan po ba pwede mag-request ng karagdagang streetlight sa tapat ng elementary school?",lighting,neutral,low
+"Attention po barangay officials, Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa may Purok 4.",public_facilities,negative,moderate
+"Pakitulungan po kami dito, May road repair signage po ba na ilalagay habang ongoing ang construction sa kahabaan ng main avenue?",road,neutral,low
+"Pakitulungan po kami dito, Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Pakitulungan po kami dito, Maganda ang pagkakagawa ng humps sa tabi ng chapel, safe na tumawid ang mga bata.",road,positive,low
+"Good day po kapitan at mga tanod, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa tapat ng elementary school?",traffic_obstruction,neutral,low
+"Paki-check naman po, Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa tabi ng chapel.",health_sanitation,positive,low
+"Pakitulungan po kami dito, Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?",peace_order,neutral,low
+"Nais ko lang i-report na May rabid/nangangagat na stray dog sa kanto ng Barandal, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Report ko lang po: Barado po ang kanal at estero sa kahabaan ng main avenue, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Hello po admin / desk officer, Lagpas tuhod na po ang baha sa Block 8 Lot 15 at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Hello po admin / desk officer, Basag po ang duyan at sirang slide sa children's playground sa tabi ng bakery, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+Nais ko lang i-report na Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa gilid ng barangay hall.,lighting,neutral,low
+"Hello po admin / desk officer, Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"May nakalaylay at nakalantad na live wire sa tapat ng covered court, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Nais ko lang i-report na Maraming salamat po sa matagumpay na declogging ng mga kanal sa tapat ng covered court, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Grabe po talaga, Sobrang lakas ng videoke at sigawan sa tapat ng elementary school kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Pakitulungan po kami dito, May schedule po ba ng libreng dengue misting o fogging operation sa may crossing papuntang palengke?",health_sanitation,neutral,low
+Tahimik at payapa na po ang street namin simula nang mag-curfew check ang barangay.,peace_order,positive,low
+"Good day po kapitan at mga tanod, Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura sa may Phase 2 subdivision gate.",waste,negative,moderate
+"Nais ko lang i-report na May nakalaylay at nakalantad na live wire sa gilid ng barangay hall, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+Report ko lang po: Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?,health_sanitation,neutral,low
+"Magandang araw po, Gumuho po ang maliit na riprap sa tabi ng kalsada sa tapat ng daycare center dahil sa ulan kahapon.",road,negative,emergency
+"Good day po kapitan at mga tanod, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may tulay ng San Cristobal.",waste,neutral,low
+"Paki-check naman po, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa Purok 6 extension.",waste,neutral,low
+"Magandang araw po, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa kahabaan ng main avenue?",electrical_hazard,neutral,low
+"Nais ko lang i-report na May mga sasakyan na nag-iillegal double parking sa may Phase 2 subdivision gate, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+"Paki-check naman po, Salamat po sa pag-warning sa may-ari ng nakaharang na truck sa kanto.",traffic_obstruction,positive,low
+Report ko lang po: Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura sa tapat ng covered court.,waste,negative,moderate
+"Pakitulungan po kami dito, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa tabi ng bakery.",electrical_hazard,neutral,low
+"Nangungulit at nagwawala po ang lasing sa may Purok 4, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+"Hello po admin / desk officer, Walang-wala pong tubig simula pa kahapon sa kahabaan ng main avenue, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Magandang araw po, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa kanto ng Barandal.",electrical_hazard,neutral,low
+Concerned citizen here: May schedule po ba ng libreng dengue misting o fogging operation sa tapat ng daycare center?,health_sanitation,neutral,low
+"Inukupa ng sidewalk vendor ang buong daanan ng tao sa tabi ng chapel, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Pakitulungan po kami dito, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa tapat ng daycare center?",electrical_hazard,neutral,low
+"Attention po barangay officials, Inukupa ng sidewalk vendor ang buong daanan ng tao sa may Phase 2 subdivision gate, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+Nais ko lang i-report na Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura sa tapat ng daycare center.,waste,negative,moderate
+Report ko lang po: May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa may tulay ng San Cristobal.,health_sanitation,negative,moderate
+"Report ko lang po: Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",health_sanitation,positive,low
+"Grabe po talaga, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa may Bucal bypass road.",water,neutral,low
+"Pakitulungan po kami dito, Nangungulit at nagwawala po ang lasing sa Block 8 Lot 15, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+"Pakitulungan po kami dito, May rabid/nangangagat na stray dog sa may tulay ng San Cristobal, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Paki-check naman po, Maganda ang pagkakagawa ng humps sa kanto ng Barandal, safe na tumawid ang mga bata.",road,positive,low
+"Pakitulungan po kami dito, Pundido po ang bumbilya ng streetlight sa tabi ng bakery, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Good day po kapitan at mga tanod, Nangangamoy dumi ng baboy/manok ang hangin sa tabi ng chapel, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Grabe po talaga, May schedule po ba ng libreng dengue misting o fogging operation sa tabi ng bakery?",health_sanitation,neutral,low
+"Grabe po talaga, Sirang-sira na po ang semento sa may Phase 2 subdivision gate, baku-bako at delikado kapag gabi.",road,negative,moderate
+"Report ko lang po: Nangangamoy dumi ng baboy/manok ang hangin sa tapat ng elementary school, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+Nais ko lang i-report na Basag ang gilid ng gutter sa gilid ng barangay hall baka matapilok ang mga naglalakad.,road,negative,moderate
+"Hello po admin / desk officer, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tabi ng bakery.",water,neutral,low
+"Magandang araw po, Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi.",lighting,positive,low
+"Hello po admin / desk officer, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa tabi ng chapel.",lighting,neutral,low
+"Attention po barangay officials, Nangangamoy dumi ng baboy/manok ang hangin sa gilid ng barangay hall, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Paki-check naman po, Maayos na po ang daloy ng trapiko sa tabi ng bakery, good job po!",traffic_obstruction,positive,low
+May schedule po ba ng libreng dengue misting o fogging operation sa may tulay ng San Cristobal?,health_sanitation,neutral,low
+"Attention po barangay officials, May road repair signage po ba na ilalagay habang ongoing ang construction sa Purok 6 extension?",road,neutral,low
+"Paki-check naman po, Inukupa ng sidewalk vendor ang buong daanan ng tao sa may crossing papuntang palengke, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Madilim na daanan sa Block 8 Lot 15, takot dumaan ang mga estudyante at trabahador kapag gabi.",lighting,negative,moderate
+"Good day po kapitan at mga tanod, Nais lang po humingi ng temporary one-side parking permit para sa family event sa tabi ng chapel.",traffic_obstruction,neutral,low
+Report ko lang po: Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa Block 8 Lot 15.,water,neutral,low
+"Pakitulungan po kami dito, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa tabi ng chapel?",traffic_obstruction,neutral,low
+"May nagsisiga po ng mga goma at plastic sa tabi ng chapel, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Magandang araw po, Walang-wala pong tubig simula pa kahapon sa Block 8 Lot 15, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Good day po kapitan at mga tanod, Nakaharang ang abandonadong van sa tapat ng driveway sa may Purok 4, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+Nais ko lang i-report na Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa may Bucal bypass road!,flood_drainage,negative,emergency
+"Hello po admin / desk officer, Salamat po sa pag-warning sa may-ari ng nakaharang na truck sa kanto.",traffic_obstruction,positive,low
+"Grabe po talaga, Nais lang po malaman kung bukas ang daan para sa mga delivery van sa may Purok 4.",road,neutral,low
+"Paki-check naman po, Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa gilid ng barangay hall.",traffic_obstruction,negative,moderate
+"Concerned citizen here: Pumutok po ang main water pipe sa tapat ng daycare center, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Nais ko lang i-report na Maganda ang pagkakagawa ng humps sa may tulay ng San Cristobal, safe na tumawid ang mga bata.",road,positive,low
+May road repair signage po ba na ilalagay habang ongoing ang construction sa kahabaan ng main avenue?,road,neutral,low
+"Report ko lang po: Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Hello po admin / desk officer, Nangungulit at nagwawala po ang lasing sa may Purok 4, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+"Paki-check naman po, Paano po magpareserba ng covered court para sa inter-purok basketball tournament?",public_facilities,neutral,low
+"Grabe po talaga, Maraming salamat po sa matagumpay na declogging ng mga kanal sa tabi ng chapel, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Pakitulungan po kami dito, May nagsisiga po ng mga goma at plastic sa gilid ng barangay hall, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Hello po admin / desk officer, Sira po ang ring at may butas ang bubong ng covered court sa tapat ng covered court, hindi magamit kapag umuulan.",public_facilities,negative,moderate
+"Magandang araw po, Kukurap-kurap ang ilaw sa poste sa may Purok 4, baka mapundi na rin anumang oras.",lighting,negative,moderate
+"Pakitulungan po kami dito, Puno na po at umaapaw ang garbage bin sa kahabaan ng main avenue, kumakalat na ang dumi sa kalsada.",waste,negative,moderate
+"Grabe po talaga, Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa may Bucal bypass road.",water,negative,moderate
+"Pakitulungan po kami dito, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa tapat ng daycare center.",waste,neutral,low
+"Nais ko lang i-report na May malalim na sinkhole o bitak sa kalsada sa Block 8 Lot 15, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Paki-check naman po, May scheduled water interruption po ba bukas sa aming area sa may Phase 2 subdivision gate?",water,neutral,low
+Concerned citizen here: Masyadong madulas ang putik sa kalsada sa may Purok 4 dahil sa mga truck na labas-pasok.,road,negative,moderate
+"Maaliwalas at walang amoy na ang paligid sa may Purok 4, saludo sa sanitation team.",waste,positive,low
+"Good day po kapitan at mga tanod, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa gilid ng barangay hall.",flood_drainage,neutral,low
+"Concerned citizen here: Pumutok po ang main water pipe sa tapat ng covered court, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Attention po barangay officials, Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+"Nais ko lang i-report na Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Hello po admin / desk officer, Walang-wala pong tubig simula pa kahapon sa may tulay ng San Cristobal, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Good day po kapitan at mga tanod, Nangangamoy dumi ng baboy/manok ang hangin sa gilid ng barangay hall, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+Nais ko lang i-report na May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa kanto ng Barandal?,traffic_obstruction,neutral,low
+"Good day po kapitan at mga tanod, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa kanto ng Barandal?",electrical_hazard,neutral,low
+"Pakitulungan po kami dito, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa may Phase 2 subdivision gate, salamat po!",electrical_hazard,positive,low
+Nais ko lang i-report na Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?,general_inquiry,neutral,low
+"Paki-check naman po, Maraming salamat po sa matagumpay na declogging ng mga kanal sa gilid ng barangay hall, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Good day po kapitan at mga tanod, Nakatabingi at mabubuwal na ang poste ng kuryente sa tabi ng bakery baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+"Pakitulungan po kami dito, Nakatabingi at mabubuwal na ang poste ng kuryente sa may Phase 2 subdivision gate baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+"Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Hello po admin / desk officer, Malinaw at malakas na po ulit ang tulo ng tubig sa kanto ng Barandal, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+Report ko lang po: Napakalinis na po ng paligid sa may tulay ng San Cristobal pagkatapos ng cleanup drive kaninang umaga!,waste,positive,low
+"Concerned citizen here: Kukurap-kurap ang ilaw sa poste sa Block 8 Lot 15, baka mapundi na rin anumang oras.",lighting,negative,moderate
+"Attention po barangay officials, Kailan po kaya masisimulan ang road widening project sa gilid ng barangay hall?",road,neutral,low
+Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa tapat ng daycare center.,traffic_obstruction,negative,moderate
+"Good day po kapitan at mga tanod, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa tapat ng elementary school?",electrical_hazard,neutral,low
+"Report ko lang po: Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi.",lighting,positive,low
+"Nais ko lang i-report na Nawawala po ang bakal na takip ng manhole sa tabi ng bakery, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Good day po kapitan at mga tanod, Barado po ang kanal at estero sa may Phase 2 subdivision gate, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Paki-check naman po, Nangangamoy dumi ng baboy/manok ang hangin sa Purok 6 extension, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Grabe po talaga, Malinaw at malakas na po ulit ang tulo ng tubig sa tabi ng chapel, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+Report ko lang po: Nais lang po humingi ng temporary one-side parking permit para sa family event sa may Purok 4.,traffic_obstruction,neutral,low
+"Good day po kapitan at mga tanod, Nalinis na po at maluwag na ang daan sa may tulay ng San Cristobal pagkatapos ng road clearing operation ng tanod.",traffic_obstruction,positive,low
+Nais ko lang i-report na Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may Phase 2 subdivision gate.,electrical_hazard,neutral,low
+"Pakitulungan po kami dito, Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",peace_order,neutral,low
+"Report ko lang po: Nalagyan na po ng bagong takip ang manhole sa tapat ng covered court, safe na ulit ang daan.",flood_drainage,positive,low
+"Good day po kapitan at mga tanod, Paano po magpareserba ng covered court para sa inter-purok basketball tournament?",public_facilities,neutral,low
+"Hello po admin / desk officer, Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad.",health_sanitation,positive,low
+"Paki-check naman po, Pundido po ang bumbilya ng streetlight sa tapat ng daycare center, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+Nais ko lang i-report na May schedule po ba ng libreng dengue misting o fogging operation sa may Bucal bypass road?,health_sanitation,neutral,low
+Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa Purok 6 extension.,health_sanitation,positive,low
+"Nais ko lang i-report na Maraming salamat po sa matagumpay na declogging ng mga kanal sa Purok 6 extension, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Basag po ang duyan at sirang slide sa children's playground sa tapat ng covered court, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Paki-check naman po, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa kahabaan ng main avenue.",waste,neutral,low
+"Concerned citizen here: Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Nais ko lang i-report na Puno na po at umaapaw ang garbage bin sa tapat ng elementary school, kumakalat na ang dumi sa kalsada.",waste,negative,moderate
+"Magandang araw po, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tabi ng chapel.",flood_drainage,neutral,low
+"Pakitulungan po kami dito, Inukupa ng sidewalk vendor ang buong daanan ng tao sa tapat ng elementary school, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Pakitulungan po kami dito, Masyadong madulas ang putik sa kalsada sa tabi ng chapel dahil sa mga truck na labas-pasok.",road,negative,moderate
+"Report ko lang po: Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",electrical_hazard,positive,low
+"Nais ko lang i-report na Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+"Good day po kapitan at mga tanod, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa Block 8 Lot 15.",waste,neutral,low
+Concerned citizen here: Nakatabingi at mabubuwal na ang poste ng kuryente sa tabi ng bakery baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+"Good day po kapitan at mga tanod, May nagtatapon po ng patapong construction debris at sirang gamit sa tapat ng elementary school.",waste,negative,moderate
+"Good day po kapitan at mga tanod, Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.",electrical_hazard,positive,low
+"Magandang araw po, Thank you po sa pag-aksyon sa reklamo namin sa maingay na kapitbahay.",peace_order,positive,low
+Nais ko lang i-report na Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa tapat ng elementary school!,flood_drainage,negative,emergency
+Gumuho po ang maliit na riprap sa tabi ng kalsada sa may Purok 4 dahil sa ulan kahapon.,road,negative,emergency
+"Maaliwalas at walang amoy na ang paligid sa may Bucal bypass road, saludo sa sanitation team.",waste,positive,low
+Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?,health_sanitation,neutral,low
+"Hello po admin / desk officer, Tatlong araw na pong putol-putol ang serbisyo ng tubig sa may Bucal bypass road.",water,negative,moderate
+"Grabe po talaga, Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?",peace_order,neutral,low
+"Hello po admin / desk officer, Nawawala po ang bakal na takip ng manhole sa kanto ng Barandal, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Pakitulungan po kami dito, Nais lang po humingi ng temporary one-side parking permit para sa family event sa tapat ng elementary school.",traffic_obstruction,neutral,low
+"Hello po admin / desk officer, Salamat sa engineering team, naayos na agad ang sirang gutter at lubak sa tapat ng covered court.",road,positive,low
+"Magandang araw po, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa Purok 6 extension.",waste,neutral,low
+"Hello po admin / desk officer, Maaliwalas at walang amoy na ang paligid sa tapat ng covered court, saludo sa sanitation team.",waste,positive,low
+"Hello po admin / desk officer, Sirang-sira na po ang semento sa tapat ng elementary school, baku-bako at delikado kapag gabi.",road,negative,moderate
+"Hello po admin / desk officer, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tapat ng daycare center.",flood_drainage,neutral,low
+"Good day po kapitan at mga tanod, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa Block 8 Lot 15?",electrical_hazard,neutral,low
+Report ko lang po: Kailan po kaya masisimulan ang road widening project sa Purok 6 extension?,road,neutral,low
+Nais ko lang i-report na Saan po ba pwede mag-request ng karagdagang streetlight sa Block 8 Lot 15?,lighting,neutral,low
+"Report ko lang po: Lagpas tuhod na po ang baha sa tabi ng chapel at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Attention po barangay officials, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa may Purok 4?",flood_drainage,neutral,low
+Nais ko lang i-report na Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa kahabaan ng main avenue.,electrical_hazard,neutral,low
+"Good day po kapitan at mga tanod, Madilim na daanan sa tapat ng elementary school, takot dumaan ang mga estudyante at trabahador kapag gabi.",lighting,negative,moderate
+"Grabe po talaga, Nalagyan na po ng bagong takip ang manhole sa Block 8 Lot 15, safe na ulit ang daan.",flood_drainage,positive,low
+"Concerned citizen here: Madilim na daanan sa Block 8 Lot 15, takot dumaan ang mga estudyante at trabahador kapag gabi.",lighting,negative,moderate
+"Good day po kapitan at mga tanod, Maayos na po ang daloy ng trapiko sa tapat ng covered court, good job po!",traffic_obstruction,positive,low
+"Attention po barangay officials, Sira po ang ring at may butas ang bubong ng covered court sa Purok 6 extension, hindi magamit kapag umuulan.",public_facilities,negative,moderate
+Report ko lang po: Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa may tulay ng San Cristobal?,flood_drainage,neutral,low
+"Hello po admin / desk officer, May scheduled water interruption po ba bukas sa aming area sa tapat ng elementary school?",water,neutral,low
+"Hello po admin / desk officer, Nakaharang ang abandonadong van sa tapat ng driveway sa may Purok 4, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may tulay ng San Cristobal.,electrical_hazard,neutral,low
+Report ko lang po: Saan po ba pwede mag-request ng karagdagang streetlight sa gilid ng barangay hall?,lighting,neutral,low
+"Hello po admin / desk officer, May road repair signage po ba na ilalagay habang ongoing ang construction sa may crossing papuntang palengke?",road,neutral,low
+"Paki-check naman po, Maayos na po ang daloy ng trapiko sa may tulay ng San Cristobal, good job po!",traffic_obstruction,positive,low
+"Good day po kapitan at mga tanod, Ano po ang mga kailangang dalhin para kumuha ng Barangay Clearance at Indigency certificate?",general_inquiry,neutral,low
+"Hello po admin / desk officer, Inukupa ng sidewalk vendor ang buong daanan ng tao sa tapat ng elementary school, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Paki-check naman po, Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",peace_order,neutral,low
+"Paki-check naman po, May transformer na umuusok at may sparks ng apoy sa poste sa kanto ng Barandal, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+Nais lang po humingi ng temporary one-side parking permit para sa family event sa Purok 6 extension.,traffic_obstruction,neutral,low
+"Report ko lang po: Basag po ang duyan at sirang slide sa children's playground sa may tulay ng San Cristobal, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Hello po admin / desk officer, Kailangan po ng speed humps sa may Purok 4, mabilis magpatakbo ang mga tricycle at motor.",road,negative,moderate
+"Nagawa na po yung tagas sa tubo sa kahabaan ng main avenue, thank you sa water service team!",water,positive,low
+"Grabe po talaga, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa tapat ng daycare center, salamat po!",electrical_hazard,positive,low
+"Pakitulungan po kami dito, Nalagyan na po ng bagong takip ang manhole sa may Purok 4, safe na ulit ang daan.",flood_drainage,positive,low
+Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa may Bucal bypass road.,water,neutral,low
+"Pakitulungan po kami dito, Salamat sa engineering team, naayos na agad ang sirang gutter at lubak sa tabi ng bakery.",road,positive,low
+"Magandang araw po, Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Concerned citizen here: May malalim na sinkhole o bitak sa kalsada sa may Purok 4, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Attention po barangay officials, Nawawala po ang bakal na takip ng manhole sa may Phase 2 subdivision gate, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Good day po kapitan at mga tanod, May nagsisiga po ng mga goma at plastic sa may Bucal bypass road, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Magandang araw po, Maayos na po ang supply ng tubig ngayon, wala nang problema.",water,positive,low
+Ano po ba ang bagong schedule ng collection ng biodegradable waste sa kahabaan ng main avenue?,waste,neutral,low
+"Magandang araw po, Nawawala po ang bakal na takip ng manhole sa may crossing papuntang palengke, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Grabe po talaga, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa kahabaan ng main avenue, salamat po!",electrical_hazard,positive,low
+"Hello po admin / desk officer, Bukas po ba ang barangay hall bukas ng Sabado para sa pag-claim ng senior citizen pension?",general_inquiry,neutral,low
+Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?,general_inquiry,neutral,low
+Nais ko lang i-report na Bukas po ba ang barangay hall bukas ng Sabado para sa pag-claim ng senior citizen pension?,general_inquiry,neutral,low
+Nais ko lang i-report na Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?,peace_order,neutral,low
+"Concerned citizen here: Sobrang lakas ng videoke at sigawan sa may Purok 4 kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Grabe po talaga, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa tapat ng elementary school?",traffic_obstruction,neutral,low
+"Attention po barangay officials, May rabid/nangangagat na stray dog sa may Phase 2 subdivision gate, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Good day po kapitan at mga tanod, Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa kahabaan ng main avenue.",health_sanitation,positive,low
+"Paki-check naman po, Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Hello po admin / desk officer, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa Purok 6 extension?",flood_drainage,neutral,low
+"Nais ko lang i-report na Inukupa ng sidewalk vendor ang buong daanan ng tao sa tabi ng chapel, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Malinaw at malakas na po ulit ang tulo ng tubig sa tapat ng covered court, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Magandang araw po, Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa tapat ng covered court.",health_sanitation,positive,low
+"Nais ko lang i-report na May nagsisiga po ng mga goma at plastic sa kanto ng Barandal, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Pakitulungan po kami dito, Maliwanag na po ulit ang buong street sa tabi ng chapel dahil napalitan na ang solar light. Salamat po!",lighting,positive,low
+"Paki-check naman po, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa tabi ng chapel.",waste,neutral,low
+"Report ko lang po: May malalim na sinkhole o bitak sa kalsada sa Purok 6 extension, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Hello po admin / desk officer, Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi.",lighting,positive,low
+"Hello po admin / desk officer, May nagsisiga po ng mga goma at plastic sa tapat ng daycare center, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Nakaharang ang abandonadong van sa tapat ng driveway sa may tulay ng San Cristobal, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Magandang araw po, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa Purok 6 extension!",flood_drainage,negative,emergency
+"Good day po kapitan at mga tanod, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa kahabaan ng main avenue.",flood_drainage,neutral,low
+"Grabe po talaga, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa may Purok 4.",lighting,neutral,low
+"Grabe po talaga, Nangungulit at nagwawala po ang lasing sa kanto ng Barandal, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+Nais ko lang i-report na Basag ang gilid ng gutter sa may crossing papuntang palengke baka matapilok ang mga naglalakad.,road,negative,moderate
+"Report ko lang po: May transformer na umuusok at may sparks ng apoy sa poste sa tabi ng chapel, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Hello po admin / desk officer, Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Nais ko lang i-report na Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",electrical_hazard,positive,low
+Concerned citizen here: Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa tapat ng covered court.,water,negative,moderate
+"Hello po admin / desk officer, Pundido po ang bumbilya ng streetlight sa kahabaan ng main avenue, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Magandang araw po, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may tulay ng San Cristobal.",electrical_hazard,neutral,low
+Report ko lang po: Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa may tulay ng San Cristobal.,health_sanitation,positive,low
+"Grabe po talaga, May malalim na sinkhole o bitak sa kalsada sa Block 8 Lot 15, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Hello po admin / desk officer, May road repair signage po ba na ilalagay habang ongoing ang construction sa may Phase 2 subdivision gate?",road,neutral,low
+"Magandang araw po, May mga sasakyan na nag-iillegal double parking sa tapat ng covered court, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+Report ko lang po: Maliwanag na po ulit ang buong street sa tapat ng covered court dahil napalitan na ang solar light. Salamat po!,lighting,positive,low
+"Grabe po talaga, Nakatabingi at mabubuwal na ang poste ng kuryente sa kahabaan ng main avenue baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+"Nais ko lang i-report na Naaspalto at napatag na po ang kalsada sa tapat ng daycare center, maayos at smooth na ang biyahe!",road,positive,low
+"Good day po kapitan at mga tanod, Hindi pa rin nahahakot ang mga nabubulok na kalat sa tapat ng covered court simula pa noong isang linggo.",waste,negative,moderate
+Concerned citizen here: Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?,health_sanitation,neutral,low
+"Attention po barangay officials, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa kanto ng Barandal.",water,neutral,low
+"Magandang araw po, Masyadong madulas ang putik sa kalsada sa may Purok 4 dahil sa mga truck na labas-pasok.",road,negative,moderate
+"Grabe po talaga, Lagpas tuhod na po ang baha sa may crossing papuntang palengke at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Grabe po talaga, Lagpas tuhod na po ang baha sa Purok 6 extension at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+Report ko lang po: Nakatabingi at mabubuwal na ang poste ng kuryente sa tapat ng elementary school baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+Concerned citizen here: Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tabi ng chapel.,flood_drainage,neutral,low
+"Hello po admin / desk officer, May scheduled water interruption po ba bukas sa aming area sa gilid ng barangay hall?",water,neutral,low
+Report ko lang po: Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa gilid ng barangay hall!,flood_drainage,negative,emergency
+Nais ko lang i-report na Nalinis na po at maluwag na ang daan sa kahabaan ng main avenue pagkatapos ng road clearing operation ng tanod.,traffic_obstruction,positive,low
+"Magandang araw po, Nalinis na po at maluwag na ang daan sa Block 8 Lot 15 pagkatapos ng road clearing operation ng tanod.",traffic_obstruction,positive,low
+"Magandang araw po, May nagsisiga po ng mga goma at plastic sa tabi ng bakery, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Attention po barangay officials, May nagsisiga po ng mga goma at plastic sa gilid ng barangay hall, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Pakitulungan po kami dito, Saan po ba pwede mag-request ng karagdagang streetlight sa may crossing papuntang palengke?",lighting,neutral,low
+"Paki-check naman po, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa tapat ng covered court.",lighting,neutral,low
+"Magandang araw po, Pundido po ang bumbilya ng streetlight sa Purok 6 extension, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Hello po admin / desk officer, Tahimik at payapa na po ang street namin simula nang mag-curfew check ang barangay.",peace_order,positive,low
+Report ko lang po: Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?,peace_order,neutral,low
+"Attention po barangay officials, May nangingitlog na lamok sa stagnant water sa tapat ng daycare center, baka magka-dengue ang mga residente.",health_sanitation,negative,moderate
+"Attention po barangay officials, Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.",electrical_hazard,positive,low
+Nais ko lang i-report na May scheduled water interruption po ba bukas sa aming area sa kanto ng Barandal?,water,neutral,low
+"Good day po kapitan at mga tanod, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa tabi ng chapel.",electrical_hazard,neutral,low
+"Magandang araw po, May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa may Purok 4.",health_sanitation,negative,moderate
+"Concerned citizen here: Pumutok po ang main water pipe sa kahabaan ng main avenue, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Hello po admin / desk officer, Gumuho po ang maliit na riprap sa tabi ng kalsada sa may Bucal bypass road dahil sa ulan kahapon.",road,negative,emergency
+"Nais ko lang i-report na Pumutok po ang main water pipe sa kanto ng Barandal, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Concerned citizen here: May transformer na umuusok at may sparks ng apoy sa poste sa may tulay ng San Cristobal, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Grabe po talaga, Thank you po sa pag-aksyon sa reklamo namin sa maingay na kapitbahay.",peace_order,positive,low
+Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa kahabaan ng main avenue.,lighting,neutral,low
+"Magandang araw po, May nakalaylay at nakalantad na live wire sa Block 8 Lot 15, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Pakitulungan po kami dito, Mahina po ang tulo ng tubig tuwing umaga sa kahabaan ng main avenue, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Paki-check naman po, May malaking lubak sa kalsada sa tapat ng elementary school, sumasabit ang ilalim ng mga sasakyan at motor.",road,negative,moderate
+Report ko lang po: Thank you po sa pag-aksyon sa reklamo namin sa maingay na kapitbahay.,peace_order,positive,low
+"Good day po kapitan at mga tanod, Salamat po sa pag-warning sa may-ari ng nakaharang na truck sa kanto.",traffic_obstruction,positive,low
+"Grabe po talaga, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa kahabaan ng main avenue?",traffic_obstruction,neutral,low
+"Magandang araw po, Napakaganda na po ng bagong pintura at ilaw sa covered court sa may tulay ng San Cristobal, salamat sa barangay council!",public_facilities,positive,low
+"Paki-check naman po, Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura sa tapat ng covered court.",waste,positive,low
+"Mahina po ang tulo ng tubig tuwing umaga sa tapat ng daycare center, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Magandang araw po, May scheduled water interruption po ba bukas sa aming area sa tabi ng bakery?",water,neutral,low
+"Magandang araw po, Malinaw at malakas na po ulit ang tulo ng tubig sa tapat ng covered court, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Grabe po talaga, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa Purok 6 extension?",traffic_obstruction,neutral,low
+Nais ko lang i-report na Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa may crossing papuntang palengke.,public_facilities,negative,moderate
+"Grabe po talaga, Nangangamoy dumi ng baboy/manok ang hangin sa kanto ng Barandal, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"May malaking lubak sa kalsada sa Purok 6 extension, sumasabit ang ilalim ng mga sasakyan at motor.",road,negative,moderate
+Report ko lang po: Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa may Purok 4!,flood_drainage,negative,emergency
+Report ko lang po: Basag ang gilid ng gutter sa tabi ng chapel baka matapilok ang mga naglalakad.,road,negative,moderate
+"Attention po barangay officials, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa may Phase 2 subdivision gate?",electrical_hazard,neutral,low
+"Paki-check naman po, Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.",general_inquiry,positive,low
+"Magandang araw po, Thank you po kapitan sa mabilis na pag-aksyon sa tambak na basura sa may street namin.",waste,positive,low
+"Report ko lang po: Barado po ang kanal at estero sa tapat ng daycare center, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+Nais ko lang i-report na Maliwanag na po ulit ang buong street sa may crossing papuntang palengke dahil napalitan na ang solar light. Salamat po!,lighting,positive,low
+"Report ko lang po: May malalim na sinkhole o bitak sa kalsada sa tabi ng bakery, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Good day po kapitan at mga tanod, Maaliwalas at walang amoy na ang paligid sa kahabaan ng main avenue, saludo sa sanitation team.",waste,positive,low
+Nais ko lang i-report na Laging may nagpapatakbo ng motor na may open pipe muffler sa tabi ng bakery dis-oras ng gabi.,peace_order,negative,moderate
+"Grabe po talaga, Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"Paki-check naman po, Laging may nagpapatakbo ng motor na may open pipe muffler sa may Purok 4 dis-oras ng gabi.",peace_order,negative,moderate
+"Concerned citizen here: May rabid/nangangagat na stray dog sa kahabaan ng main avenue, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Nais ko lang i-report na Sobrang lakas ng videoke at sigawan sa may crossing papuntang palengke kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+Nakatabingi at mabubuwal na ang poste ng kuryente sa Block 8 Lot 15 baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+"Hello po admin / desk officer, Maayos na po ang daloy ng trapiko sa tabi ng chapel, good job po!",traffic_obstruction,positive,low
+"Pakitulungan po kami dito, Nakaharang ang abandonadong van sa tapat ng driveway sa kahabaan ng main avenue, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Hello po admin / desk officer, Gumuho po ang maliit na riprap sa tabi ng kalsada sa kahabaan ng main avenue dahil sa ulan kahapon.",road,negative,emergency
+"Concerned citizen here: Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",health_sanitation,positive,low
+"Good day po kapitan at mga tanod, Tatlong araw na pong putol-putol ang serbisyo ng tubig sa tabi ng bakery.",water,negative,moderate
+"Pundido po ang bumbilya ng streetlight sa tapat ng elementary school, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Salamat sa engineering team, naayos na agad ang sirang gutter at lubak sa kanto ng Barandal.",road,positive,low
+"Nais ko lang i-report na Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa may Phase 2 subdivision gate, salamat po!",electrical_hazard,positive,low
+Report ko lang po: Gumuho po ang maliit na riprap sa tabi ng kalsada sa kahabaan ng main avenue dahil sa ulan kahapon.,road,negative,emergency
+"Sobrang lakas ng videoke at sigawan sa kahabaan ng main avenue kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"Attention po barangay officials, May road repair signage po ba na ilalagay habang ongoing ang construction sa tabi ng chapel?",road,neutral,low
+"Paki-check naman po, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tabi ng chapel.",flood_drainage,neutral,low
+Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?,peace_order,neutral,low
+"Concerned citizen here: Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"Paki-check naman po, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tabi ng bakery.",flood_drainage,neutral,low
+"Grabe po talaga, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa Block 8 Lot 15?",traffic_obstruction,neutral,low
+"Magandang araw po, May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa kanto ng Barandal.",health_sanitation,negative,moderate
+"Pakitulungan po kami dito, Gumuho po ang maliit na riprap sa tabi ng kalsada sa may tulay ng San Cristobal dahil sa ulan kahapon.",road,negative,emergency
+"Nais ko lang i-report na Barado po ang kanal at estero sa may Purok 4, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Attention po barangay officials, Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Attention po barangay officials, Tatlong araw na pong putol-putol ang serbisyo ng tubig sa Block 8 Lot 15.",water,negative,moderate
+"Paki-check naman po, Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.",electrical_hazard,positive,low
+"Nais ko lang i-report na Walang-wala pong tubig simula pa kahapon sa kahabaan ng main avenue, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Grabe po talaga, Magkano po ang bayad sa pagkuha ng barangay business permit para sa sari-sari store?",general_inquiry,neutral,low
+"Concerned citizen here: Nangungulit at nagwawala po ang lasing sa tapat ng elementary school, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+"Magandang araw po, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa Block 8 Lot 15.",waste,neutral,low
+"Good day po kapitan at mga tanod, Nangangamoy dumi ng baboy/manok ang hangin sa tabi ng bakery, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Grabe po talaga, May nangingitlog na lamok sa stagnant water sa tabi ng bakery, baka magka-dengue ang mga residente.",health_sanitation,negative,moderate
+"Grabe po talaga, Kailan po kaya masisimulan ang road widening project sa gilid ng barangay hall?",road,neutral,low
+Concerned citizen here: Nakatabingi at mabubuwal na ang poste ng kuryente sa may crossing papuntang palengke baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+"Magandang araw po, Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura sa tabi ng bakery.",waste,positive,low
+"Pakitulungan po kami dito, Walang-wala pong tubig simula pa kahapon sa may Purok 4, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Nais ko lang i-report na Maayos na po ang supply ng tubig ngayon, wala nang problema.",water,positive,low
+"Attention po barangay officials, May rabid/nangangagat na stray dog sa tabi ng bakery, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Attention po barangay officials, Pumutok po ang main water pipe sa may tulay ng San Cristobal, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Good day po kapitan at mga tanod, Nagawa na po yung tagas sa tubo sa tabi ng bakery, thank you sa water service team!",water,positive,low
+"Pakitulungan po kami dito, Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",electrical_hazard,positive,low
+"Grabe po talaga, Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa kahabaan ng main avenue.",health_sanitation,positive,low
+"Attention po barangay officials, Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"Pakitulungan po kami dito, Tahimik at payapa na po ang street namin simula nang mag-curfew check ang barangay.",peace_order,positive,low
+"Pakitulungan po kami dito, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa Purok 6 extension, salamat po!",electrical_hazard,positive,low
+"Paki-check naman po, Basag po ang duyan at sirang slide sa children's playground sa may tulay ng San Cristobal, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Attention po barangay officials, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa tapat ng daycare center.",waste,neutral,low
+"Attention po barangay officials, Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura sa may crossing papuntang palengke.",waste,negative,moderate
+"Attention po barangay officials, Basag po ang duyan at sirang slide sa children's playground sa kahabaan ng main avenue, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Pakitulungan po kami dito, Nakatabingi at mabubuwal na ang poste ng kuryente sa may crossing papuntang palengke baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+"Magandang araw po, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa tapat ng daycare center.",electrical_hazard,neutral,low
+"Good day po kapitan at mga tanod, Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+"Good day po kapitan at mga tanod, May transformer na umuusok at may sparks ng apoy sa poste sa may Bucal bypass road, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Nagawa na po yung tagas sa tubo sa tapat ng covered court, thank you sa water service team!",water,positive,low
+"Hello po admin / desk officer, Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",peace_order,neutral,low
+"Pakitulungan po kami dito, May road repair signage po ba na ilalagay habang ongoing ang construction sa Purok 6 extension?",road,neutral,low
+"Attention po barangay officials, May nagsisiga po ng mga goma at plastic sa tapat ng daycare center, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Magandang araw po, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa gilid ng barangay hall!",flood_drainage,negative,emergency
+"Hello po admin / desk officer, Barado po ang kanal at estero sa tabi ng chapel, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Pakitulungan po kami dito, May nakalaylay at nakalantad na live wire sa may Purok 4, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+Concerned citizen here: Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa may Phase 2 subdivision gate.,waste,neutral,low
+Report ko lang po: Ano po ba ang bagong schedule ng collection ng biodegradable waste sa tapat ng daycare center?,waste,neutral,low
+"Pakitulungan po kami dito, Ano po ba ang bagong schedule ng collection ng biodegradable waste sa tabi ng chapel?",waste,neutral,low
+Report ko lang po: Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa may Purok 4.,water,neutral,low
+"Attention po barangay officials, May nangingitlog na lamok sa stagnant water sa kanto ng Barandal, baka magka-dengue ang mga residente.",health_sanitation,negative,moderate
+"Pakitulungan po kami dito, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa tapat ng covered court?",traffic_obstruction,neutral,low
+"Nais ko lang i-report na Pundido po ang bumbilya ng streetlight sa Purok 6 extension, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Grabe po talaga, Ano po ba ang bagong schedule ng collection ng biodegradable waste sa may Purok 4?",waste,neutral,low
+Report ko lang po: Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa kahabaan ng main avenue.,water,negative,moderate
+"Hello po admin / desk officer, Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?",health_sanitation,neutral,low
+Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa tapat ng covered court.,public_facilities,negative,moderate
+"Pakitulungan po kami dito, May road repair signage po ba na ilalagay habang ongoing ang construction sa may crossing papuntang palengke?",road,neutral,low
+"Grabe po talaga, Nais lang po malaman kung bukas ang daan para sa mga delivery van sa may Bucal bypass road.",road,neutral,low
+"Report ko lang po: Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa kanto ng Barandal, salamat po!",electrical_hazard,positive,low
+Nais ko lang i-report na Tahimik at payapa na po ang street namin simula nang mag-curfew check ang barangay.,peace_order,positive,low
+"Grabe po talaga, Basag po ang duyan at sirang slide sa children's playground sa may Phase 2 subdivision gate, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Grabe po talaga, Tambak na naman po ang basura sa tapat ng covered court, nangangamoy na at nilalangaw.",waste,negative,moderate
+"Concerned citizen here: Napakaganda na po ng bagong pintura at ilaw sa covered court sa may Purok 4, salamat sa barangay council!",public_facilities,positive,low
+Report ko lang po: Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.,general_inquiry,positive,low
+Concerned citizen here: Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa tabi ng chapel.,traffic_obstruction,negative,moderate
+"Hello po admin / desk officer, Barado po ang kanal at estero sa tabi ng bakery, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Magandang araw po, May rabid/nangangagat na stray dog sa Block 8 Lot 15, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Paki-check naman po, Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad.",health_sanitation,positive,low
+"Hello po admin / desk officer, May rabid/nangangagat na stray dog sa tapat ng covered court, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Good day po kapitan at mga tanod, Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"Nais ko lang i-report na Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad.",health_sanitation,positive,low
+"Concerned citizen here: Napakaganda na po ng bagong pintura at ilaw sa covered court sa gilid ng barangay hall, salamat sa barangay council!",public_facilities,positive,low
+"Paki-check naman po, Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi.",lighting,positive,low
+"Good day po kapitan at mga tanod, Tambak na naman po ang basura sa kahabaan ng main avenue, nangangamoy na at nilalangaw.",waste,negative,moderate
+"Grabe po talaga, Nais lang po humingi ng temporary one-side parking permit para sa family event sa kanto ng Barandal.",traffic_obstruction,neutral,low
+Report ko lang po: Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tabi ng chapel.,water,neutral,low
+"Good day po kapitan at mga tanod, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa Purok 6 extension?",flood_drainage,neutral,low
+"Attention po barangay officials, Tahimik at payapa na po ang street namin simula nang mag-curfew check ang barangay.",peace_order,positive,low
+"Hello po admin / desk officer, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa may crossing papuntang palengke.",lighting,neutral,low
+"Sirang-sira na po ang semento sa tabi ng chapel, baku-bako at delikado kapag gabi.",road,negative,moderate
+"Good day po kapitan at mga tanod, Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa tapat ng elementary school.",water,negative,moderate
+"Grabe po talaga, May scheduled water interruption po ba bukas sa aming area sa kanto ng Barandal?",water,neutral,low
+"Paki-check naman po, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa may Phase 2 subdivision gate.",water,neutral,low
+"Paki-check naman po, May nagsisiga po ng mga goma at plastic sa Block 8 Lot 15, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+Nais ko lang i-report na Nakalubog po sa baha ang kalsada sa may Bucal bypass road dahil walang labasan ang tubig-ulan.,flood_drainage,negative,moderate
+Thank you po sa pag-aksyon sa reklamo namin sa maingay na kapitbahay.,peace_order,positive,low
+"Report ko lang po: Kailangan po ng speed humps sa tapat ng elementary school, mabilis magpatakbo ang mga tricycle at motor.",road,negative,moderate
+"Sobrang lakas ng videoke at sigawan sa gilid ng barangay hall kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Report ko lang po: Kukurap-kurap ang ilaw sa poste sa tapat ng elementary school, baka mapundi na rin anumang oras.",lighting,negative,moderate
+Nais lang po humingi ng temporary one-side parking permit para sa family event sa may crossing papuntang palengke.,traffic_obstruction,neutral,low
+"Hello po admin / desk officer, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa tapat ng elementary school.",waste,neutral,low
+Nais ko lang i-report na Nakatabingi at mabubuwal na ang poste ng kuryente sa gilid ng barangay hall baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+"Report ko lang po: May malalim na sinkhole o bitak sa kalsada sa may Phase 2 subdivision gate, delikadong mahulog ang sasakyan!",road,negative,emergency
+Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa tapat ng daycare center.,waste,neutral,low
+"Pakitulungan po kami dito, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa may Purok 4, salamat po!",electrical_hazard,positive,low
+"Magandang araw po, Basag po ang duyan at sirang slide sa children's playground sa may Purok 4, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Nais ko lang i-report na Walang-wala pong tubig simula pa kahapon sa tabi ng bakery, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Attention po barangay officials, Paano po magpareserba ng covered court para sa inter-purok basketball tournament?",public_facilities,neutral,low
+Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa tapat ng covered court.,traffic_obstruction,negative,moderate
+"Pakitulungan po kami dito, Ano po ba ang bagong schedule ng collection ng biodegradable waste sa may Bucal bypass road?",waste,neutral,low
+Concerned citizen here: Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa tabi ng bakery.,peace_order,positive,low
+"Report ko lang po: Pundido po ang bumbilya ng streetlight sa tapat ng elementary school, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Paki-check naman po, Walang-wala pong tubig simula pa kahapon sa may crossing papuntang palengke, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Maayos na po ang supply ng tubig ngayon, wala nang problema.",water,positive,low
+Report ko lang po: Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa tapat ng elementary school.,waste,neutral,low
+"Good day po kapitan at mga tanod, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa gilid ng barangay hall.",lighting,neutral,low
+"Pundido po ang bumbilya ng streetlight sa kahabaan ng main avenue, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Pakitulungan po kami dito, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa tabi ng bakery, salamat po!",electrical_hazard,positive,low
+"Paki-check naman po, Walang-wala pong tubig simula pa kahapon sa tapat ng elementary school, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Nais ko lang i-report na Nakaharang ang abandonadong van sa tapat ng driveway sa Purok 6 extension, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+Laging may nagpapatakbo ng motor na may open pipe muffler sa may Phase 2 subdivision gate dis-oras ng gabi.,peace_order,negative,moderate
+"Attention po barangay officials, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa Block 8 Lot 15.",lighting,neutral,low
+"Concerned citizen here: Nangangamoy dumi ng baboy/manok ang hangin sa tapat ng covered court, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+Report ko lang po: Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa may Bucal bypass road?,electrical_hazard,neutral,low
+"Walang-wala pong tubig simula pa kahapon sa gilid ng barangay hall, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Hello po admin / desk officer, Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",health_sanitation,positive,low
+"Attention po barangay officials, Salamat po sa pag-warning sa may-ari ng nakaharang na truck sa kanto.",traffic_obstruction,positive,low
+Ano po ba ang bagong schedule ng collection ng biodegradable waste sa may Purok 4?,waste,neutral,low
+"Good day po kapitan at mga tanod, Mahina po ang tulo ng tubig tuwing umaga sa tapat ng elementary school, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Grabe po talaga, May nagsisiga po ng mga goma at plastic sa Block 8 Lot 15, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Paki-check naman po, May schedule po ba ng libreng dengue misting o fogging operation sa kanto ng Barandal?",health_sanitation,neutral,low
+"Hello po admin / desk officer, Sirang-sira na po ang semento sa may tulay ng San Cristobal, baku-bako at delikado kapag gabi.",road,negative,moderate
+"Magandang araw po, Sobrang lakas ng videoke at sigawan sa may tulay ng San Cristobal kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Nais ko lang i-report na Pumutok po ang main water pipe sa gilid ng barangay hall, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"May mga nag-iinuman sa kalsada at nag-iingay sa Purok 6 extension, nambabastos ng mga dumadaang babae.",peace_order,negative,moderate
+"Pakitulungan po kami dito, Maganda ang pagkakagawa ng humps sa may crossing papuntang palengke, safe na tumawid ang mga bata.",road,positive,low
+"Concerned citizen here: Maraming salamat po sa matagumpay na declogging ng mga kanal sa tapat ng daycare center, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.,general_inquiry,positive,low
+"Magandang araw po, Nakalubog po sa baha ang kalsada sa tapat ng covered court dahil walang labasan ang tubig-ulan.",flood_drainage,negative,moderate
+"Concerned citizen here: Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+"Pakitulungan po kami dito, Hindi pa rin nahahakot ang mga nabubulok na kalat sa Purok 6 extension simula pa noong isang linggo.",waste,negative,moderate
+"Hello po admin / desk officer, Malinaw at malakas na po ulit ang tulo ng tubig sa Block 8 Lot 15, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Good day po kapitan at mga tanod, Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Pumutok po ang main water pipe sa tabi ng bakery, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Good day po kapitan at mga tanod, May mga nag-iinuman sa kalsada at nag-iingay sa may Bucal bypass road, nambabastos ng mga dumadaang babae.",peace_order,negative,moderate
+"Grabe po talaga, Maayos na po ang supply ng tubig ngayon, wala nang problema.",water,positive,low
+"Report ko lang po: May mga nag-iinuman sa kalsada at nag-iingay sa tapat ng elementary school, nambabastos ng mga dumadaang babae.",peace_order,negative,moderate
+"Magandang araw po, Maayos na po ang daloy ng trapiko sa tabi ng bakery, good job po!",traffic_obstruction,positive,low
+Nais ko lang i-report na Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa kahabaan ng main avenue.,water,negative,moderate
+"Magandang araw po, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa tapat ng covered court?",traffic_obstruction,neutral,low
+"Paki-check naman po, May malaking lubak sa kalsada sa Purok 6 extension, sumasabit ang ilalim ng mga sasakyan at motor.",road,negative,moderate
+"Attention po barangay officials, Naaspalto at napatag na po ang kalsada sa Block 8 Lot 15, maayos at smooth na ang biyahe!",road,positive,low
+"Paki-check naman po, Sobrang lakas ng videoke at sigawan sa tapat ng elementary school kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Good day po kapitan at mga tanod, Saan po ba pwede mag-request ng karagdagang streetlight sa tabi ng chapel?",lighting,neutral,low
+"Paki-check naman po, Lagpas tuhod na po ang baha sa tabi ng chapel at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+Nais ko lang i-report na Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.,electrical_hazard,positive,low
+"Attention po barangay officials, Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa kanto ng Barandal.",health_sanitation,positive,low
+"Report ko lang po: May transformer na umuusok at may sparks ng apoy sa poste sa may tulay ng San Cristobal, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Paki-check naman po, Tambak na naman po ang basura sa Block 8 Lot 15, nangangamoy na at nilalangaw.",waste,negative,moderate
+"Attention po barangay officials, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa tabi ng bakery!",flood_drainage,negative,emergency
+"Attention po barangay officials, Nalinis na po at maluwag na ang daan sa tapat ng elementary school pagkatapos ng road clearing operation ng tanod.",traffic_obstruction,positive,low
+"Concerned citizen here: Walang-wala pong tubig simula pa kahapon sa tapat ng covered court, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+Report ko lang po: Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may Purok 4.,electrical_hazard,neutral,low
+"Good day po kapitan at mga tanod, May nangingitlog na lamok sa stagnant water sa tapat ng elementary school, baka magka-dengue ang mga residente.",health_sanitation,negative,moderate
+"Report ko lang po: May nagsisiga po ng mga goma at plastic sa tabi ng chapel, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Pakitulungan po kami dito, Barado po ang kanal at estero sa kahabaan ng main avenue, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Attention po barangay officials, Basag po ang duyan at sirang slide sa children's playground sa gilid ng barangay hall, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Hello po admin / desk officer, Mahina po ang tulo ng tubig tuwing umaga sa may crossing papuntang palengke, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Pakitulungan po kami dito, Sira po ang ring at may butas ang bubong ng covered court sa may Bucal bypass road, hindi magamit kapag umuulan.",public_facilities,negative,moderate
+"Good day po kapitan at mga tanod, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tapat ng elementary school.",water,neutral,low
+"Good day po kapitan at mga tanod, May nagsisiga po ng mga goma at plastic sa Block 8 Lot 15, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Pakitulungan po kami dito, May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa tabi ng chapel.",health_sanitation,negative,moderate
+"Pakitulungan po kami dito, May rabid/nangangagat na stray dog sa tabi ng chapel, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Magandang araw po, May rabid/nangangagat na stray dog sa tapat ng elementary school, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Magandang araw po, May malalim na sinkhole o bitak sa kalsada sa may crossing papuntang palengke, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Paki-check naman po, Lagpas tuhod na po ang baha sa Purok 6 extension at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Attention po barangay officials, Basag po ang duyan at sirang slide sa children's playground sa kanto ng Barandal, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Pakitulungan po kami dito, Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",public_facilities,positive,low
+"Paki-check naman po, Thank you po kapitan sa mabilis na pag-aksyon sa tambak na basura sa may street namin.",waste,positive,low
+Concerned citizen here: Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa may tulay ng San Cristobal.,waste,neutral,low
+Concerned citizen here: Thank you po kapitan sa mabilis na pag-aksyon sa tambak na basura sa may street namin.,waste,positive,low
+"Magandang araw po, Pumutok po ang main water pipe sa tapat ng daycare center, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Pakitulungan po kami dito, Inukupa ng sidewalk vendor ang buong daanan ng tao sa kahabaan ng main avenue, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Magandang araw po, Bilis po ng aksyon ng barangay electrician, gumagana na ang ilaw sa poste sa may Purok 4.",lighting,positive,low
+"Pakitulungan po kami dito, Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+Report ko lang po: Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tapat ng daycare center.,flood_drainage,neutral,low
+Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa tabi ng bakery?,flood_drainage,neutral,low
+Nais ko lang i-report na Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may tulay ng San Cristobal.,electrical_hazard,neutral,low
+"Good day po kapitan at mga tanod, Naaspalto at napatag na po ang kalsada sa tapat ng elementary school, maayos at smooth na ang biyahe!",road,positive,low
+"Attention po barangay officials, Pumutok po ang main water pipe sa kanto ng Barandal, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Concerned citizen here: May rabid/nangangagat na stray dog sa kanto ng Barandal, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Pakitulungan po kami dito, Maaliwalas at walang amoy na ang paligid sa kanto ng Barandal, saludo sa sanitation team.",waste,positive,low
+"Attention po barangay officials, Nalagyan na po ng bagong takip ang manhole sa may Phase 2 subdivision gate, safe na ulit ang daan.",flood_drainage,positive,low
+"Paki-check naman po, Nakaharang ang abandonadong van sa tapat ng driveway sa may tulay ng San Cristobal, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Good day po kapitan at mga tanod, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa may Bucal bypass road?",flood_drainage,neutral,low
+"Grabe po talaga, Basag po ang duyan at sirang slide sa children's playground sa may Bucal bypass road, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Attention po barangay officials, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa may crossing papuntang palengke!",flood_drainage,negative,emergency
+"Good day po kapitan at mga tanod, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tabi ng bakery.",water,neutral,low
+"Grabe po talaga, Maliwanag na po ulit ang buong street sa tabi ng bakery dahil napalitan na ang solar light. Salamat po!",lighting,positive,low
+Nais ko lang i-report na Ano po ba ang bagong schedule ng collection ng biodegradable waste sa gilid ng barangay hall?,waste,neutral,low
+Report ko lang po: Masyadong madulas ang putik sa kalsada sa tabi ng bakery dahil sa mga truck na labas-pasok.,road,negative,moderate
+Concerned citizen here: Magkano po ang bayad sa pagkuha ng barangay business permit para sa sari-sari store?,general_inquiry,neutral,low
+"Nais ko lang i-report na May nagsisiga po ng mga goma at plastic sa Purok 6 extension, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Magandang araw po, Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa Purok 6 extension.",health_sanitation,positive,low
+"Hello po admin / desk officer, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa Block 8 Lot 15?",flood_drainage,neutral,low
+Nais ko lang i-report na Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa kanto ng Barandal.,electrical_hazard,neutral,low
+"Good day po kapitan at mga tanod, May rabid/nangangagat na stray dog sa may Purok 4, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Hello po admin / desk officer, Naaspalto at napatag na po ang kalsada sa may Purok 4, maayos at smooth na ang biyahe!",road,positive,low
+"Grabe po talaga, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa Purok 6 extension.",flood_drainage,neutral,low
+"Magandang araw po, Walang-wala pong tubig simula pa kahapon sa kahabaan ng main avenue, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Nawawala po ang bakal na takip ng manhole sa may Bucal bypass road, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+Concerned citizen here: Nakalubog po sa baha ang kalsada sa may Phase 2 subdivision gate dahil walang labasan ang tubig-ulan.,flood_drainage,negative,moderate
+"Hello po admin / desk officer, Nais lang po humingi ng temporary one-side parking permit para sa family event sa Block 8 Lot 15.",traffic_obstruction,neutral,low
+"Pakitulungan po kami dito, May scheduled water interruption po ba bukas sa aming area sa tabi ng chapel?",water,neutral,low
+"Hello po admin / desk officer, Basag ang gilid ng gutter sa may Phase 2 subdivision gate baka matapilok ang mga naglalakad.",road,negative,moderate
+"Hello po admin / desk officer, Kukurap-kurap ang ilaw sa poste sa may Purok 4, baka mapundi na rin anumang oras.",lighting,negative,moderate
+"Grabe po talaga, Gumuho po ang maliit na riprap sa tabi ng kalsada sa may Bucal bypass road dahil sa ulan kahapon.",road,negative,emergency
+"Good day po kapitan at mga tanod, Maganda ang pagkakagawa ng humps sa tapat ng daycare center, safe na tumawid ang mga bata.",road,positive,low
+Nais ko lang i-report na May scheduled water interruption po ba bukas sa aming area sa Purok 6 extension?,water,neutral,low
+"Malinaw at malakas na po ulit ang tulo ng tubig sa may Bucal bypass road, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Concerned citizen here: Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad.",health_sanitation,positive,low
+"Pakitulungan po kami dito, May road repair signage po ba na ilalagay habang ongoing ang construction sa may tulay ng San Cristobal?",road,neutral,low
+"Report ko lang po: May nangingitlog na lamok sa stagnant water sa may Bucal bypass road, baka magka-dengue ang mga residente.",health_sanitation,negative,moderate
+"Magandang araw po, Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",electrical_hazard,positive,low
+"Report ko lang po: Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura sa Block 8 Lot 15.",waste,positive,low
+"Hello po admin / desk officer, May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa tabi ng bakery.",health_sanitation,negative,moderate
+"Nais ko lang i-report na Nakaharang ang abandonadong van sa tapat ng driveway sa kanto ng Barandal, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Report ko lang po: Maraming salamat po sa matagumpay na declogging ng mga kanal sa may crossing papuntang palengke, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+Report ko lang po: May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa tapat ng covered court?,traffic_obstruction,neutral,low
+"Attention po barangay officials, Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa may tulay ng San Cristobal.",peace_order,positive,low
+"Magandang araw po, Nagawa na po yung tagas sa tubo sa may Bucal bypass road, thank you sa water service team!",water,positive,low
+"Attention po barangay officials, Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable sa may Phase 2 subdivision gate, salamat po!",electrical_hazard,positive,low
+"Attention po barangay officials, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa tabi ng chapel.",lighting,neutral,low
+"Grabe po talaga, Maraming salamat po sa matagumpay na declogging ng mga kanal sa may Bucal bypass road, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Paki-check naman po, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may tulay ng San Cristobal.",electrical_hazard,neutral,low
+"Magandang araw po, Basag po ang duyan at sirang slide sa children's playground sa Block 8 Lot 15, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Magandang araw po, Nakaharang ang abandonadong van sa tapat ng driveway sa tabi ng bakery, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Paki-check naman po, May nakalaylay at nakalantad na live wire sa Block 8 Lot 15, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Magandang araw po, Nais lang po malaman kung bukas ang daan para sa mga delivery van sa may Phase 2 subdivision gate.",road,neutral,low
+"Magandang araw po, Salamat sa engineering team, naayos na agad ang sirang gutter at lubak sa Purok 6 extension.",road,positive,low
+"Attention po barangay officials, Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",health_sanitation,positive,low
+"Report ko lang po: Maraming salamat po sa matagumpay na declogging ng mga kanal sa kahabaan ng main avenue, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Attention po barangay officials, Magkano po ang bayad sa pagkuha ng barangay business permit para sa sari-sari store?",general_inquiry,neutral,low
+"Hello po admin / desk officer, May nagsisiga po ng mga goma at plastic sa tapat ng covered court, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+"Good day po kapitan at mga tanod, May nagsisiga po ng mga goma at plastic sa may Purok 4, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",health_sanitation,negative,emergency
+Concerned citizen here: Paano po magpareserba ng covered court para sa inter-purok basketball tournament?,public_facilities,neutral,low
+"Report ko lang po: Lagpas tuhod na po ang baha sa tabi ng bakery at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Hello po admin / desk officer, Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?",public_facilities,neutral,low
+Report ko lang po: Paano po magpareserba ng covered court para sa inter-purok basketball tournament?,public_facilities,neutral,low
+"Good day po kapitan at mga tanod, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa may tulay ng San Cristobal!",flood_drainage,negative,emergency
+"Attention po barangay officials, Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?",public_facilities,neutral,low
+"Magandang araw po, Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",general_inquiry,positive,low
+Nais ko lang i-report na Nais lang po humingi ng temporary one-side parking permit para sa family event sa may Phase 2 subdivision gate.,traffic_obstruction,neutral,low
+"Concerned citizen here: Pundido po ang bumbilya ng streetlight sa may crossing papuntang palengke, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Hello po admin / desk officer, Sira po ang ring at may butas ang bubong ng covered court sa may Phase 2 subdivision gate, hindi magamit kapag umuulan.",public_facilities,negative,moderate
+"Paki-check naman po, Malinis at kumpleto na ang kagamitan sa health center desk, salute po!",public_facilities,positive,low
+"Good day po kapitan at mga tanod, Thank you po sa pag-aksyon sa reklamo namin sa maingay na kapitbahay.",peace_order,positive,low
+"Paki-check naman po, Walang-wala pong tubig simula pa kahapon sa tapat ng covered court, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Pakitulungan po kami dito, Naaspalto at napatag na po ang kalsada sa may crossing papuntang palengke, maayos at smooth na ang biyahe!",road,positive,low
+"Magandang araw po, Pumutok po ang main water pipe sa tabi ng chapel, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Nais ko lang i-report na May malalim na sinkhole o bitak sa kalsada sa tapat ng elementary school, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Paki-check naman po, Saan po ba pwede mag-request ng karagdagang streetlight sa Block 8 Lot 15?",lighting,neutral,low
+Nais ko lang i-report na Nakatabingi at mabubuwal na ang poste ng kuryente sa kahabaan ng main avenue baka bumagsak sa mga bahay!,electrical_hazard,negative,emergency
+"Paki-check naman po, May malalim na sinkhole o bitak sa kalsada sa tapat ng daycare center, delikadong mahulog ang sasakyan!",road,negative,emergency
+"Good day po kapitan at mga tanod, Basag po ang duyan at sirang slide sa children's playground sa tapat ng elementary school, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+Nais ko lang i-report na Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo sa may tulay ng San Cristobal.,water,negative,moderate
+"Good day po kapitan at mga tanod, Kailan po ang schedule ng quarterly canal declogging dito sa aming purok sa gilid ng barangay hall?",flood_drainage,neutral,low
+Concerned citizen here: Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?,public_facilities,neutral,low
+"Report ko lang po: May nangingitlog na lamok sa stagnant water sa may Purok 4, baka magka-dengue ang mga residente.",health_sanitation,negative,moderate
+Concerned citizen here: Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa kanto ng Barandal.,electrical_hazard,neutral,low
+"Attention po barangay officials, Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?",health_sanitation,neutral,low
+Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa may Phase 2 subdivision gate.,flood_drainage,neutral,low
+"Paki-check naman po, Basag ang gilid ng gutter sa may crossing papuntang palengke baka matapilok ang mga naglalakad.",road,negative,moderate
+"Paki-check naman po, Magkano po ang bayad sa pagkuha ng barangay business permit para sa sari-sari store?",general_inquiry,neutral,low
+"Hello po admin / desk officer, Kailan po kaya masisimulan ang road widening project sa tapat ng daycare center?",road,neutral,low
+"Paki-check naman po, Pumutok po ang main water pipe sa tapat ng daycare center, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Concerned citizen here: May mga nag-iinuman sa kalsada at nag-iingay sa tabi ng chapel, nambabastos ng mga dumadaang babae.",peace_order,negative,moderate
+"Concerned citizen here: Malinaw at malakas na po ulit ang tulo ng tubig sa may Bucal bypass road, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi sa may tulay ng San Cristobal.,health_sanitation,negative,moderate
+"Grabe po talaga, Nakatabingi at mabubuwal na ang poste ng kuryente sa may crossing papuntang palengke baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+"Pakitulungan po kami dito, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa tabi ng bakery.",lighting,neutral,low
+"Good day po kapitan at mga tanod, Nawawala po ang bakal na takip ng manhole sa tabi ng bakery, delikadong may mahulog na bata o motor!",flood_drainage,negative,moderate
+"Report ko lang po: Nalagyan na po ng bagong takip ang manhole sa tabi ng bakery, safe na ulit ang daan.",flood_drainage,positive,low
+Report ko lang po: May road repair signage po ba na ilalagay habang ongoing ang construction sa tabi ng bakery?,road,neutral,low
+"Report ko lang po: May malalim na sinkhole o bitak sa kalsada sa tapat ng daycare center, delikadong mahulog ang sasakyan!",road,negative,emergency
+Nais lang po humingi ng temporary one-side parking permit para sa family event sa may Purok 4.,traffic_obstruction,neutral,low
+"Pakitulungan po kami dito, Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi.",lighting,positive,low
+"Magandang araw po, Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",health_sanitation,positive,low
+"Hello po admin / desk officer, Magkano po ang bayad sa pagkuha ng barangay business permit para sa sari-sari store?",general_inquiry,neutral,low
+"Paki-check naman po, May scheduled water interruption po ba bukas sa aming area sa tabi ng bakery?",water,neutral,low
+"Magandang araw po, Lagpas tuhod na po ang baha sa tapat ng daycare center at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+Nais ko lang i-report na Maliwanag na po ulit ang buong street sa may Bucal bypass road dahil napalitan na ang solar light. Salamat po!,lighting,positive,low
+Concerned citizen here: Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa Purok 6 extension.,traffic_obstruction,negative,moderate
+"Attention po barangay officials, Nakalubog po sa baha ang kalsada sa gilid ng barangay hall dahil walang labasan ang tubig-ulan.",flood_drainage,negative,moderate
+"Magandang araw po, Maganda ang pagkakagawa ng humps sa may Phase 2 subdivision gate, safe na tumawid ang mga bata.",road,positive,low
+"Magandang araw po, May malaking lubak sa kalsada sa may Bucal bypass road, sumasabit ang ilalim ng mga sasakyan at motor.",road,negative,moderate
+"Pakitulungan po kami dito, Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad.",health_sanitation,positive,low
+Ano po ang mga kailangang dalhin para kumuha ng Barangay Clearance at Indigency certificate?,general_inquiry,neutral,low
+"Grabe po talaga, Hindi naman marumi pero sana maglagay ng sign na bawal magtapon sa may tulay ng San Cristobal.",waste,neutral,low
+"Paki-check naman po, Maayos na po ang daloy ng trapiko sa Purok 6 extension, good job po!",traffic_obstruction,positive,low
+"Nakaharang ang abandonadong van sa tapat ng driveway sa tapat ng elementary school, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Nais ko lang i-report na Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi.",lighting,positive,low
+"Magandang araw po, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa tapat ng covered court!",flood_drainage,negative,emergency
+"Attention po barangay officials, Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?",general_inquiry,neutral,low
+"Grabe po talaga, Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?",health_sanitation,neutral,low
+Report ko lang po: Masyadong madulas ang putik sa kalsada sa may Purok 4 dahil sa mga truck na labas-pasok.,road,negative,moderate
+"Paki-check naman po, Ano po ang mga kailangang dalhin para kumuha ng Barangay Clearance at Indigency certificate?",general_inquiry,neutral,low
+"Report ko lang po: Madilim na daanan sa may crossing papuntang palengke, takot dumaan ang mga estudyante at trabahador kapag gabi.",lighting,negative,moderate
+Paano po magpareserba ng covered court para sa inter-purok basketball tournament?,public_facilities,neutral,low
+Report ko lang po: Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa gilid ng barangay hall.,electrical_hazard,neutral,low
+"Report ko lang po: Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura sa gilid ng barangay hall.",waste,positive,low
+Concerned citizen here: Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa tapat ng elementary school.,water,neutral,low
+"Nais ko lang i-report na Maraming salamat po sa matagumpay na declogging ng mga kanal sa kanto ng Barandal, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"May rabid/nangangagat na stray dog sa Block 8 Lot 15, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Paki-check naman po, Bukas po ba ang barangay hall bukas ng Sabado para sa pag-claim ng senior citizen pension?",general_inquiry,neutral,low
+"Pakitulungan po kami dito, Malinaw at malakas na po ulit ang tulo ng tubig sa tapat ng elementary school, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+Nais ko lang i-report na Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura sa may crossing papuntang palengke.,waste,negative,moderate
+Concerned citizen here: Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa tapat ng daycare center.,waste,neutral,low
+Report ko lang po: May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa may tulay ng San Cristobal?,traffic_obstruction,neutral,low
+"Magandang araw po, Tatlong araw na pong putol-putol ang serbisyo ng tubig sa may tulay ng San Cristobal.",water,negative,moderate
+Nais ko lang i-report na Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa may Phase 2 subdivision gate?,electrical_hazard,neutral,low
+Concerned citizen here: Nalinis na po at maluwag na ang daan sa tabi ng chapel pagkatapos ng road clearing operation ng tanod.,traffic_obstruction,positive,low
+"Good day po kapitan at mga tanod, May schedule po ba ng libreng dengue misting o fogging operation sa may Bucal bypass road?",health_sanitation,neutral,low
+Nais ko lang i-report na Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa may tulay ng San Cristobal.,peace_order,positive,low
+"Good day po kapitan at mga tanod, May transformer na umuusok at may sparks ng apoy sa poste sa Block 8 Lot 15, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+"Attention po barangay officials, May mga sasakyan na nag-iillegal double parking sa may Purok 4, hindi na magkasya ang dalawang sasakyan.",traffic_obstruction,negative,moderate
+"Grabe po talaga, Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura sa kahabaan ng main avenue.",waste,positive,low
+"Grabe po talaga, Ano po ba ang bagong schedule ng collection ng biodegradable waste sa tabi ng bakery?",waste,neutral,low
+"Pakitulungan po kami dito, Napakaganda na po ng bagong pintura at ilaw sa covered court sa tapat ng elementary school, salamat sa barangay council!",public_facilities,positive,low
+"Magandang araw po, Laging may nagpapatakbo ng motor na may open pipe muffler sa tapat ng elementary school dis-oras ng gabi.",peace_order,negative,moderate
+"Good day po kapitan at mga tanod, Mahina po ang tulo ng tubig tuwing umaga sa may Bucal bypass road, hindi makaipon para sa pampaligo.",water,negative,moderate
+"Report ko lang po: Sirang-sira na po ang semento sa tabi ng bakery, baku-bako at delikado kapag gabi.",road,negative,moderate
+"Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi.",lighting,positive,low
+"Hello po admin / desk officer, Ano po ang mga kailangang dalhin para kumuha ng Barangay Clearance at Indigency certificate?",general_inquiry,neutral,low
+"Concerned citizen here: Inukupa ng sidewalk vendor ang buong daanan ng tao sa tabi ng bakery, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Grabe po talaga, Ano po ba ang bagong schedule ng collection ng biodegradable waste sa tapat ng elementary school?",waste,neutral,low
+"Pakitulungan po kami dito, Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage sa tapat ng daycare center.",flood_drainage,neutral,low
+"Paki-check naman po, May nakalaylay at nakalantad na live wire sa kahabaan ng main avenue, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+"Grabe po talaga, Sobrang lakas ng videoke at sigawan sa kanto ng Barandal kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Grabe po talaga, Walang-wala pong tubig simula pa kahapon sa tabi ng bakery, kailangan na po ng emergency water delivery truck.",water,negative,emergency
+"Hello po admin / desk officer, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa kanto ng Barandal?",traffic_obstruction,neutral,low
+"Concerned citizen here: Kukurap-kurap ang ilaw sa poste sa kanto ng Barandal, baka mapundi na rin anumang oras.",lighting,negative,moderate
+"Nangangamoy dumi ng baboy/manok ang hangin sa tapat ng elementary school, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Grabe po talaga, Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa may tulay ng San Cristobal?",electrical_hazard,neutral,low
+Concerned citizen here: Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura sa may Bucal bypass road.,waste,negative,moderate
+"Hello po admin / desk officer, Basag po ang duyan at sirang slide sa children's playground sa may tulay ng San Cristobal, delikado sa mga batang naglalaro.",public_facilities,negative,moderate
+"Attention po barangay officials, Nakatabingi at mabubuwal na ang poste ng kuryente sa may crossing papuntang palengke baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+"Hello po admin / desk officer, Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura sa may Phase 2 subdivision gate.",waste,positive,low
+"Magandang araw po, Nakatabingi at mabubuwal na ang poste ng kuryente sa kahabaan ng main avenue baka bumagsak sa mga bahay!",electrical_hazard,negative,emergency
+"Nais ko lang i-report na Malinaw at malakas na po ulit ang tulo ng tubig sa kahabaan ng main avenue, maraming salamat po sa agarang pagkukumpuni.",water,positive,low
+"Pakitulungan po kami dito, May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa may Phase 2 subdivision gate?",traffic_obstruction,neutral,low
+"Magandang araw po, Nais lang po humingi ng temporary one-side parking permit para sa family event sa may tulay ng San Cristobal.",traffic_obstruction,neutral,low
+"Hello po admin / desk officer, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may Purok 4.",waste,neutral,low
+"Hello po admin / desk officer, Nakalubog po sa baha ang kalsada sa may tulay ng San Cristobal dahil walang labasan ang tubig-ulan.",flood_drainage,negative,moderate
+Report ko lang po: Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?,public_facilities,neutral,low
+"Hello po admin / desk officer, Laging may nagpapatakbo ng motor na may open pipe muffler sa kahabaan ng main avenue dis-oras ng gabi.",peace_order,negative,moderate
+May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon sa Purok 6 extension?,traffic_obstruction,neutral,low
+Concerned citizen here: Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa may tulay ng San Cristobal.,traffic_obstruction,negative,moderate
+Report ko lang po: Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire sa kanto ng Barandal?,electrical_hazard,neutral,low
+"Pakitulungan po kami dito, Napakaganda na po ng bagong pintura at ilaw sa covered court sa tapat ng covered court, salamat sa barangay council!",public_facilities,positive,low
+"Hello po admin / desk officer, Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?",general_inquiry,neutral,low
+"Grabe po talaga, Salamat po sa pag-warning sa may-ari ng nakaharang na truck sa kanto.",traffic_obstruction,positive,low
+"Pakitulungan po kami dito, Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura sa tapat ng elementary school.",waste,negative,moderate
+"Sirang-sira na po ang semento sa gilid ng barangay hall, baku-bako at delikado kapag gabi.",road,negative,moderate
+"Paki-check naman po, Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?",general_inquiry,neutral,low
+"Hello po admin / desk officer, Madilim na daanan sa Purok 6 extension, takot dumaan ang mga estudyante at trabahador kapag gabi.",lighting,negative,moderate
+"Hello po admin / desk officer, Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan sa kahabaan ng main avenue!",flood_drainage,negative,emergency
+"Grabe po talaga, Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig sa may crossing papuntang palengke.",water,neutral,low
+"Magandang araw po, Maaliwalas at walang amoy na ang paligid sa kanto ng Barandal, saludo sa sanitation team.",waste,positive,low
+"Good day po kapitan at mga tanod, Sira po ang pinto at gripo sa public comfort room sa barangay plaza sa tapat ng elementary school.",public_facilities,negative,moderate
+"Magandang araw po, Laging may nagpapatakbo ng motor na may open pipe muffler sa kanto ng Barandal dis-oras ng gabi.",peace_order,negative,moderate
+"Attention po barangay officials, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa tabi ng chapel.",waste,neutral,low
+Concerned citizen here: Laging may nagpapatakbo ng motor na may open pipe muffler sa Purok 6 extension dis-oras ng gabi.,peace_order,negative,moderate
+"Pundido po ang bumbilya ng streetlight sa may crossing papuntang palengke, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+May nagtatapon po ng patapong construction debris at sirang gamit sa may Bucal bypass road.,waste,negative,moderate
+"Concerned citizen here: Puno na po at umaapaw ang garbage bin sa Block 8 Lot 15, kumakalat na ang dumi sa kalsada.",waste,negative,moderate
+"Pumutok po ang main water pipe sa may Purok 4, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",water,negative,emergency
+"Magandang araw po, May nagtatapon po ng patapong construction debris at sirang gamit sa tabi ng bakery.",waste,negative,moderate
+"Paki-check naman po, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa kanto ng Barandal.",waste,neutral,low
+"Pakitulungan po kami dito, May nakalaylay at nakalantad na live wire sa may Bucal bypass road, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+Good job po sa mabilis na pag-cordon sa delikadong live wire kanina.,electrical_hazard,positive,low
+"Barado po ang kanal at estero sa kahabaan ng main avenue, kahit ambon lang ay umaapaw agad ang maruming tubig.",flood_drainage,negative,moderate
+"Report ko lang po: Maayos na po ang supply ng tubig ngayon, wala nang problema.",water,positive,low
+"Magandang araw po, Nangungulit at nagwawala po ang lasing sa gilid ng barangay hall, pakipadala ng tanod bago pa magkasakitan.",peace_order,negative,moderate
+"Hello po admin / desk officer, May mga nag-iinuman sa kalsada at nag-iingay sa may Phase 2 subdivision gate, nambabastos ng mga dumadaang babae.",peace_order,negative,moderate
+"Paki-check naman po, Nais lang po humingi ng temporary one-side parking permit para sa family event sa tapat ng daycare center.",traffic_obstruction,neutral,low
+"Good day po kapitan at mga tanod, Nagawa na po yung tagas sa tubo sa may Purok 4, thank you sa water service team!",water,positive,low
+"Grabe po talaga, Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa may Bucal bypass road.",waste,neutral,low
+"Paki-check naman po, May nakalaylay at nakalantad na live wire sa may tulay ng San Cristobal, sumasagi sa mga bubong at trucks delikado!",electrical_hazard,negative,emergency
+Report ko lang po: Nais lang po malaman kung bukas ang daan para sa mga delivery van sa tapat ng daycare center.,road,neutral,low
+"Concerned citizen here: Inukupa ng sidewalk vendor ang buong daanan ng tao sa may Bucal bypass road, napipilitan maglakad sa kalsada.",traffic_obstruction,negative,moderate
+"Attention po barangay officials, Nais lang po malaman kung bukas ang daan para sa mga delivery van sa tabi ng chapel.",road,neutral,low
+"Paki-check naman po, Nakaharang ang abandonadong van sa tapat ng driveway sa Block 8 Lot 15, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Salamat sa engineering team, naayos na agad ang sirang gutter at lubak sa may Purok 4.",road,positive,low
+"Magandang araw po, Sobrang lakas ng videoke at sigawan sa kahabaan ng main avenue kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",peace_order,negative,moderate
+"Grabe po talaga, Nangangamoy dumi ng baboy/manok ang hangin sa tapat ng daycare center, nakakasulasok sa kapitbahay.",health_sanitation,negative,moderate
+"Attention po barangay officials, May rabid/nangangagat na stray dog sa may tulay ng San Cristobal, nakakagat na po ng dalawang residente pakihuli agad!",health_sanitation,negative,emergency
+"Pakitulungan po kami dito, May schedule po ba ng libreng dengue misting o fogging operation sa Purok 6 extension?",health_sanitation,neutral,low
+Concerned citizen here: Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina sa tabi ng chapel.,health_sanitation,positive,low
+"Grabe po talaga, Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa Block 8 Lot 15.",traffic_obstruction,negative,moderate
+"Magandang araw po, May transformer na umuusok at may sparks ng apoy sa poste sa tabi ng chapel, tawagan agad ang bumbero at Meralco!",electrical_hazard,negative,emergency
+Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin sa tapat ng elementary school.,waste,neutral,low
+"Hello po admin / desk officer, Maliwanag na po ulit ang buong street sa gilid ng barangay hall dahil napalitan na ang solar light. Salamat po!",lighting,positive,low
+"Lagpas tuhod na po ang baha sa tapat ng elementary school at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Nais ko lang i-report na Lagpas tuhod na po ang baha sa tabi ng bakery at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",flood_drainage,negative,emergency
+"Grabe po talaga, Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",peace_order,neutral,low
+"Magandang araw po, Saan po ba pwede mag-request ng karagdagang streetlight sa may tulay ng San Cristobal?",lighting,neutral,low
+"Attention po barangay officials, Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!",flood_drainage,positive,low
+"Attention po barangay officials, Tambak na naman po ang basura sa kanto ng Barandal, nangangamoy na at nilalangaw.",waste,negative,moderate
+"Attention po barangay officials, Nakaharang ang abandonadong van sa tapat ng driveway sa tabi ng chapel, hindi makalabas ang kotse namin.",traffic_obstruction,negative,moderate
+"Hello po admin / desk officer, Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.",general_inquiry,positive,low
+"Magandang araw po, May mga nag-iinuman sa kalsada at nag-iingay sa tapat ng daycare center, nambabastos ng mga dumadaang babae.",peace_order,negative,moderate
+Nais ko lang i-report na May scheduled water interruption po ba bukas sa aming area sa kahabaan ng main avenue?,water,neutral,low
+"Pakitulungan po kami dito, Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente sa may Phase 2 subdivision gate.",electrical_hazard,neutral,low
+"Magandang araw po, Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno sa Purok 6 extension.",lighting,neutral,low
+"Grabe po talaga, Pundido po ang bumbilya ng streetlight sa Purok 6 extension, napakadilim kapag naglalakad sa gabi.",lighting,negative,moderate
+"Grabe po talaga, Nakaharang po ang construction gravel at buhangin sa mismong bangketa sa kahabaan ng main avenue.",traffic_obstruction,negative,moderate
+"Pakitulungan po kami dito, Maraming salamat po sa matagumpay na declogging ng mga kanal sa may crossing papuntang palengke, hindi na bumaha nitong bagyo!",flood_drainage,positive,low
+"Grabe po talaga, Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi sa tabi ng bakery.",peace_order,positive,low
+"Grabe po talaga, May scheduled water interruption po ba bukas sa aming area sa tabi ng chapel?",water,neutral,low
+"Grabe po talaga, Sira po ang ring at may butas ang bubong ng covered court sa tapat ng elementary school, hindi magamit kapag umuulan.",public_facilities,negative,moderate

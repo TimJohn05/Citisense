@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1200 850"
+   width="1200"
+   height="850"
+   version="1.1"
+   id="svg45"
+   sodipodi:docname="dfd_level_1.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs45">
+    <rect
+       x="766.96832"
+       y="685.52036"
+       width="82.80543"
+       height="84.841629"
+       id="rect39" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview45"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.041804"
+     inkscape:cx="574.48426"
+     inkscape:cy="418.98476"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg45" />
+  <!-- Background Canvas -->
+  <path
+     d="M -0.47265691,0.43315019 V 850.43315 H 1199.5274 V 0.43315019 Z"
+     style="fill:#ffffff"
+     id="path50" />
+  <polygon
+     points="553.50018,484.22774 550,475 559.22774,478.50018 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon44-2"
+     transform="matrix(-1.1725769,0.26058831,-0.27079521,-1.1283798,1307.8739,1074.6817)" />
+  <text
+     x="600"
+     y="45"
+     text-anchor="middle"
+     style="font-family: DejaVu Sans, Helvetica, Arial, sans-serif; font-size: 16px; fill: #0f172a; font-weight: bold;"
+     id="text1">Figure 3.6. DFD Level 1 - Process Decomposition &amp; Data Lifecycle Diagram</text>
+  <rect
+     x="60"
+     y="110"
+     width="170"
+     height="90"
+     rx="8"
+     ry="8"
+     fill="#f0f9ff"
+     stroke="#0ea5e9"
+     stroke-width="2"
+     id="rect2" />
+  <text
+     x="185.32202"
+     y="125.71051"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:22.2842px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0369a1;stroke-width:1.85702"
+     id="text2"
+     transform="scale(0.76709247,1.3036238)">CITIZEN</text>
+  <rect
+     x="970"
+     y="110"
+     width="170"
+     height="90"
+     rx="8"
+     ry="8"
+     fill="#f0f9ff"
+     stroke="#0ea5e9"
+     stroke-width="2"
+     id="rect3" />
+  <text
+     x="1054.4414"
+     y="137.48695"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:22px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0369a1;stroke-width:2"
+     id="text3">BARANGAY</text>
+  <text
+     x="1054.8765"
+     y="157.89555"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:22px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0369a1;stroke-width:2"
+     id="text4">OFFICIAL</text>
+  <text
+     x="1054.3213"
+     y="180.9946"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:22px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0369a1;stroke-width:2"
+     id="text5">(MONITOR)</text>
+  <rect
+     x="970"
+     y="650"
+     width="170"
+     height="90"
+     rx="8"
+     ry="8"
+     fill="#f0f9ff"
+     stroke="#0ea5e9"
+     stroke-width="2"
+     id="rect5" />
+  <text
+     x="1055"
+     y="692.85"
+     text-anchor="middle"
+     style="font-family: DejaVu Sans, Helvetica, Arial, sans-serif; font-size: 11px; fill: #0369a1; font-weight: bold;"
+     id="text6">SYSTEM ADMIN</text>
+  <text
+     x="1055"
+     y="707.15"
+     text-anchor="middle"
+     style="font-family: DejaVu Sans, Helvetica, Arial, sans-serif; font-size: 11px; fill: #0369a1; font-weight: bold;"
+     id="text7">(MAINTENANCE)</text>
+  <circle
+     cx="600"
+     cy="150"
+     r="75"
+     fill="#f0fdfa"
+     stroke="#0d9488"
+     stroke-width="2"
+     id="circle7" />
+  <text
+     x="576.6239"
+     y="139.54904"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:27.6338px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.97384"
+     id="text8"
+     transform="scale(1.0402977,0.9612633)">1.0</text>
+  <text
+     x="725.18182"
+     y="130.17682"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:20.7178px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2.18082"
+     id="text9"
+     transform="scale(0.8278458,1.2079544)">User</text>
+  <text
+     x="960.52704"
+     y="114.89846"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:16.9014px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.77909"
+     id="text10"
+     transform="scale(0.62505097,1.5998695)">Authentication</text>
+  <circle
+     cx="230"
+     cy="450"
+     r="75"
+     fill="#f0fdfa"
+     stroke="#0d9488"
+     stroke-width="2"
+     id="circle10" />
+  <text
+     x="226.06496"
+     y="430.90433"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:28px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text11">2.0</text>
+  <text
+     x="236.89983"
+     y="443.32596"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:16.7565px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.76384"
+     id="text12"
+     transform="scale(0.96787236,1.0331941)">Feedback</text>
+  <text
+     x="236.89983"
+     y="465.10938"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:16.7565px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.76384"
+     id="text13"
+     transform="scale(0.96787236,1.0331941)">Management</text>
+  <ellipse
+     cx="616.28961"
+     cy="724.43439"
+     fill="#f0fdfa"
+     stroke="#0d9488"
+     stroke-width="2.384"
+     id="circle13"
+     rx="89.061394"
+     ry="89.740128" />
+  <text
+     x="615.22467"
+     y="690.09619"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:28px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text14">3.0</text>
+  <text
+     x="1007.8713"
+     y="442.15186"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:15.7531px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.65822"
+     id="text15"
+     transform="scale(0.61007628,1.6391393)">Sentiment &amp; Recommendation</text>
+  <text
+     x="580.22382"
+     y="795.85553"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:17.0952px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.7995"
+     id="text16"
+     transform="scale(1.0652339,0.93876097)">Core Engine</text>
+  <circle
+     cx="970"
+     cy="450"
+     r="75"
+     fill="#f0fdfa"
+     stroke="#0d9488"
+     stroke-width="2"
+     id="circle16" />
+  <text
+     x="964.98865"
+     y="427.15302"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:28px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text17">4.0</text>
+  <text
+     x="1530.7439"
+     y="288.78873"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:16.3976px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.72606"
+     id="text18"
+     transform="scale(0.63342318,1.5787234)">Feedback Monitoring</text>
+  <text
+     x="1098.5975"
+     y="421.0524"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:17.8149px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.87525"
+     id="text19"
+     transform="scale(0.88017196,1.1361416)">&amp; Dashboards</text>
+  <ellipse
+     cx="602.7149"
+     cy="451.35745"
+     fill="#f0fdfa"
+     stroke="#0d9488"
+     stroke-width="2.01714"
+     id="circle19"
+     rx="77.70636"
+     ry="73.633965" />
+  <text
+     x="602.61627"
+     y="425.88104"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:28px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text20">5.0</text>
+  <text
+     x="691.62622"
+     y="392.25424"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:12.3101px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.2958"
+     id="text21"
+     transform="scale(0.87120642,1.1478336)">System Administration</text>
+  <text
+     x="700.64795"
+     y="404.50821"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:18.4598px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.94313"
+     id="text22"
+     transform="scale(0.85339175,1.1717948)">&amp; Maintenance</text>
+  <rect
+     x="488.12354"
+     y="272.39966"
+     width="261.66791"
+     height="50"
+     rx="0"
+     ry="0"
+     fill="#fffbeb"
+     stroke="none"
+     stroke-width="1.86098"
+     id="rect23" />
+  <line
+     x1="534.64203"
+     y1="270.95987"
+     x2="534.64203"
+     y2="320.95987"
+     stroke="#d97706"
+     stroke-width="1.5"
+     id="line24" />
+  <text
+     x="509.79669"
+     y="301.04965"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:22px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#b45309;stroke-width:2"
+     id="text24">D1</text>
+  <text
+     x="644.1283"
+     y="301.34219"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:21px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#b45309;stroke-width:2"
+     id="text25">Users Data Store</text>
+  <rect
+     x="468.84616"
+     y="580.2262"
+     width="292.17194"
+     height="50"
+     rx="0"
+     ry="0"
+     fill="#fffbeb"
+     stroke="none"
+     stroke-width="1.96647"
+     id="rect26" />
+  <line
+     x1="512.06671"
+     y1="580.86877"
+     x2="512.06671"
+     y2="630.86877"
+     stroke="#d97706"
+     stroke-width="1.5"
+     id="line24-4" />
+  <text
+     x="491.16681"
+     y="613.46692"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:22px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#b45309;stroke-width:2"
+     id="text27">D2</text>
+  <text
+     x="635.77631"
+     y="612.14069"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:21px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#b45309;stroke-width:2"
+     id="text28">Feedback Database</text>
+  <line
+     x1="230"
+     y1="150"
+     x2="525"
+     y2="150"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line28" />
+  <polygon
+     points="525,150 516.0,154.05 516.0,145.95"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon28" />
+  <rect
+     x="295.6"
+     y="109.5"
+     width="162.79999999999998"
+     height="21.0"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect28" />
+  <text
+     x="376.91455"
+     y="124.75879"
+     text-anchor="middle"
+     style="font-size:20px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text29">Signup / Login credentials</text>
+  <line
+     x1="970"
+     y1="150"
+     x2="675"
+     y2="150"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line29" />
+  <polygon
+     points="675,150 684.0,145.95 684.0,154.05"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon29" />
+  <rect
+     x="758.0"
+     y="109.5"
+     width="128.0"
+     height="21.0"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect29" />
+  <text
+     x="822.20508"
+     y="124.75879"
+     text-anchor="middle"
+     style="font-size:20px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text30">Access Login details</text>
+  <line
+     x1="600"
+     y1="225"
+     x2="600"
+     y2="270"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line30" />
+  <polygon
+     points="600,270 595.95,261.0 604.05,261.0"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon30" />
+  <line
+     x1="600"
+     y1="270"
+     x2="600"
+     y2="225"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line31" />
+  <polygon
+     points="600,225 604.05,234.0 595.95,234.0"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon31" />
+  <rect
+     x="541.8"
+     y="236.5"
+     width="116.39999999999999"
+     height="21.0"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect31" />
+  <text
+     x="753.1521"
+     y="200.49342"
+     text-anchor="middle"
+     style="font-size:13.6303px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.36303"
+     id="text31"
+     transform="scale(0.80115301,1.248201)">Verify / Save User</text>
+  <line
+     x1="126.77373"
+     y1="200"
+     x2="178.22627"
+     y2="390"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line32" />
+  <polygon
+     points="160,390 155.25424,381.34666 163.32912,380.70917 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon32"
+     transform="matrix(1.0189804,0,0,0.65335304,15.659663,141.40012)" />
+  <rect
+     x="71.273796"
+     y="249.21759"
+     width="128"
+     height="46.113121"
+     rx="4"
+     ry="8.783452"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.740922"
+     id="rect32" />
+  <text
+     x="127.72978"
+     y="281.81824"
+     text-anchor="middle"
+     style="font-size:13.9976px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.39976"
+     id="text32"
+     transform="scale(1.0530097,0.94965889)"><tspan
+       sodipodi:role="line"
+       id="tspan2"
+       x="127.72978"
+       y="281.81824"
+       style="stroke-width:1.39976">Submit</tspan><tspan
+       sodipodi:role="line"
+       id="tspan3"
+       x="127.72978"
+       y="299.31519"
+       style="stroke-width:1.39976">feedback text</tspan></text>
+  <line
+     x1="220"
+     y1="375"
+     x2="200"
+     y2="200"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line33" />
+  <polygon
+     points="200,200 205.045726644705,208.48193035970667 196.99811199618816,209.40165774810862"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon33" />
+  <rect
+     x="177.27962"
+     y="300.81784"
+     width="151.2"
+     height="21"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect33" />
+  <text
+     x="375.31363"
+     y="254.22404"
+     text-anchor="middle"
+     style="font-size:16.8825px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.68825"
+     id="text33"
+     transform="scale(0.80424383,1.243404)">Display sentiment &amp; recoommendation</text>
+  <line
+     x1="230"
+     y1="525"
+     x2="525"
+     y2="700"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line34" />
+  <polygon
+     points="525,700 515.1931903662113,698.8914041283543 519.325825864062,691.9249614319773"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon34" />
+  <rect
+     x="284.7"
+     y="589.5"
+     width="110.6"
+     height="21.0"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect34" />
+  <text
+     x="415.03293"
+     y="487.92776"
+     text-anchor="middle"
+     style="font-size:17.8126px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.78126"
+     id="text34"
+     transform="scale(0.80264102,1.245887)">Send text content</text>
+  <line
+     x1="525"
+     y1="675"
+     x2="280"
+     y2="500"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line35" />
+  <polygon
+     points="280,500 289.67761592542297,501.9355231850846 284.9695865562983,508.52676430185915"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon35" />
+  <rect
+     x="342.40317"
+     y="543.5498"
+     width="108.99458"
+     height="36.610859"
+     rx="2.273088"
+     ry="6.9734969"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.497672"
+     id="rect35" />
+  <text
+     x="381.35294"
+     y="578.99457"
+     text-anchor="middle"
+     style="font-size:11.8697px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.18697"
+     id="text35"
+     transform="scale(1.0383943,0.96302534)"><tspan
+       sodipodi:role="line"
+       id="tspan42"
+       x="381.35294"
+       y="578.99457"
+       style="stroke-width:1.18697">Return score class</tspan><tspan
+       sodipodi:role="line"
+       id="tspan43"
+       x="381.35294"
+       y="593.83167"
+       style="stroke-width:1.18697">&amp; Suggestion</tspan></text>
+  <line
+     x1="307.34479"
+     y1="448.13623"
+     x2="489.61823"
+     y2="571.2619"
+     stroke="#475569"
+     stroke-width="1.4102"
+     id="line36" />
+  <polygon
+     points="515,555 505.13894,554.59751 508.76137,547.35265 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon36"
+     transform="rotate(6.5824214,313.60218,409.56974)" />
+  <rect
+     x="328.72229"
+     y="481.97836"
+     width="128"
+     height="21"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect36" />
+  <rect
+     style="fill:#ffffff"
+     id="rect50"
+     width="88.788292"
+     height="29.756077"
+     x="1020.3455"
+     y="239.00848" />
+  <text
+     x="470.9245"
+     y="410.66769"
+     text-anchor="middle"
+     style="font-size:13.0096px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.30096"
+     id="text36"
+     transform="scale(0.82847398,1.2070385)">Write pending status</text>
+  <line
+     x1="996.68817"
+     y1="369.11084"
+     x2="1068.0288"
+     y2="201.42282"
+     stroke="#475569"
+     stroke-width="1.70584"
+     id="line47" />
+  <rect
+     x="998.49323"
+     y="236.2421"
+     width="186"
+     height="21"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect37" />
+  <text
+     x="1427.4"
+     y="192.02043"
+     text-anchor="middle"
+     style="font-size:13.9894px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.39894"
+     id="text37"
+     transform="scale(0.75962732,1.316435)">Resolve / Ignore feedback logs</text>
+  <line
+     x1="930.24249"
+     y1="384.91928"
+     x2="1004.8706"
+     y2="209.58298"
+     stroke="#475569"
+     stroke-width="1.78405"
+     id="line38" />
+  <polygon
+     points="973.7421,207.63159 980,200 981.56154,209.74495 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon38"
+     transform="translate(27.74571,0.9187014)" />
+  <line
+     x1="930.24249"
+     y1="384.91928"
+     x2="1004.8706"
+     y2="209.58298"
+     stroke="#475569"
+     stroke-width="1.78405"
+     id="line46" />
+  <rect
+     style="fill:#ffffff"
+     id="rect49"
+     width="87.108513"
+     height="18.717533"
+     x="922.91833"
+     y="267.56473" />
+  <text
+     x="1145.0836"
+     y="232.97697"
+     text-anchor="middle"
+     style="font-size:14.0376px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.40376"
+     id="text38"
+     transform="scale(0.82509312,1.2119844)">Real-time statistics reports</text>
+  <line
+     x1="923.50043"
+     y1="518.33276"
+     x2="770.34503"
+     y2="580.51239"
+     stroke="#475569"
+     stroke-width="1.07742"
+     id="line39" />
+  <polygon
+     points="685,555 693.52658,550.03009 694.37452,558.08558 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon39"
+     transform="rotate(-19.840782,807.36272,349.40394)" />
+  <polygon
+     points="960.62548,521.91442 970,525 961.47342,529.96991 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon40"
+     transform="rotate(-21.839235,922.22866,619.70813)" />
+  <rect
+     x="805.05432"
+     y="532.5769"
+     width="186"
+     height="21"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect40" />
+  <text
+     x="1198.0695"
+     y="418.24731"
+     text-anchor="middle"
+     style="font-size:15.7599px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.57599"
+     id="text40"
+     transform="scale(0.76129868,1.3135449)">Fetch &amp; Update feedback status</text>
+  <line
+     x1="970"
+     y1="675"
+     x2="675"
+     y2="480"
+     stroke="#475569"
+     stroke-width="1.5"
+     id="line41" />
+  <polygon
+     points="675,480 684.7412762775006,481.5843094664256 680.274668866132,488.34148478106016"
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon41" />
+  <rect
+     x="821.10138"
+     y="612.39594"
+     width="209.2"
+     height="36.610859"
+     rx="4"
+     ry="6.9734969"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.660185"
+     id="rect41" />
+  <text
+     x="1015.3806"
+     y="574.18512"
+     text-anchor="middle"
+     style="font-size:18.6995px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:1.86995"
+     id="text41"
+     transform="scale(0.90329871,1.1070535)">Configure Rules &amp; User Permissions</text>
+  <line
+     x1="600.99658"
+     y1="368.44763"
+     x2="599.22968"
+     y2="326.80124"
+     stroke="#475569"
+     stroke-width="1.53387"
+     id="line42" />
+  <polygon
+     points="558.87296,324.32124 552.65036,329.50674 550,320 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon42"
+     transform="matrix(0.80042227,0.40005451,-0.63092833,0.50752601,360.68898,-60.602854)" />
+  <polygon
+     points="600,380 591.12704,375.67876 597.34964,370.49326 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon43"
+     inkscape:transform-center-x="5.9934819"
+     inkscape:transform-center-y="-1.8993881"
+     transform="matrix(0.82682385,0.4000592,-0.59197543,0.55877064,330.87185,-77.991066)" />
+  <rect
+     x="550.53302"
+     y="335.92535"
+     width="116.4"
+     height="21"
+     rx="4"
+     ry="4"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.5"
+     id="rect43" />
+  <text
+     x="605.64209"
+     y="353.89908"
+     text-anchor="middle"
+     style="font-size:20px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text43">Config D1 profiles</text>
+  <line
+     x1="616.97449"
+     y1="571.31958"
+     x2="615.0946"
+     y2="534.02661"
+     stroke="#475569"
+     stroke-width="1.10187"
+     id="line44" />
+  <polygon
+     points="559.22774,478.50018 553.50018,484.22774 550,475 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon44"
+     transform="rotate(42.720532,519.18253,582.50101)" />
+  <polygon
+     points="590.77226,521.49982 596.49982,515.77226 600,525 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon45"
+     transform="rotate(45.86233,543.24714,573.00548)" />
+  <rect
+     x="564.94849"
+     y="537.41498"
+     width="104.8"
+     height="28.678988"
+     rx="4"
+     ry="5.4626641"
+     fill="#ffffff"
+     stroke="none"
+     stroke-width="0.584309"
+     id="rect45" />
+  <text
+     x="643.46814"
+     y="558.39349"
+     text-anchor="middle"
+     style="font-size:20px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:2"
+     id="text45">Backup D2 audits</text>
+  <polygon
+     points="973.7421,207.63159 980,200 981.56154,209.74495 "
+     fill="#475569"
+     stroke="#475569"
+     stroke-width="0.5"
+     id="polygon47"
+     transform="matrix(-1.1619476,0,0,-1.0643298,2131.998,591.56712)" />
+  <text
+     xml:space="preserve"
+     style="writing-mode:lr-tb;direction:ltr;fill:#ffffff"
+     x="1330.9955"
+     y="143.21268"
+     id="text51"><tspan
+       sodipodi:role="line"
+       id="tspan51"
+       x="1330.9955"
+       y="143.21268">s</tspan></text>
+  <text
+     xml:space="preserve"
+     style="writing-mode:lr-tb;direction:ltr;fill:#ffffff"
+     x="1276.0181"
+     y="221.26697"
+     id="text52"><tspan
+       sodipodi:role="line"
+       id="tspan52"
+       x="1276.0181"
+       y="221.26697">s</tspan></text>
+  <text
+     xml:space="preserve"
+     style="writing-mode:lr-tb;direction:ltr;fill:#ffffff"
+     x="118.09955"
+     y="263.34842"
+     id="text23"><tspan
+       sodipodi:role="line"
+       id="tspan4"></tspan></text>
+  <text
+     xml:space="preserve"
+     style="writing-mode:lr-tb;direction:ltr;fill:#000000"
+     x="769.00452"
+     y="707.23981"
+     id="text26"><tspan
+       sodipodi:role="line"
+       id="tspan26"
+       x="769.00452"
+       y="707.23981" /></text>
+  <text
+     xml:space="preserve"
+     id="text39"
+     style="fill:#000000;text-orientation:auto;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect39)" />
+</svg>

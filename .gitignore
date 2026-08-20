@@ -1,0 +1,55 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+.history
+
+# IntelliJ & VS Code
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# Python / Machine Learning
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Backups & Archives
+backups/
+*.tar.gz
+*.zip
+*.rar
+
+# Flutter/Dart
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+coverage/
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+linux/flutter/ephemeral/
+windows/flutter/ephemeral/
+
+# App symbols & maps
+app.*.symbols
+app.*.map.json

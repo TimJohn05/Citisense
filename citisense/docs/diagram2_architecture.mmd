@@ -1,0 +1,32 @@
+flowchart TD
+    subgraph Client Layer
+        C[Citizen Mobile App<br>Mobile Feedback Form, Image Upload]
+        B[Barangay Web Portal<br>Sentiment Stats, Feedback Console]
+        A[Admin Maintenance Console<br>User Management, System Configs]
+    end
+
+    subgraph Service Layer
+        S[Core Application Server<br>Route Handlers, State Management]
+    end
+
+    subgraph Core Engines Layer
+        SE[Sentiment Analysis Engine<br>Naïve Bayes Classifier]
+        RE[Recommendation Engine<br>Rule-Based Mapper]
+    end
+
+    subgraph Data Layer
+        DB[(Database Storage<br>Users, Feedbacks, Sentiment Logs)]
+    end
+
+    C -- "Submit Feedback (Signal: Message Text)" --> S
+    S -- "Sentiment & Recommendation Result" --> C
+    
+    B <-- "Query Stats / Update Status Action" --> S
+    A <-- "Update System Rules / Audit Logs" --> S
+
+    S -- "Send Text" --> SE
+    SE -- "Return Class" --> S
+
+    S <-- "Get Recommendation" --> RE
+    
+    S <-- "Read / Write Data" --> DB
