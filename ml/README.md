@@ -45,6 +45,32 @@ python train_model.py          # trains + evaluates + saves all 3 models
 After training, `train_model.py` runs a quick interactive test with sample
 Taglish sentences to sanity-check category/sentiment/urgency predictions.
 
+## Testing the models (100 scenarios)
+
+There is a dedicated test harness that runs the trained models against a
+fixed set of 100 Taglish scenarios and writes a full report to a file.
+
+```bash
+cd ~/SE2-Project/ml
+
+# 1. Regenerate the fixed 100-scenario test set (optional)
+python3 generate_test_scenarios.py     # -> test_scenarios.csv
+
+# 2. Run the test and write results to a file
+python test_nlp.py                       # -> test_results.txt
+python test_nlp.py my_out.txt            # custom output path
+python test_nlp.py scenarios.csv out.txt # custom input + output
+```
+
+- **`generate_test_scenarios.py`** — writes `test_scenarios.csv` (100 hand-written
+  Taglish scenarios covering all 11 categories, all sentiments, all urgencies).
+  These are **held out** (not used for training) so the report measures real
+  generalization.
+- **`test_nlp.py`** — loads the Keras models + encoders, predicts
+  sentiment/category/urgency for every scenario, prints a live progress line,
+  and writes `test_results.txt`: an accuracy summary plus per-scenario detail
+  (actual vs. predicted + confidence for each task).
+
 ## Model files (saved_models/)
 
 | File | Purpose |

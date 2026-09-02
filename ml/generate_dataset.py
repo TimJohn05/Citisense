@@ -662,6 +662,205 @@ AUGMENTATION_TYPOS = {
 }
 
 
+# Extra diverse templates (v3) to broaden real-world vocabulary coverage.
+# These use natural phrasing + vocabulary seen in genuinely new Taglish reports
+# (e.g. "pundido", "streetlight", "Maharlika", "potholes", "dumpsite").
+EXTRA_TEMPLATES = [
+    # WASTE (vocab: dumpsite, landfill, recycle, hauler, feste, basurahan)
+    {'category': 'waste', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "May programa po ba kayo para sa pagre-recycle ng plastic dito sa barangay?",
+        "Paano po mag-apply ng dagdag na basurahan para sa aming purok?",
+        "Saan po itinatapon ang mga lumang gamit at appliances? May e-waste drive po ba?",
+        "Ano po ang schedule ng hauler ng basura sa aming lugar?",
+        "Magkano po ang bayad para sa koleksyon ng malalaking basura o furniture?",
+    ]},
+    {'category': 'waste', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "May nagsasagawa ng illegal dumpsite sa bakanteng lote, ang tagal na pong nag-ipon ng basura.",
+        "Sinunog po ng kapitbahay ang tambak ng dahon at basura, makapal ang usok at mabaho sa paligid.",
+        "Hindi dumadating ang basurero sa schedule, dalawang linggo na pong nakapila ang basura sa tapat ng bahay.",
+        "Ang daming basura na nakakalat sa ilog at sapa, nakabara po at nagdudulot ng baha.",
+        "May nagtapon ng malaking basura sa tabi ng daan, nakakaharang at pangit tingnan.",
+    ]},
+    {'category': 'waste', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Salamat po at napalitan na ang basurahan sa plaza, maayos at malinis na po.",
+        "Ang galing ng cleanup drive kahapon, naalis lahat ng basura sa ilog at kalsada.",
+        "Magaling po ang bagong schedule ng basura, on time na dumadating ang hauler.",
+    ]},
+
+    # ROAD (vocab: Maharlika, potholes, bangketa, speed bump, lubak, subdibisyon)
+    {'category': 'road', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "Kailan po ba matatapos ang repair ng kalsada sa may subdibisyon? Mahaba na ang pila ng sasakyan.",
+        "Pwede po bang mag-request ng speed bump malapit sa school dahil mabilis magpatakbo ang mga sasakyan?",
+        "May schedule po ba ang LGU para sa re-block ng sira-sirang kalsada sa baryo?",
+        "Magkano po ang bayad kung magpapagawa ng bangketa sa harap ng bahay?",
+        "Sinong opisina po ang sumasagot sa reklamo tungkol sa lubak sa pangunahing daan?",
+    ]},
+    {'category': 'road', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "Malalim na pothole po sa may Maharlika Highway, bumubulusok ang mga sasakyan at delikado sa motorsiklo.",
+        "Gumuhong kalsada po sa loob ng subdivision, hindi na madaan ng bisikleta at kotse.",
+        "Sirang bangketa po sa harap ng paaralan, talagang madatnan at pwedeng matumba ang matatanda.",
+        "Nawawala ang road sign at mga marker, tila gulo na po ang daloy ng trapiko doon.",
+        "Ang daming cracks at bitak sa daan, pano na lang pag umulan, lalo pang gumanda ang lubak.",
+        "May nagba-barikada sa kalsada ng hindi nagpapaalam dahil sa construction, mabilis po sana.",
+    ]},
+    {'category': 'road', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Salamat po at naayos na ang nahukay na daan, maayos na ulit ang daanan sa aming baryo.",
+        "Ang ganda ng bagong aspalto at markings, ligtas na po ang mga nagtitinda sa bangketa.",
+        "Na-repave na po ang access road sa amin, salamat at hindi na maputik tuwing umuulan.",
+    ]},
+
+    # WATER (vocab: CWD, gripo, presyon, interruption, tagas)
+    {'category': 'water', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "May advisory po ba ang CWD tungkol sa water interruption sa aming lugar bukas?",
+        "Saan po sumusuring magreklamo ng mataas na singil sa tubig? Sa opisina ng CWD po ba?",
+        "Magkano po ang bayad sa bagong water connection para sa bagong bahay?",
+        "Kailan po ang maintenance ng mga tubo dito sa amin? May nakaraan na pong anunsyo?",
+    ]},
+    {'category': 'water', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "Sayang po ang malakas na tagas sa tubo sa tapat ng bahay namin, umaagos araw at gabi.",
+        "Mababa na naman po ang presyon ng tubig tuwing umaga, halos pumapatak na lang.",
+        "Malagkit at madilaw po ang tubig na lumalabas sa gripo, ayaw ko pong inumin ng pamilya ko.",
+        "May lasa po na kalawang ang tubig ngayon, nakakapagtaka kung safe pa bang inumin.",
+        "Bigla pong nawalan ng supply ng tubig ngayon walang abiso, may kasamang toilet na hindi magamit.",
+    ]},
+    {'category': 'water', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Salamat po at agad na inayos ng CWD ang tagas, naibalik na ang malinaw na daloy ng tubig.",
+        "Maayos na po muli ang daloy ng tubig ngayon, salamat at na-store namin ngayon para sa tag-araw.",
+    ]},
+
+    # LIGHTING (vocab: pundido, streetlight, ilaw, eskinita, kanto)
+    {'category': 'lighting', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "Sino po ba ang maintenance ng mga streetlight? Meralco po ba o barangay?",
+        "May plano po ba na maglagay ng bagong ilaw sa madilim na daanan papuntang palengke?",
+        "Paano po makahingi ng bagong poste o ilaw sa aming eskinita?",
+    ]},
+    {'category': 'lighting', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "Pundido na naman po ang ilaw sa kanto ng aming looban, nakakatakot na umuwi ng gabi.",
+        "Ang dilim sa daanan papuntang paaralan, takot pong maglakad ang mga bata at baka ma-aksidente.",
+        "Kumikislap-kislap po ang poste ng ilaw sa may tindahan, tila maluwag ang koneksyon at delikado.",
+        "Mahina at madilaw po ang liwanag ng bagong streetlight, parang walang silbi sa gabi.",
+    ]},
+    {'category': 'lighting', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Maliwanag na po ulit ang buong daan dahil sa bagong ilaw, mas ligtas na maglakad sa gabi.",
+        "Nakakaengganyo pong lumabas ng bahay ngayon dahil maliwanag na ang kalsada, salamat.",
+    ]},
+
+    # PEACE & ORDER (vocab: videoke, tanod, lasing, patrulya, ingay)
+    {'category': 'peace_order', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "Ano po ang curfew hours para sa mga menor de edad sa barangay natin?",
+        "May patrulya po ba tuwing gabi sa aming lugar? Anong oras karaniwang dumadaan?",
+        "Paano po mag-file ng tulong para sa magulong kapitbahay na paulit-ulit?",
+    ]},
+    {'category': 'peace_order', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "May nag-iinuman po at nag-iingay sa tapat ng bahay namin, may bumubulyaw pa sa mga dumadaan.",
+        "Napakalakas po ng videoke ng kapitbahay kahit weeknight, nakakaistorbo sa pamilya ko.",
+        "May lasing pong nagwawala sa kanto, paki-tingnan at pakiusapan na umuwi na.",
+        "Mayaway-away po ang mga tambay dito tuwing gabi, natatakot na pong lumabas ang mga bata.",
+    ]},
+    {'category': 'peace_order', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Payapa na po ngayon ang aming lugar dahil sa masipag na mga tanod at patrulya.",
+        "Salamat po sa mabilis na pagtugon ng tanod sa ingay na reklamo namin kagabi, tahimik na po.",
+    ]},
+
+    # TRAFFIC OBSTRUCTION (vocab: parking, vendor, truck, terminal, lane)
+    {'category': 'traffic_obstruction', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "May designated parking po ba para sa mga truck at delivery van sa may palengke?",
+        "Pwede po bang mag-request ng no parking sign sa harap ng gate ng subdivision?",
+        "May traffic scheme po ba kapag may pista at maraming sasakyan ang pumupunta?",
+    ]},
+    {'category': 'traffic_obstruction', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "May naka-park po na malaking truck sa makitid na daan, hindi makadaan ang ibang sasakyan at jeep.",
+        "Nakaharang po ang vendor sa pedestrian lane, napipilitan maglakad sa kalsada ang mga tao.",
+        "Matinding traffic po dahil may na-stall na sasakyan sa gitna ng kanto, walang nagta-traffic.",
+        "May nakaparadang sasakyan na lumampas sa linya, barado na po ang daanan papasok sa eskinita.",
+    ]},
+    {'category': 'traffic_obstruction', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Maayos na po ang daloy ng trapiko ngayon, salamat at inilipat ang mga vendor sa tamang lugar.",
+        "Salamat sa traffic enforcer, mabilis na po dumaan ang mga sasakyan sa may crossing.",
+    ]},
+
+    # FLOOD / DRAINAGE (vocab: kanal, estero, baha, drainage, dredging)
+    {'category': 'flood_drainage', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "May schedule po ba ng pagdredge sa kanal at estero dito sa baryo?",
+        "Saan po mag-uulat ng baradong drainage na nagdudulot ng baha? Sa CENRO po ba?",
+        "May flood-prone area po ba sa lugar natin na dapat bantayan tuwing bagyo?",
+    ]},
+    {'category': 'flood_drainage', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "Bumabaha po kahit bahagyang ulan sa may aming baryo, parang lumalala na taon-taon ang baha.",
+        "Barado po ang kanal sa tapat ng bahay, umaapaw ang maruming tubig kapag maulan.",
+        "Umapaw po ang estero dahil sa nakabara na basura, mabaho at hindi madaraanan.",
+        "May stagnant water po sa may pinaggagawa ng drainage, pugad po ng lamok at sakit.",
+    ]},
+    {'category': 'flood_drainage', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Salamat at mabilis na humupa ang baha ngayon dahil sa bagong drainage na ginawa.",
+        "Maayos na po ang daloy ng kanal ngayon, hindi na umaapaw ang maruming tubig dito.",
+    ]},
+
+    # HEALTH / SANITATION (vocab: lamok, paksiw, basura, alagang, disorder)
+    {'category': 'health_sanitation', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "May libreng bakuna po ba ngayong linggo sa health center natin?",
+        "Saan po magpapa-fogging para maiwasan ang dengue sa aming lugar?",
+        "Paano po mag-report ng maruming establishment na maaaring kaagapay ng sakit?",
+    ]},
+    {'category': 'health_sanitation', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "Maraming lamok po dahil sa stagnant na tubig sa paligid, takot po kami sa dengue.",
+        "Mabaho at maraming daga po sa palengke, tila hindi maayos ang sanitation doon.",
+        "May nagsisiga po ng basura at plastik na nagdudulot ng makapal na usok at sakit sa baga.",
+        "May patay na alagang nakaiwan po sa kalye na nabulok na, nakakatakot at nakakatay ng sakit.",
+        "Ang daming stray na aso at pusa, may nakagat na bata at inaalala naming may rabies.",
+    ]},
+    {'category': 'health_sanitation', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Malinis at maayos na po ang health center ngayon, komportable pong pumila ang mga pasyente.",
+        "Salamat po sa libreng medical mission, maraming kabataan at matanda ang natulungan.",
+    ]},
+
+    # ELECTRICAL HAZARD (vocab: wire, transformer, poste, spark, brownout)
+    {'category': 'electrical_hazard', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "Paano po mag-report ng maluwag na wire sa poste sa Meralco?",
+        "May schedule po ba ng tree trimming malapit sa linya ng kuryente dito?",
+        "Kailan po ba maiinspeksyon ang mga lumang poste na wala nang silbi sa baryo?",
+    ]},
+    {'category': 'electrical_hazard', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "May nakalantad na wire po na sumasagi sa bubong, nakakatakot pong may ma-kuryente.",
+        "Sumasabog-sparks po ang poste ng transformer sa may palengke, delikado po sa mga tao.",
+        "Palaging may brownout po sa aming purok, nakakasira ng appliances at TV namin.",
+        "May amoy sunog po galing sa poste malapit sa amin, tila may short circuit na nangyayari.",
+    ]},
+    {'category': 'electrical_hazard', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Salamat po at inayos ng Meralco ang nakasabit na wire, mukhang ligtas na po ulit.",
+        "Na-replace na po ang sirang transformer, tuluy-tuloy na ang kuryente sa baryo namin.",
+    ]},
+
+    # PUBLIC FACILITIES (vocab: covered court, playground, palikuran, bench, fountain)
+    {'category': 'public_facilities', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "Pwede po bang mag-reserve ng covered court para sa aming family reunion?",
+        "May plan po ba na mag-refurbish ng playground at palikuran ng barangay?",
+        "Sino po ang namamahala sa maintenance ng mga public facilities natin?",
+    ]},
+    {'category': 'public_facilities', 'sentiment': 'negative', 'urgency': 'moderate', 'texts': [
+        "Sira po ang upuan at ilaw sa covered court, hindi maayos gamitin para sa mga event.",
+        "Malapit nang matumba ang swing sa playground, delikado po para sa maliliit na bata.",
+        "Marumi at sira na po ang palikuran sa palengke, walang tubig at kawawa ang mga tao.",
+        "Di gumagana ang water fountain sa plaza, nasasayang po ang laman kaya walang mapainom ang mga bata.",
+        "Vandalized po ang mga bench at sign, pangit tingnan at kailangan nang ayusin.",
+    ]},
+    {'category': 'public_facilities', 'sentiment': 'positive', 'urgency': 'low', 'texts': [
+        "Salamat po at inayos na ang playgroud at parke, masaya na namang maglaro ang mga bata.",
+        "Maganda at malinis na po ang bagong bahagi ng barangay hall, komportable na pumila.",
+    ]},
+
+    # GENERAL INQUIRY (vocab: clearance, certificate, opisa, ayuda, dokumento)
+    {'category': 'general_inquiry', 'sentiment': 'neutral', 'urgency': 'low', 'texts': [
+        "Anong araw at oras po bukas ang opisina ng barangay para sa pagkuha ng clearance?",
+        "Magkano po ang makeup para sa certificate of residency o indigency?",
+        "Ilang araw po bago makuha ang barangay clearance matapos magbayad?",
+        "Paano po mag-apply para sa cash assistance o ayuda ng barangay?",
+        "Ano pong dokumento ang kailangan para sa online na reklamo o katanungan?",
+        "May process po ba para sa lost ID at replacement? Saan po ako pupunta?",
+    ]},
+]
+
+
 def augment_text(text):
     words = text.split()
     if len(words) < 5:
@@ -696,9 +895,11 @@ def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp
     attempts = 0
     max_attempts = target_count * 20
 
+    all_templates = TEMPLATES + EXTRA_TEMPLATES
+
     while len(rows) < target_count and attempts < max_attempts:
         attempts += 1
-        tpl_group = random.choice(TEMPLATES)
+        tpl_group = random.choice(all_templates)
         loc = random.choice(LOCATIONS)
         prefix = random.choice(PREFIXES)
         base_text = random.choice(tpl_group['texts']).format(loc=loc)
@@ -737,4 +938,4 @@ def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp
 
 
 if __name__ == '__main__':
-    generate_dataset(target_count=3000)
+    generate_dataset(target_count=6000)
