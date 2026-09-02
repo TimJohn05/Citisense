@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-CitiSense NLP Synthetic Data Generator & Augmenter (10-Category Civic Taxonomy).
-Generates realistic contextual Taglish civic complaints for sentiment,
-10-category classification, and urgency scoring.
+CitiSense NLP Synthetic Data Generator v2 (11-Category Civic Taxonomy).
+Generates diverse, realistic Taglish/English/slang civic complaints
+for Calamba City, Laguna based on real community issues.
 """
 
 import csv
@@ -27,21 +27,51 @@ SENTIMENTS = ['negative', 'neutral', 'positive']
 URGENCIES = ['low', 'moderate', 'emergency']
 
 LOCATIONS = [
-    'sa kanto ng Barandal',
+    'sa Brgy. Parian',
+    'sa Brgy. Canlubang',
+    'sa Brgy. Real',
+    'sa Brgy. Looc',
+    'sa Brgy. Bucal',
+    'sa Brgy. Pansol',
+    'sa Brgy. Mapagong',
+    'sa Brgy. Halang',
+    'sa Brgy. Saimsim',
+    'sa Brgy. Crossing',
+    'sa Brgy. Barandal',
+    'sa Brgy. Turbina',
+    'sa Brgy. Lawa',
+    'sa Brgy. Bagong Kalsada',
+    'sa Brgy. San Cristobal',
+    'sa Brgy. Makiling',
+    'sa Brgy. Batino',
+    'sa Brgy. Bubuyan',
+    'sa Brgy. Lingga',
+    'sa Brgy. Banlic',
     'sa may Purok 4',
+    'sa may Purok 6 extension',
+    'sa Block 8 Lot 15',
     'sa tapat ng covered court',
     'sa tabi ng chapel',
     'sa may Bucal bypass road',
     'sa tapat ng elementary school',
-    'sa Block 8 Lot 15',
     'sa may crossing papuntang palengke',
     'sa gilid ng barangay hall',
     'sa may tulay ng San Cristobal',
-    'sa Purok 6 extension',
     'sa tabi ng bakery',
     'sa may Phase 2 subdivision gate',
     'sa tapat ng daycare center',
-    'sa kahabaan ng main avenue'
+    'sa kahabaan ng main avenue',
+    'sa tapat ng health center',
+    'sa may gasoline station',
+    'sa tabi ng simbahan',
+    'sa harap ng public market',
+    'sa may terminal ng jeep',
+    'sa likod ng munisipyo',
+    'sa tabi ng creek',
+    'sa may Calamba-Tagaytay road',
+    'sa may national highway',
+    'sa may basketball court',
+    'sa tapat ng Calamba Medical Center',
 ]
 
 PREFIXES = [
@@ -55,10 +85,25 @@ PREFIXES = [
     'Magandang araw po,',
     'Hello po admin / desk officer,',
     'Concerned citizen here:',
+    'Uy may problema dito,',
+    'Paki-action naman po,',
+    'Sobrang nakaka-stress na po,',
+    'Please lang po,',
+    'Gusto ko lang ipaalam na',
+    'Hi po, nagrereklamo lang po,',
+    'Ayusin nyo naman po to,',
+    'Sana po mapansin,',
+    'Urgent po ito,',
+    'Nagreport na po kami dati pero',
+    'FYI lang po sa barangay,',
+    'Barangay update:',
+    'Good evening po,',
+    'Di na po namin kinakaya,',
+    'Para sa kapakanan ng lahat,',
     '',
 ]
 
-# Comprehensive Templates for 10+ Civic Categories
+
 TEMPLATES = [
     # ==================== 1. WASTE MANAGEMENT ====================
     {
@@ -70,7 +115,27 @@ TEMPLATES = [
             "Hindi pa rin nahahakot ang mga nabubulok na kalat {loc} simula pa noong isang linggo.",
             "Puno na po at umaapaw ang garbage bin {loc}, kumakalat na ang dumi sa kalsada.",
             "Mabaho at nakaharang sa bangketa ang mga plastic bag ng basura {loc}.",
-            "May nagtatapon po ng patapong construction debris at sirang gamit {loc}."
+            "May nagtatapon po ng patapong construction debris at sirang gamit {loc}.",
+            "The trash bins are full and stinking na {loc}, please collect na po.",
+            "Grabe yung garbage {loc}, puro langaw at daga na ang umiikot.",
+            "Ilang araw na pong hindi dinadaan ng garbage truck {loc}, ang baho na.",
+            "Nakakalat na po ang basura sa kalsada {loc} kasi walang trash bin.",
+            "May nagtapon ng dead animal {loc}, ang baho po at health hazard na.",
+            "Overflowing na po yung trash can {loc} at kumakalat sa bangketa.",
+            "Maraming basura ang nakakalat {loc} dahil walang regular na collection.",
+            "Ang daming nakatambak na plastic at styrofoam {loc}, parang landfill na.",
+            "Hindi segregated ang basura na tinitipon {loc}, halo-halo lahat.",
+            "May illegal dumping ng hospital waste {loc}, delikado po sa mga bata.",
+        ]
+    },
+    {
+        'category': 'waste',
+        'sentiment': 'negative',
+        'urgency': 'emergency',
+        'texts': [
+            "May nagsisiga po ng goma at plastic {loc}, napakakapal ng maitim na usok at nahihirapan huminga ang mga bata!",
+            "Nasusunog ang tambak na basura {loc}, kumakalat na ang apoy sa mga bahay!",
+            "May nagtatapon ng toxic chemical waste {loc}, napapaso ang balat ng mga dumadaan!",
         ]
     },
     {
@@ -81,7 +146,9 @@ TEMPLATES = [
             "Maraming salamat po sa mga basurero at tanod, nahakot na po agad ang basura {loc}.",
             "Napakalinis na po ng paligid {loc} pagkatapos ng cleanup drive kaninang umaga!",
             "Thank you po kapitan sa mabilis na pag-aksyon sa tambak na basura sa may street namin.",
-            "Maaliwalas at walang amoy na ang paligid {loc}, saludo sa sanitation team."
+            "Maaliwalas at walang amoy na ang paligid {loc}, saludo sa sanitation team.",
+            "Na-address na po yung garbage problem {loc}, ang linis na ngayon. Salamat!",
+            "Kudos sa barangay waste team, consistent na ang collection schedule {loc}.",
         ]
     },
     {
@@ -91,7 +158,10 @@ TEMPLATES = [
         'texts': [
             "Ano po ba ang bagong schedule ng collection ng biodegradable waste {loc}?",
             "Naitanong ko lang po kung pwede mag-request ng dagdag na trash bin {loc}.",
-            "Hindi naman marumi pero sana maglagay ng sign na bawal magtapon {loc}."
+            "Hindi naman marumi pero sana maglagay ng sign na bawal magtapon {loc}.",
+            "Kailan po ang susunod na cleanup drive {loc}? Gusto po naming sumali.",
+            "May separate collection ba for recyclables and e-waste {loc}?",
+            "Paano po mag-report ng illegal dumping {loc}? Sino po tatawagan?",
         ]
     },
 
@@ -101,11 +171,18 @@ TEMPLATES = [
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
-            "May malaking lubak sa kalsada {loc}, sumasabit ang ilalim ng mga sasakyan at motor.",
-            "Sirang-sira na po ang semento {loc}, baku-bako at delikado kapag gabi.",
-            "Masyadong madulas ang putik sa kalsada {loc} dahil sa mga truck na labas-pasok.",
-            "Basag ang gilid ng gutter {loc} baka matapilok ang mga naglalakad.",
-            "Kailangan po ng speed humps {loc}, mabilis magpatakbo ang mga tricycle at motor."
+            "Malaki po ang lubak {loc}, lalo na kapag umuulan delikado sa motor.",
+            "Sira na po ang aspalto at nagka-crack ang kalsada {loc}, nasira ang gulong ng motor ko.",
+            "Walang road markings at lane separator {loc}, gulo ng daloy ng traffic.",
+            "May aksidente na naman po dahil sa lubak {loc}, sana ayusin na.",
+            "Grabe ang potholes {loc}, parang obstacle course na ang kalsada.",
+            "The road {loc} is badly damaged, full of cracks and potholes.",
+            "Ang hirap dumaan sa kalsada {loc}, baka mag-cause ng accident.",
+            "Nasira na po ang drainage cover {loc}, bukas na ang butas sa gitna ng kalsada.",
+            "Ang gutter {loc} ay collapsed na, bumabaha pag umuulan.",
+            "Yung road shoulder {loc} gumuho na po, delikado sa mga pedestrian.",
+            "Hindi pa natapos ang road widening project {loc}, ang hirap dumaan.",
+            "Nawawala yung manhole cover {loc}, baka may mahulog na bata.",
         ]
     },
     {
@@ -113,8 +190,9 @@ TEMPLATES = [
         'sentiment': 'negative',
         'urgency': 'emergency',
         'texts': [
-            "May malalim na sinkhole o bitak sa kalsada {loc}, delikadong mahulog ang sasakyan!",
-            "Gumuho po ang maliit na riprap sa tabi ng kalsada {loc} dahil sa ulan kahapon."
+            "Bumagsak po ang concrete barrier {loc}, nakaharang sa buong kalsada at may nasagasaan na!",
+            "Nawala ang manhole cover {loc} at may nahulog na bata sa drain, tulungan po!",
+            "Gumuho ang isang bahagi ng kalsada {loc} dahil sa pagbaha, hindi na madaanan!",
         ]
     },
     {
@@ -122,9 +200,10 @@ TEMPLATES = [
         'sentiment': 'positive',
         'urgency': 'low',
         'texts': [
-            "Naaspalto at napatag na po ang kalsada {loc}, maayos at smooth na ang biyahe!",
             "Salamat sa engineering team, naayos na agad ang sirang gutter at lubak {loc}.",
-            "Maganda ang pagkakagawa ng humps {loc}, safe na tumawid ang mga bata."
+            "Na-repave na po ang kalsada {loc}, ang ganda at smooth na ulit. Thank you!",
+            "Thank you po sa road repair team, naayos na yung potholes {loc}.",
+            "Napakaganda ng bagong kalsada {loc}, malinis at may markings na.",
         ]
     },
     {
@@ -132,9 +211,11 @@ TEMPLATES = [
         'sentiment': 'neutral',
         'urgency': 'low',
         'texts': [
-            "Kailan po kaya masisimulan ang road widening project {loc}?",
-            "May road repair signage po ba na ilalagay habang ongoing ang construction {loc}?",
-            "Nais lang po malaman kung bukas ang daan para sa mga delivery van {loc}."
+            "Nais lang po malaman kung bukas ang daan para sa mga delivery van {loc}.",
+            "May road repair schedule po ba ang LGU para sa kalsada {loc}?",
+            "Hanggang kailan po ang road closure {loc} dahil sa construction?",
+            "Pwede po bang mag-request ng speed bump installation {loc}?",
+            "Saan po pwede mag-report ng damaged road {loc} sa city hall?",
         ]
     },
 
@@ -144,9 +225,17 @@ TEMPLATES = [
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
-            "Napakalabo at kulay kalawang po ng lumalabas na tubig sa gripo {loc}.",
-            "Mahina po ang tulo ng tubig tuwing umaga {loc}, hindi makaipon para sa pampaligo.",
-            "Tatlong araw na pong putol-putol ang serbisyo ng tubig {loc}."
+            "Matagal ng walang tubig {loc}, pangatlong araw na po!",
+            "Maputik at mabaho ang lumalabas sa gripo {loc}, hindi po ito safe inumin.",
+            "Napakahina ng pressure ng tubig {loc} lalo na pag tanghali.",
+            "May tumatagaktak na putik mula sa gripo {loc}, parang galing sa maruming source.",
+            "Kulay brown ang tubig na lumalabas sa faucet {loc}, diko ipapainom sa family ko.",
+            "Walang water supply {loc} for 3 days na, sobrang hirap po.",
+            "The water {loc} is yellowish and smells bad, we can't use it.",
+            "Ang baho ng tubig na lumalabas {loc}, parang may lasang kalawang.",
+            "Low water pressure {loc}, halos hindi na tumatakbo ang washing machine.",
+            "May toxic foam na nakita sa ilog malapit {loc}, baka contaminated na ang tubig namin.",
+            "Pumutok po ang water pipe {loc}, nasasayang ang tubig at bumabaha sa kalsada.",
         ]
     },
     {
@@ -154,8 +243,9 @@ TEMPLATES = [
         'sentiment': 'negative',
         'urgency': 'emergency',
         'texts': [
-            "Pumutok po ang main water pipe {loc}, rumaragasa ang tubig sa kalsada at nawalan ng supply ang buong purok!",
-            "Walang-wala pong tubig simula pa kahapon {loc}, kailangan na po ng emergency water delivery truck."
+            "Walang tubig sa buong barangay {loc} simula pa kahapon, may mga sanggol at matatanda dito!",
+            "Contaminated na po ang tubig {loc}, maraming nagkakasakit ng tiyan lalo na mga bata!",
+            "Pumutok ang malaking water main {loc}, bumabaha at gumuguho ang kalsada!",
         ]
     },
     {
@@ -163,9 +253,10 @@ TEMPLATES = [
         'sentiment': 'positive',
         'urgency': 'low',
         'texts': [
-            "Malinaw at malakas na po ulit ang tulo ng tubig {loc}, maraming salamat po sa agarang pagkukumpuni.",
-            "Nagawa na po yung tagas sa tubo {loc}, thank you sa water service team!",
-            "Maayos na po ang supply ng tubig ngayon, wala nang problema."
+            "Maayos na po ang supply ng tubig ngayon {loc}, wala nang problema.",
+            "Nagawa na po ang tagas sa tubo {loc}, thank you sa water service team!",
+            "Bumalik na po ang malinaw na tubig {loc} pagkatapos ng repair. Salamat!",
+            "Thank you sa water district, na-fix na ang pipe burst {loc} within hours.",
         ]
     },
     {
@@ -174,19 +265,29 @@ TEMPLATES = [
         'urgency': 'low',
         'texts': [
             "May scheduled water interruption po ba bukas sa aming area {loc}?",
-            "Nais lang po magtanong kung paano mag-apply ng bagong metro ng tubig {loc}."
+            "Saan po pwede mag-apply ng bagong water connection {loc}?",
+            "Magkano po ang reconnection fee ng tubig {loc}?",
+            "May advisory ba about water quality {loc}? May kumakalat na chismis.",
+            "Kailan po inaayos ang water pipes sa area namin {loc}?",
         ]
     },
 
-    # ==================== 4. LIGHTING ====================
+    # ==================== 4. STREET LIGHTING ====================
     {
         'category': 'lighting',
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
             "Pundido po ang bumbilya ng streetlight {loc}, napakadilim kapag naglalakad sa gabi.",
-            "Kukurap-kurap ang ilaw sa poste {loc}, baka mapundi na rin anumang oras.",
-            "Madilim na daanan {loc}, takot dumaan ang mga estudyante at trabahador kapag gabi."
+            "Sira at kumukurap ang ilaw sa poste {loc}, nagdudulot ng takot sa gabi.",
+            "Totally dark po ang buong stretch {loc}, delikado lalo na sa mga babae at bata.",
+            "Ang daming sirang streetlight {loc}, parang horror movie sa dilim.",
+            "The streetlight {loc} has been broken for weeks, it's so dark and scary at night.",
+            "Walang ilaw ang mga eskinita {loc}, madilim at delikadong lakaran.",
+            "Flickering ang streetlight {loc}, nakakatakot lumabas ng gabi.",
+            "Hindi gumagana ang solar streetlight {loc}, wala na yatang baterya.",
+            "Sira na po ang ilaw {loc}, nakakaraming holdap at snatcher dahil dilim.",
+            "Ang dilim ng kalsada {loc}, halos hindi makita ang mga dumadaan na sasakyan.",
         ]
     },
     {
@@ -195,8 +296,8 @@ TEMPLATES = [
         'urgency': 'low',
         'texts': [
             "Maliwanag na po ulit ang buong street {loc} dahil napalitan na ang solar light. Salamat po!",
-            "Bilis po ng aksyon ng barangay electrician, gumagana na ang ilaw sa poste {loc}.",
-            "Thank you po at naiayos na ang street lights, safe na ulit maglakad sa gabi."
+            "Napakaliwanag na ng area namin {loc}, salamat sa LED upgrade!",
+            "Thank you sa pag-install ng mga bagong ilaw {loc}, feel safe na kami sa gabi.",
         ]
     },
     {
@@ -204,21 +305,41 @@ TEMPLATES = [
         'sentiment': 'neutral',
         'urgency': 'low',
         'texts': [
+            "Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno {loc}.",
             "Saan po ba pwede mag-request ng karagdagang streetlight {loc}?",
-            "Hindi sira ang ilaw pero natatakpan ng mga sanga ng puno {loc}."
+            "May plan po ba ang barangay na mag-install ng solar lights {loc}?",
+            "Sino po ang nag-mamaintain ng mga streetlights {loc}? Meralco po ba?",
         ]
     },
 
-    # ==================== 5. PEACE & ORDER (NOISE & DISTURBANCE) ====================
+    # ==================== 5. PEACE & ORDER ====================
     {
         'category': 'peace_order',
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
             "Sobrang lakas ng videoke at sigawan {loc} kahit lampas 11 PM na, may pasok pa ang mga bata bukas.",
+            "Nangungulit at nagwawala po ang lasing {loc}, pakipadala ng tanod bago pa magkasakitan.",
             "May mga nag-iinuman sa kalsada at nag-iingay {loc}, nambabastos ng mga dumadaang babae.",
-            "Laging may nagpapatakbo ng motor na may open pipe muffler {loc} dis-oras ng gabi.",
-            "Nangungulit at nagwawala po ang lasing {loc}, pakipadala ng tanod bago pa magkasakitan."
+            "May nagsasabong po ng manok {loc} tuwing linggo, ang ingay at ang dumi.",
+            "There are drunk men harassing passersby {loc}, please send tanod immediately.",
+            "Ang ingay ng mga tambay {loc} tuwing gabi, natatakot na mga kapitbahay.",
+            "May away ng magkakapitbahay {loc}, baka lumala pa at may masaktan.",
+            "Laging may nagwawala na lasing {loc}, di na makatulog yung mga residente.",
+            "May grupo ng kabataan na nang-hhold up {loc} tuwing gabi, grabe na po.",
+            "Ang lakas ng stereo at karaoke {loc}, hindi kami makatulog kahit weeknight.",
+            "May nagpapaputok ng baril {loc} tuwing gabi, nakakatakot po!",
+            "Suntukan at sigawan sa labas {loc}, parang gulo na po.",
+        ]
+    },
+    {
+        'category': 'peace_order',
+        'sentiment': 'negative',
+        'urgency': 'emergency',
+        'texts': [
+            "May holdaper at may hawak na kutsilyo {loc}, tulong po! May natatakot na mga bata!",
+            "May away na may patalim na ginamit {loc}, duguan na ang isa, kailangan ng pulis at ambulansya!",
+            "May nagsasaksakan {loc}, paki-tawag agad ang PNP! May mga tao na nagsitakbuhan!",
         ]
     },
     {
@@ -227,8 +348,9 @@ TEMPLATES = [
         'urgency': 'low',
         'texts': [
             "Salamat sa mga tanod sa maagang pagpapasara ng videoke at pag-roving kaninang gabi {loc}.",
-            "Tahimik at payapa na po ang street namin simula nang mag-curfew check ang barangay.",
-            "Thank you po sa pag-aksyon sa reklamo namin sa maingay na kapitbahay."
+            "Peaceful na po ang gabi dito {loc} dahil sa consistent na pagroonda. Maraming salamat!",
+            "Thank you po sa tanod at pulis, nag-improve ang safety {loc}.",
+            "Nagpapasalamat po kami sa barangay patrol, tahimik na po ang gabi {loc}.",
         ]
     },
     {
@@ -237,20 +359,39 @@ TEMPLATES = [
         'urgency': 'low',
         'texts': [
             "Ano po ba ang eksaktong curfew hours para sa mga menor de edad dito sa barangay?",
-            "Pwede po ba magtanong kung hanggang anong oras ang allowable videoke policy sa residential area?"
+            "May blotter po ba ang barangay para sa noise complaint {loc}?",
+            "Paano po mag-file ng reklamo about noise {loc}? Ano ang process?",
+            "May schedule po ba ang tanod para sa nightly patrol {loc}?",
         ]
     },
 
-    # ==================== 6. TRAFFIC & OBSTRUCTIONS ====================
+    # ==================== 6. TRAFFIC & OBSTRUCTION ====================
     {
         'category': 'traffic_obstruction',
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
-            "May mga sasakyan na nag-iillegal double parking {loc}, hindi na magkasya ang dalawang sasakyan.",
-            "Nakaharang po ang construction gravel at buhangin sa mismong bangketa {loc}.",
+            "Nakaharang ang abandonadong van sa tapat ng driveway {loc}, hindi makalabas ang kotse namin.",
             "Inukupa ng sidewalk vendor ang buong daanan ng tao {loc}, napipilitan maglakad sa kalsada.",
-            "Nakaharang ang abandonadong van sa tapat ng driveway {loc}, hindi makalabas ang kotse namin."
+            "Nakaharang po ang construction gravel at buhangin sa mismong bangketa {loc}.",
+            "May sasakyan na nag-iillegal double parking sa kanto {loc}, nakaharang sa daanan.",
+            "Tricycle terminal na ang gitna ng kalsada {loc}, ang hirap dumaan.",
+            "The illegally parked vehicles {loc} are blocking the entire road, no one can pass.",
+            "Maraming naka-park na kotse {loc}, di makadaan ng maayos ang mga sasakyan dahil sa sobrang traffic.",
+            "Puno ng nakaparadang truck ang kalsada {loc}, halos di na makadaan ang ambulansya.",
+            "May construction materials na nakakalat sa kalsada {loc}, delikado sa mga nagmomotor.",
+            "Nakaharang ang jeepney na nag-aantay ng pasahero {loc}, ang traffic tuloy.",
+            "May vendor na nag-display ng paninda sa bangketa {loc}, napipilitan ang mga pedestrian sa kalsada.",
+            "Ang daming illegally parked tricycles {loc}, sobrang siksikan na.",
+        ]
+    },
+    {
+        'category': 'traffic_obstruction',
+        'sentiment': 'negative',
+        'urgency': 'emergency',
+        'texts': [
+            "Nakaharang ang naaksidenteng truck {loc}, totally blocked ang daan at hindi makadaan ang emergency vehicles!",
+            "May major pile-up {loc}, kailangan ng traffic enforcer at rescue team ASAP!",
         ]
     },
     {
@@ -258,9 +399,9 @@ TEMPLATES = [
         'sentiment': 'positive',
         'urgency': 'low',
         'texts': [
-            "Nalinis na po at maluwag na ang daan {loc} pagkatapos ng road clearing operation ng tanod.",
-            "Salamat po sa pag-warning sa may-ari ng nakaharang na truck sa kanto.",
-            "Maayos na po ang daloy ng trapiko {loc}, good job po!"
+            "Na-clear na po ang illegally parked vehicles {loc}, salamat sa traffic enforcers!",
+            "Thank you sa pagpapaalis ng mga sidewalk vendors na nakaharang {loc}.",
+            "Maayos na ang daloy ng traffic {loc} dahil sa bagong traffic scheme. Salamat!",
         ]
     },
     {
@@ -268,20 +409,30 @@ TEMPLATES = [
         'sentiment': 'neutral',
         'urgency': 'low',
         'texts': [
-            "May permit po ba ang delivery truck na magbaba ng materyales bukas ng hapon {loc}?",
-            "Nais lang po humingi ng temporary one-side parking permit para sa family event {loc}."
+            "Nais lang po humingi ng temporary one-side parking permit para sa family event {loc}.",
+            "May towing policy po ba ang barangay for illegally parked vehicles {loc}?",
+            "Pwede po bang mag-request ng no parking sign {loc}?",
+            "May designated parking area po ba para sa mga delivery trucks {loc}?",
         ]
     },
 
-    # ==================== 7. FLOODING & DRAINAGE ====================
+    # ==================== 7. FLOOD & DRAINAGE ====================
     {
         'category': 'flood_drainage',
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
             "Barado po ang kanal at estero {loc}, kahit ambon lang ay umaapaw agad ang maruming tubig.",
-            "Nakalubog po sa baha ang kalsada {loc} dahil walang labasan ang tubig-ulan.",
-            "Nawawala po ang bakal na takip ng manhole {loc}, delikadong may mahulog na bata o motor!"
+            "Umapaw po ang maruming tubig sa baradong estero {loc} dahil sa ulan.",
+            "Hindi na gumagana ang drainage system {loc}, bumabaha kahit kaunti lang ang ulan.",
+            "Puno ng basura ang canal {loc} kaya hindi na umaagos ang tubig.",
+            "Ang bilis bumaha {loc} kahit konting ulan lang, barado kasi ang drainage.",
+            "The drainage {loc} is completely clogged, even light rain causes flooding.",
+            "Itim at mabaho ang tubig na bumabaha {loc}, galing sa baradong kanal.",
+            "Hindi nadredredge ang estero {loc}, kaya laging bumabaha tuwing tag-ulan.",
+            "May baha pa rin {loc} kahit tumigil na ang ulan, kasi walang labasan ang tubig.",
+            "Ang daming nakaharang na basura sa creek {loc}, kaya umapaw.",
+            "Yung culvert {loc} barado na po, kaya lumalampas ang tubig sa kalsada.",
         ]
     },
     {
@@ -290,7 +441,9 @@ TEMPLATES = [
         'urgency': 'emergency',
         'texts': [
             "Lagpas tuhod na po ang baha {loc} at pumapasok na sa loob ng mga bahay, kailangan ng rescue/bumbero!",
-            "Umapaw po ang creek at rumaragasa ang tubig sa mga kabahayan {loc}!"
+            "Flash flood {loc} dahil sa quarrying sa Mt. Makiling, kailangan ng immediate evacuation!",
+            "Gumuguho na ang pader ng creek {loc} dahil sa lakas ng agos, baka bumagsak sa mga bahay!",
+            "Lagpas bewang na ang baha {loc}, may mga stranded na senior citizen at bata, SOS!",
         ]
     },
     {
@@ -298,9 +451,9 @@ TEMPLATES = [
         'sentiment': 'positive',
         'urgency': 'low',
         'texts': [
+            "Mabilis humupa ang tubig ngayon {loc} dahil sa bagong drainage pump, salamat kapitan!",
             "Maraming salamat po sa matagumpay na declogging ng mga kanal {loc}, hindi na bumaha nitong bagyo!",
-            "Nalagyan na po ng bagong takip ang manhole {loc}, safe na ulit ang daan.",
-            "Mabilis humupa ang tubig ngayon dahil sa bagong drainage pump, salamat kapitan!"
+            "Na-dredge na po ang estero {loc}, hindi na bumabaha kahit malakas ang ulan!",
         ]
     },
     {
@@ -308,20 +461,30 @@ TEMPLATES = [
         'sentiment': 'neutral',
         'urgency': 'low',
         'texts': [
-            "Kailan po ang schedule ng quarterly canal declogging dito sa aming purok {loc}?",
-            "Hindi pa naman barado pero maraming tuyong dahon sa ibabaw ng drainage {loc}."
+            "May schedule po ba ng canal dredging sa area namin {loc}?",
+            "Saan po pwede mag-report ng baradong drainage {loc}? Sa CENRO po ba?",
+            "May flood map po ba ang barangay para malaman ang mga flood-prone area {loc}?",
+            "Kailan po ang susunod na declogging operation {loc}?",
         ]
     },
 
-    # ==================== 8. PUBLIC HEALTH & SANITATION ====================
+    # ==================== 8. HEALTH & SANITATION ====================
     {
         'category': 'health_sanitation',
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
-            "May mga pagala-galang aso na nanghahabol ng mga bata at nagkakalat ng dumi {loc}.",
-            "May nangingitlog na lamok sa stagnant water {loc}, baka magka-dengue ang mga residente.",
-            "Nangangamoy dumi ng baboy/manok ang hangin {loc}, nakakasulasok sa kapitbahay."
+            "Nangangamoy dumi ng baboy/manok ang hangin {loc}, nakakasulasok sa kapitbahay.",
+            "May rabid/nangangagat na stray dog {loc}, pakihuli agad!",
+            "Maraming lamok at ipis {loc} dahil sa stagnant water, breeding ground ng dengue.",
+            "May nagsisiga ng basura at gulong {loc}, ang kapal ng usok at nakakalason.",
+            "The foul smell from the piggery {loc} is unbearable, it's a health hazard.",
+            "Ang daming stray cats and dogs {loc}, nakakatakot ang mga bata lumabas.",
+            "May open sewer {loc} na mabaho at may langaw, nakakahawa sa mga bata.",
+            "Nagsisiga ng plastic at goma {loc}, sobrang makapal ang usok at amoy.",
+            "May dead rat sa canal {loc}, puro langaw at baka may leptospirosis.",
+            "Walang proper sanitation ang carinderia {loc}, baka may food poisoning.",
+            "Ang daming ipis at daga {loc} dahil sa nakatambak na basura.",
         ]
     },
     {
@@ -329,8 +492,9 @@ TEMPLATES = [
         'sentiment': 'negative',
         'urgency': 'emergency',
         'texts': [
-            "May nagsisiga po ng mga goma at plastic {loc}, napakakapal ng maitim na usok at hindi na makahinga ang may hika!",
-            "May rabid/nangangagat na stray dog {loc}, nakakagat na po ng dalawang residente pakihuli agad!"
+            "May outbreak ng dengue {loc}, maraming kabataan ang nako-confine sa hospital!",
+            "May natagpuang patay na hayop sa water source {loc}, posibleng contaminated na ang supply!",
+            "Kumakalat na ang leptospirosis {loc} dahil sa baha, kailangan ng medical team ASAP!",
         ]
     },
     {
@@ -338,9 +502,10 @@ TEMPLATES = [
         'sentiment': 'positive',
         'urgency': 'low',
         'texts': [
-            "Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging kanina {loc}.",
-            "Na-warningan na po yung nagsisiga at tumigil na ang usok, thank you po!",
-            "Nakuha na po ng dog pound yung mapanganib na aso, ligtas na ang mga naglalakad."
+            "Salamat sa barangay health workers sa libreng anti-rabies vaccination at fogging {loc}.",
+            "Thank you po sa free medical mission {loc}, marami pong natulungan!",
+            "Malinis na po ang surroundings {loc} after the sanitation drive. Salamat!",
+            "Na-catch na po yung mga stray dogs {loc}, salamat sa animal control.",
         ]
     },
     {
@@ -349,11 +514,13 @@ TEMPLATES = [
         'urgency': 'low',
         'texts': [
             "May schedule po ba ng libreng dengue misting o fogging operation {loc}?",
-            "Kailan po ang susunod na bakuna para sa mga alagang hayop sa purok namin?"
+            "Saan po pwede magpa-anti-rabies vaccine ng aso namin {loc}?",
+            "May free check-up po ba sa health center {loc} this week?",
+            "Paano po mag-report ng unsanitary business establishment {loc}?",
         ]
     },
 
-    # ==================== 9. ELECTRICAL HAZARDS ====================
+    # ==================== 9. ELECTRICAL HAZARD ====================
     {
         'category': 'electrical_hazard',
         'sentiment': 'negative',
@@ -361,7 +528,22 @@ TEMPLATES = [
         'texts': [
             "May nakalaylay at nakalantad na live wire {loc}, sumasagi sa mga bubong at trucks delikado!",
             "May transformer na umuusok at may sparks ng apoy sa poste {loc}, tawagan agad ang bumbero at Meralco!",
-            "Nakatabingi at mabubuwal na ang poste ng kuryente {loc} baka bumagsak sa mga bahay!"
+            "Live wire na nahulog sa kalsada {loc} pagkatapos ng bagyo, nakakatay ng tao!",
+            "Sumasabog ang transformer {loc}, may apoy na at kumakalat sa mga bahay!",
+            "Exposed live wire hanging low {loc}, it's sparking and very dangerous!",
+            "May live wire na nakalawit malapit sa paaralan {loc}, baka may ma-electrocute na bata!",
+        ]
+    },
+    {
+        'category': 'electrical_hazard',
+        'sentiment': 'negative',
+        'urgency': 'moderate',
+        'texts': [
+            "May jumper/illegal connection {loc}, parang lumalaki na kaya delikadong mag-short circuit anytime.",
+            "Sirang poste ng kuryente {loc}, nakahilig at baka bumagsak anytime.",
+            "Exposed wiring sa street light post {loc}, baka may ma-kuryente na bata.",
+            "Yung mga wire sa poste {loc} nagsasalabat na, mukhang delikado.",
+            "May butas yung junction box ng kuryente {loc}, kita na yung mga wire sa loob.",
         ]
     },
     {
@@ -369,9 +551,8 @@ TEMPLATES = [
         'sentiment': 'positive',
         'urgency': 'low',
         'texts': [
-            "Naayos at naitaas na po ng Meralco at barangay yung nakalaylay na kable {loc}, salamat po!",
-            "Napalitan na po ang sirang fuse sa transformer, safe na po ulit.",
-            "Good job po sa mabilis na pag-cordon sa delikadong live wire kanina."
+            "Naayos na po ng Meralco ang nakalawit na wire {loc}, safe na ulit. Salamat!",
+            "Na-replace na ang sirang transformer {loc}, bumalik na ang kuryente. Thank you!",
         ]
     },
     {
@@ -379,20 +560,37 @@ TEMPLATES = [
         'sentiment': 'neutral',
         'urgency': 'low',
         'texts': [
-            "Kaninong telco company po kaya yung mga nakabuhol-buhol na spaghetti wire {loc}?",
-            "Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente {loc}."
+            "Nais lang po mag-request ng tree trimming malapit sa linya ng kuryente {loc}.",
+            "Paano po mag-report ng exposed wiring sa Meralco {loc}?",
+            "May inspection po ba ang Meralco for illegal connections {loc}?",
         ]
     },
 
-    # ==================== 10. PUBLIC FACILITIES & PARKS ====================
+    # ==================== 10. PUBLIC FACILITIES ====================
     {
         'category': 'public_facilities',
         'sentiment': 'negative',
         'urgency': 'moderate',
         'texts': [
             "Sira po ang ring at may butas ang bubong ng covered court {loc}, hindi magamit kapag umuulan.",
-            "Basag po ang duyan at sirang slide sa children's playground {loc}, delikado sa mga batang naglalaro.",
-            "Sira po ang pinto at gripo sa public comfort room sa barangay plaza {loc}."
+            "Ang dumi at sira na ng public CR {loc}, walang tubig at nakakatakot pumasok.",
+            "Sirang-sira na ang mga swing at slide sa playground {loc}, delikado para sa mga bata.",
+            "Ang basketball court {loc} puno ng bitak at lubak, nata-trip ang mga naglalaro.",
+            "The public restroom {loc} is filthy and has no running water, needs maintenance.",
+            "Walang gumagana na ilaw sa covered court {loc}, hindi magamit sa gabi.",
+            "Vandalized na ang mga benches at signage {loc}, sana ayusin.",
+            "Sira ang gate ng playground {loc}, nakakpasok ang mga stray dogs.",
+            "Ang community center {loc} ay need na ng repair, tulo ang bubong.",
+            "Walang tubig ang public faucet/drinking fountain {loc}, sira na yata.",
+        ]
+    },
+    {
+        'category': 'public_facilities',
+        'sentiment': 'negative',
+        'urgency': 'emergency',
+        'texts': [
+            "Bumagsak ang kisame ng covered court {loc} habang may event, may mga natamaan!",
+            "Gumuho ang bahagi ng public market {loc}, may mga tao sa loob!",
         ]
     },
     {
@@ -400,9 +598,10 @@ TEMPLATES = [
         'sentiment': 'positive',
         'urgency': 'low',
         'texts': [
-            "Napakaganda na po ng bagong pintura at ilaw sa covered court {loc}, salamat sa barangay council!",
-            "Naayos na po ang mga sirang laruan sa park, natutuwa ang mga bata.",
-            "Malinis at kumpleto na ang kagamitan sa health center desk, salute po!"
+            "Maganda ang bagong renovated basketball court {loc}, maraming salamat kapitan!",
+            "Salamat po sa pag-ayos ng CR at covered court {loc}, maganda na ulit!",
+            "Thank you sa bagong playground equipment {loc}, masaya na ang mga bata!",
+            "Ang ganda ng new paint at repair ng barangay hall {loc}, professional tingnan.",
         ]
     },
     {
@@ -410,8 +609,10 @@ TEMPLATES = [
         'sentiment': 'neutral',
         'urgency': 'low',
         'texts': [
-            "Paano po magpareserba ng covered court para sa inter-purok basketball tournament?",
-            "Available po ba ang barangay multi-purpose hall sa darating na linggo para sa assembly?"
+            "Pwede po bang mag-request ng CCTV installation {loc}?",
+            "May WiFi po ba ang covered court {loc} para sa mga student?",
+            "Saan po pwede mag-reserve ng covered court {loc} para sa event?",
+            "May plan po ba ang barangay na magtayo ng mini library {loc}?",
         ]
     },
 
@@ -424,7 +625,16 @@ TEMPLATES = [
             "Ano po ang mga kailangang dalhin para kumuha ng Barangay Clearance at Indigency certificate?",
             "Bukas po ba ang barangay hall bukas ng Sabado para sa pag-claim ng senior citizen pension?",
             "Magkano po ang bayad sa pagkuha ng barangay business permit para sa sari-sari store?",
-            "Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?"
+            "Ano po ang contact number ng duty officer ngayong gabi kung sakaling may emergency?",
+            "What are the requirements for getting a barangay clearance?",
+            "Ano po ba ang office hours ng barangay hall?",
+            "Paano po mag-register sa barangay para sa voter's ID?",
+            "Saan po pwede mag-avail ng barangay health services?",
+            "May schedule po ba ng free legal consultation sa barangay?",
+            "Kailan po ang susunod na barangay assembly meeting?",
+            "How do I file a complaint with the barangay?",
+            "Ano po ang number ng CDRRMO hotline ng Calamba?",
+            "Pwede po bang mag-request ng barangay certificate for employment?",
         ]
     },
     {
@@ -433,38 +643,80 @@ TEMPLATES = [
         'urgency': 'low',
         'texts': [
             "Napakabilis at napaka-accommodating ng mga staff kanina sa pag-issue ng aking clearance, thank you po!",
-            "Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay."
+            "Salamat sa malinaw at maayos na orientation sa mga bagong residente ng barangay.",
+            "Very helpful po ang staff sa barangay hall, mabilis ang process. Salamat!",
+            "Thank you po sa efficient processing ng barangay clearance, less than 30 minutes lang!",
+            "Kudos to the barangay staff for being so accommodating and friendly!",
         ]
-    }
+    },
 ]
 
 
-def generate_dataset(target_count=1000, output_file='dataset/citisense_civic_nlp.csv'):
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)
-    
-    rows = []
-    print(f"Generating rich 10-category NLP dataset...")
+AUGMENTATION_FILLERS = ['po', 'naman', 'talaga', 'grabe', 'sobra', 'na', 'pa']
+AUGMENTATION_TYPOS = {
+    'ang': ['ang', 'ang', 'ang'],
+    'po': ['po', 'p0', 'po'],
+    'sa': ['sa', 'sa', 'sa'],
+    'na': ['na', 'na', 'na'],
+    'ng': ['ng', 'ng', 'ng'],
+}
 
-    generated = 0
-    while len(rows) < target_count:
+
+def augment_text(text):
+    words = text.split()
+    if len(words) < 5:
+        return text
+
+    augmented = words[:]
+    r = random.random()
+
+    if r < 0.3:
+        insert_pos = random.randint(1, len(augmented) - 1)
+        filler = random.choice(AUGMENTATION_FILLERS)
+        augmented.insert(insert_pos, filler)
+    elif r < 0.5:
+        if len(augmented) > 6:
+            drop_pos = random.randint(1, len(augmented) - 2)
+            if augmented[drop_pos].lower() not in ['ang', 'ng', 'sa', 'po']:
+                augmented.pop(drop_pos)
+    elif r < 0.65:
+        swap_pos = random.randint(0, len(augmented) - 2)
+        augmented[swap_pos], augmented[swap_pos + 1] = augmented[swap_pos + 1], augmented[swap_pos]
+
+    return " ".join(augmented)
+
+
+def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp.csv'):
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
+    rows = []
+    seen_texts = set()
+    print(f"Generating diverse 11-category NLP dataset ({target_count} samples)...")
+
+    attempts = 0
+    max_attempts = target_count * 20
+
+    while len(rows) < target_count and attempts < max_attempts:
+        attempts += 1
         tpl_group = random.choice(TEMPLATES)
         loc = random.choice(LOCATIONS)
         prefix = random.choice(PREFIXES)
         base_text = random.choice(tpl_group['texts']).format(loc=loc)
-        
+
         full_text = f"{prefix} {base_text}".strip()
         full_text = " ".join(full_text.split())
 
-        row = {
-            'text': full_text,
-            'category': tpl_group['category'],
-            'sentiment': tpl_group['sentiment'],
-            'urgency': tpl_group['urgency']
-        }
-        
-        if not any(r['text'] == row['text'] for r in rows):
-            rows.append(row)
-            generated += 1
+        if random.random() < 0.4:
+            full_text = augment_text(full_text)
+
+        if full_text not in seen_texts:
+            seen_texts.add(full_text)
+            rows.append({
+                'text': full_text,
+                'category': tpl_group['category'],
+                'sentiment': tpl_group['sentiment'],
+                'urgency': tpl_group['urgency']
+            })
 
     random.shuffle(rows)
 
@@ -473,9 +725,16 @@ def generate_dataset(target_count=1000, output_file='dataset/citisense_civic_nlp
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"Successfully generated {len(rows)} samples across {len(CATEGORIES)} civic categories.")
+    cat_counts = {}
+    for r in rows:
+        cat_counts[r['category']] = cat_counts.get(r['category'], 0) + 1
+
+    print(f"\nSuccessfully generated {len(rows)} samples across {len(CATEGORIES)} civic categories.")
     print(f"Saved dataset to {output_file}")
+    print("\nCategory distribution:")
+    for cat in sorted(cat_counts.keys()):
+        print(f"  {cat}: {cat_counts[cat]}")
 
 
 if __name__ == '__main__':
-    generate_dataset(target_count=1000)
+    generate_dataset(target_count=3000)

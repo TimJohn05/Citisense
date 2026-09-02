@@ -1,24 +1,31 @@
 #!/usr/bin/env python3
 """
-CitiSense NLP Baseline Trainer.
-Trains n-gram TF-IDF contextual classifiers for:
+CitiSense NLP Baseline Trainer (TensorFlow/Keras).
+Trains Neural Network classifiers for:
 1. Sentiment Classification (Negative, Neutral, Positive)
-2. Category Classification (Waste, Road, Water, Lighting, Others)
+2. Category Classification (Waste, Road, Water, Lighting, etc.)
 3. Urgency Classification (Low, Moderate, Emergency)
 """
 
 import os
 import pickle
+import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
-
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 
 DATASET_PATH = os.path.join(os.path.dirname(__file__), 'dataset', 'citisense_civic_nlp.csv')
 MODELS_DIR = os.path.join(os.path.dirname(__file__), 'saved_models')
+
+# Ensure TensorFlow doesn't eat all GPU memory if one exists
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
 
 
 def load_dataset():
@@ -26,69 +33,115 @@ def load_dataset():
         raise FileNotFoundError(f"Dataset not found at {DATASET_PATH}. Run generate_dataset.py first.")
     df = pd.read_csv(DATASET_PATH)
     print(f"Loaded {len(df)} samples from {DATASET_PATH}")
-    print("\nDataset Class Distribution:")
-    print("--- Sentiment ---")
-    print(df['sentiment'].value_counts())
-    print("\n--- Category ---")
-    print(df['category'].value_counts())
-    print("\n--- Urgency ---")
-    print(df['urgency'].value_counts())
     return df
 
 
 def train_task(df, target_col, task_name):
     print(f"\n=======================================================")
-    print(f" Training NLP Model for: {task_name.upper()} ({target_col})")
+    print(f" Training TF Neural Network for: {task_name.upper()} ({target_col})")
     print(f"=======================================================")
 
-    X = df['text']
-    y = df[target_col]
+    X = tf.constant(df['text'].values, dtype=tf.string)
+    y_raw = df[target_col].values
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
+    # Encode string labels to integers
+    label_encoder = LabelEncoder()
+    y = tf.constant(label_encoder.fit_transform(y_raw), dtype=tf.int32)
+    num_classes = len(label_encoder.classes_)
+    
+    print(f"Classes found: {label_encoder.classes_}")
+
+    X_train_raw, X_test_raw, y_train_raw, y_test_raw = train_test_split(
+        X.numpy(), y.numpy(), test_size=0.2, random_state=42, stratify=y.numpy()
     )
+    
+    X_train = tf.constant(X_train_raw, dtype=tf.string)
+    X_test = tf.constant(X_test_raw, dtype=tf.string)
+    y_train = tf.constant(y_train_raw, dtype=tf.int32)
+    y_test = tf.constant(y_test_raw, dtype=tf.int32)
 
-    # N-gram TF-IDF vectorizer captures 1-gram, 2-gram, and 3-gram sequences
-    # e.g., 'hindi sira' vs 'sira'
-    pipeline = Pipeline([
-        ('tfidf', TfidfVectorizer(
-            ngram_range=(1, 3),        # unigrams + bigrams + trigrams
-            min_df=2,                  # ignore rare typos
-            sublinear_tf=True,         # sublinear term frequency scaling
-            lowercase=True
-        )),
-        ('clf', LogisticRegression(
-            max_iter=1000,
-            class_weight='balanced',
-            C=1.5
-        ))
+    # 1. Text Vectorization Layer (multi-hot n-grams)
+    max_tokens = 5000
+    vectorizer = tf.keras.layers.TextVectorization(
+        max_tokens=max_tokens,
+        output_mode='multi_hot',
+        ngrams=2, # Use unigrams and bigrams
+        standardize='lower_and_strip_punctuation'
+    )
+    
+    # Adapt the vectorizer to the training text
+    print("Adapting vectorizer...")
+    vectorizer.adapt(X_train)
+
+    # 2. Build the Neural Network Model
+    model = tf.keras.Sequential([
+        tf.keras.Input(shape=(1,), dtype=tf.string),
+        vectorizer,
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dense(32, activation='relu'),
+        tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dense(num_classes, activation='softmax')
     ])
 
-    pipeline.fit(X_train, y_train)
+    # 3. Compile the Model
+    model.compile(
+        optimizer='adam',
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy']
+    )
 
-    # Evaluation on Holdout Test Set
-    y_pred = pipeline.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
+    # 4. Train the Model
+    print("Training model...")
+    early_stopping = tf.keras.callbacks.EarlyStopping(
+        monitor='val_loss', 
+        patience=5, 
+        restore_best_weights=True
+    )
 
-    print(f"\nTest Accuracy: {acc * 100:.2f}%")
-    print("\nDetailed Classification Report:")
-    print(classification_report(y_test, y_pred))
+    model.fit(
+        X_train, y_train,
+        validation_data=(X_test, y_test),
+        epochs=30,
+        batch_size=32,
+        callbacks=[early_stopping],
+        verbose=1
+    )
 
-    # Cross-validation score
-    cv_scores = cross_val_score(pipeline, X, y, cv=5)
-    print(f"5-Fold Cross-Validation Accuracy: {cv_scores.mean() * 100:.2f}% (+/- {cv_scores.std() * 100:.2f}%)")
+    # 5. Evaluate the Model
+    loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
+    print(f"\nTest Accuracy: {accuracy * 100:.2f}%")
 
-    # Save model artifact
+    # Save model and label encoder
     os.makedirs(MODELS_DIR, exist_ok=True)
-    model_path = os.path.join(MODELS_DIR, f"{target_col}_model.pkl")
-    with open(model_path, 'wb') as f:
-        pickle.dump(pipeline, f)
-    print(f"Saved model to {model_path}")
+    
+    # Save the Keras model
+    model_path = os.path.join(MODELS_DIR, f"{target_col}_model.keras")
+    model.save(model_path)
+    
+    # (TFLite conversion removed due to TextVectorization op compatibility without TF Text)
+        
+    # Save the label encoder
+    encoder_path = os.path.join(MODELS_DIR, f"{target_col}_encoder.pkl")
+    with open(encoder_path, 'wb') as f:
+        pickle.dump(label_encoder, f)
 
-    return pipeline
+    print(f"Saved Keras model to {model_path}")
+    print(f"Saved Label Encoder to {encoder_path}")
+
+    return model, label_encoder
 
 
-def interactive_test(sentiment_model, category_model, urgency_model):
+def predict_text(model, encoder, text):
+    # Predict returns shape (1, num_classes)
+    predictions = model.predict(tf.constant([text], dtype=tf.string), verbose=0)[0]
+    predicted_class_idx = np.argmax(predictions)
+    confidence = predictions[predicted_class_idx] * 100
+    predicted_label = encoder.inverse_transform([predicted_class_idx])[0]
+    return predicted_label, confidence
+
+
+def interactive_test(sent_model, sent_enc, cat_model, cat_enc, urg_model, urg_enc):
     print("\n=======================================================")
     print(" Test NLP Predictions with Custom Taglish Sentences:")
     print("=======================================================")
@@ -97,33 +150,28 @@ def interactive_test(sentiment_model, category_model, urgency_model):
         "Sobrang lakas ng videoke at sigawan kahit lampas 11 PM na, pakisita naman po.",
         "May live wire na nakalantad at sumasabog na transformer sa may poste!",
         "May sasakyan na nag-iillegal double parking sa kanto, nakaharang sa daanan.",
-        "May nagsisiga po ng goma at plastic, napakakapal ng maitim na usok nahihirapan huminga.",
-        "Umapaw po ang maruming tubig sa baradong estero dahil sa ulan.",
-        "Sira po yung ilaw sa poste kanina pero naayos na po ngayon salamat.",
         "Ano po ang requirements para sa pagkuha ng barangay clearance bukas?",
     ]
 
     for text in test_samples:
-        sent = sentiment_model.predict([text])[0]
-        cat = category_model.predict([text])[0]
-        urg = urgency_model.predict([text])[0]
-
-        sent_prob = max(sentiment_model.predict_proba([text])[0]) * 100
+        cat_label, _ = predict_text(cat_model, cat_enc, text)
+        sent_label, sent_conf = predict_text(sent_model, sent_enc, text)
+        urg_label, _ = predict_text(urg_model, urg_enc, text)
 
         print(f"\nText: \"{text}\"")
-        print(f"  → Category:  [{cat}]")
-        print(f"  → Sentiment: [{sent}] ({sent_prob:.1f}% confidence)")
-        print(f"  → Urgency:   [{urg}]")
+        print(f"  → Category:  [{cat_label}]")
+        print(f"  → Sentiment: [{sent_label}] ({sent_conf:.1f}% confidence)")
+        print(f"  → Urgency:   [{urg_label}]")
 
 
 def main():
     df = load_dataset()
     
-    sent_model = train_task(df, 'sentiment', 'Sentiment Analysis')
-    cat_model = train_task(df, 'category', 'Category Classification')
-    urg_model = train_task(df, 'urgency', 'Urgency Hazard Detection')
+    sent_model, sent_enc = train_task(df, 'sentiment', 'Sentiment Analysis')
+    cat_model, cat_enc = train_task(df, 'category', 'Category Classification')
+    urg_model, urg_enc = train_task(df, 'urgency', 'Urgency Hazard Detection')
 
-    interactive_test(sent_model, cat_model, urg_model)
+    interactive_test(sent_model, sent_enc, cat_model, cat_enc, urg_model, urg_enc)
 
 
 if __name__ == '__main__':

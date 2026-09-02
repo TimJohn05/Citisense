@@ -91,20 +91,38 @@ case "${1:-}" in
     ;;
 
   ml:test)
-    echo -e "${CYAN}Running interactive prediction test...${RESET}"
+    echo -e "${CYAN}Running interactive prediction test with TensorFlow...${RESET}"
     "$PYTHON_BIN" -c "
+import os
 import pickle
-sent = pickle.load(open('$ML_DIR/saved_models/sentiment_model.pkl', 'rb'))
-cat = pickle.load(open('$ML_DIR/saved_models/category_model.pkl', 'rb'))
-urg = pickle.load(open('$ML_DIR/saved_models/urgency_model.pkl', 'rb'))
+import numpy as np
+import tensorflow as tf
 
+models_dir = '$ML_DIR/saved_models'
+sent_model = tf.keras.models.load_model(f'{models_dir}/sentiment_model.keras')
+cat_model = tf.keras.models.load_model(f'{models_dir}/category_model.keras')
+urg_model = tf.keras.models.load_model(f'{models_dir}/urgency_model.keras')
+
+sent_enc = pickle.load(open(f'{models_dir}/sentiment_encoder.pkl', 'rb'))
+cat_enc = pickle.load(open(f'{models_dir}/category_encoder.pkl', 'rb'))
+urg_enc = pickle.load(open(f'{models_dir}/urgency_encoder.pkl', 'rb'))
+
+def predict(model, enc, text):
+    preds = model.predict(tf.constant([text], dtype=tf.string), verbose=0)[0]
+    idx = np.argmax(preds)
+    return enc.inverse_transform([idx])[0], preds[idx] * 100
+
+print('\n=== CitiSense Taglish NLP Classifier ===')
 while True:
     try:
         text = input('\nEnter Taglish complaint (or Ctrl+C to exit): ')
         if not text.strip(): continue
-        print(f'  Category:  [{cat.predict([text])[0]}]')
-        print(f'  Sentiment: [{sent.predict([text])[0]}]')
-        print(f'  Urgency:   [{urg.predict([text])[0]}]')
+        cat, _ = predict(cat_model, cat_enc, text)
+        sent, sent_conf = predict(sent_model, sent_enc, text)
+        urg, _ = predict(urg_model, urg_enc, text)
+        print(f'  → Category:  [{cat}]')
+        print(f'  → Sentiment: [{sent}] ({sent_conf:.1f}% confidence)')
+        print(f'  → Urgency:   [{urg}]')
     except (KeyboardInterrupt, EOFError):
         print('\nDone.')
         break

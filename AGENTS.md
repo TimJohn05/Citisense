@@ -54,4 +54,4 @@ This prints the handoff + project status from the Obsidian vault to the terminal
 - Keep design tokens in `lib/core/theme/app_colors.dart`; professional civic look (see Design-System note).
 - No emojis in UI; Material icons only.
 - Material 3 light theme. Filled buttons, 12-16px radius, Public Sans font.
-- Never commit unless explicitly asked.
+- **NEVER commit or push unless explicitly told to.** Accumulate changes, run `flutter analyze` + `flutter test` to verify, but wait for the user to say "commit" before running `git commit`. This keeps the commit history clean and avoids clutter.
