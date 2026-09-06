@@ -1,0 +1,16 @@
+[project]
+name = "citisense-ml"
+version = "0.4.0"
+description = "CitiSense Taglish NLP classifiers: sentiment, category, urgency"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "tensorflow>=2.21,<3",
+    "pandas>=3.0,<4",
+    "scikit-learn>=1.9,<2",
+    "numpy>=2.4,<3",
+    "scipy>=1.17,<2",
+    "joblib>=1.6,<2",
+]
+
+[tool.uv]
+package = false

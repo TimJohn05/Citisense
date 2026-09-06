@@ -1,15 +1,82 @@
 ==============================================================================
  CitiSense NLP Model Test Report
- Generated: 2026-09-02 14:52:48
+ Generated: 2026-09-07 02:16:28
  Scenarios: 100
 ==============================================================================
 
 ACCURACY SUMMARY
 ------------------------------------------------------------------------------
-  Sentiment Analysis             89/100  (89.0%)
-  Category Classification        77/100  (77.0%)
-  Urgency Detection              75/100  (75.0%)
+  Sentiment Analysis             83/100  (83.0%)
+  Category Classification        75/100  (75.0%)
+  Urgency Detection              77/100  (77.0%)
   All three correct              57/100  (57.0%)
+
+PER-CLASS METRICS
+------------------------------------------------------------------------------
+
+Sentiment Analysis
+              precision    recall  f1-score   support
+
+    negative      0.840     0.857     0.848        49
+     neutral      0.826     0.731     0.776        26
+    positive      0.815     0.880     0.846        25
+
+    accuracy                          0.830       100
+   macro avg      0.827     0.823     0.823       100
+weighted avg      0.830     0.830     0.829       100
+Confusion matrix (actual rows, predicted columns):
+  labels: negative, neutral, positive
+  negative: [42, 4, 3]
+  neutral: [5, 19, 2]
+  positive: [3, 0, 22]
+
+Category Classification
+                     precision    recall  f1-score   support
+
+  electrical_hazard      1.000     1.000     1.000         7
+     flood_drainage      0.667     0.600     0.632        10
+    general_inquiry      0.727     1.000     0.842         8
+  health_sanitation      0.714     0.556     0.625         9
+           lighting      0.818     1.000     0.900         9
+        peace_order      1.000     0.875     0.933         8
+  public_facilities      0.600     0.429     0.500         7
+               road      0.500     0.455     0.476        11
+traffic_obstruction      0.750     0.375     0.500         8
+              waste      0.786     0.917     0.846        12
+              water      0.733     1.000     0.846        11
+
+           accuracy                          0.750       100
+          macro avg      0.754     0.746     0.736       100
+       weighted avg      0.745     0.750     0.734       100
+Confusion matrix (actual rows, predicted columns):
+  labels: electrical_hazard, flood_drainage, general_inquiry, health_sanitation, lighting, peace_order, public_facilities, road, traffic_obstruction, waste, water
+  electrical_hazard: [7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  flood_drainage: [0, 6, 0, 1, 0, 0, 0, 1, 1, 0, 1]
+  general_inquiry: [0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0]
+  health_sanitation: [0, 1, 1, 5, 0, 0, 0, 0, 0, 2, 0]
+  lighting: [0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0]
+  peace_order: [0, 0, 0, 0, 0, 7, 0, 0, 0, 1, 0]
+  public_facilities: [0, 0, 2, 1, 0, 0, 3, 0, 0, 0, 1]
+  road: [0, 2, 0, 0, 2, 0, 0, 5, 0, 0, 2]
+  traffic_obstruction: [0, 0, 0, 0, 0, 0, 1, 4, 3, 0, 0]
+  waste: [0, 0, 0, 0, 0, 0, 1, 0, 0, 11, 0]
+  water: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11]
+
+Urgency Detection
+              precision    recall  f1-score   support
+
+   emergency      1.000     0.455     0.625        11
+         low      0.933     0.750     0.832        56
+    moderate      0.600     0.909     0.723        33
+
+    accuracy                          0.770       100
+   macro avg      0.844     0.705     0.727       100
+weighted avg      0.831     0.770     0.773       100
+Confusion matrix (actual rows, predicted columns):
+  labels: emergency, low, moderate
+  emergency: [5, 0, 6]
+  low: [0, 42, 14]
+  moderate: [0, 3, 30]
 
 ------------------------------------------------------------------------------
 PER-SCENARIO DETAIL
@@ -17,600 +84,600 @@ PER-SCENARIO DETAIL
 
 #1 Ilang araw na pong hindi dinadaan ng garbage truck dito sa Barangay Mapagong, sobrang baho na ng basura.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=waste              predicted=waste              conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=waste              predicted=waste              conf= 99.7%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 91.8%
     -> ALL THREE CORRECT
 
 #2 May nagtatapon ng basura sa vacant lot malapit sa amin, nakaka-amoy po ng masangsang.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
-    [OK ] category   actual=waste              predicted=waste              conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 78.2%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 96.0%
+    [OK ] category   actual=waste              predicted=waste              conf= 87.5%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 70.0%
     -> ALL THREE CORRECT
 
 #3 Salamat po, na-ayos na ang koleksyon ng basura dito sa aming lugar, malinis na po.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=waste              predicted=waste              conf= 99.5%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=waste              predicted=waste              conf= 75.7%
+    [OK ] urgency    actual=low                predicted=low                conf= 99.1%
     -> ALL THREE CORRECT
 
 #4 Nasusunog po ang tambak ng basura sa Canlubang, matindi po ang usok!
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=waste              predicted=waste              conf=100.0%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf= 98.1%
-    -> MISMATCH(ES)
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 98.7%
+    [OK ] category   actual=waste              predicted=waste              conf= 95.7%
+    [OK ] urgency    actual=emergency          predicted=emergency          conf=100.0%
+    -> ALL THREE CORRECT
 
 #5 Sana po dumalaw ang garbage truck ngayong linggo para sa mga naiwang basura.
-    [XX ] sentiment  actual=neutral            predicted=negative           conf= 86.8%
-    [OK ] category   actual=waste              predicted=waste              conf= 99.8%
-    [XX ] urgency    actual=low                predicted=moderate           conf= 98.2%
+    [XX ] sentiment  actual=neutral            predicted=negative           conf= 95.8%
+    [OK ] category   actual=waste              predicted=waste              conf= 90.9%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 59.2%
     -> MISMATCH(ES)
 
 #6 May illegal na dumpsite po ba na dapat ireport dito sa Halang?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [XX ] category   actual=waste              predicted=flood_drainage     conf= 75.6%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
-    -> MISMATCH(ES)
+    [OK ] category   actual=waste              predicted=waste              conf= 59.8%
+    [OK ] urgency    actual=low                predicted=low                conf= 88.0%
+    -> ALL THREE CORRECT
 
 #7 Ang dami po ng basurang nakakalat sa kalsada dahil sa bagyo kagabi.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=waste              predicted=waste              conf= 31.9%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 98.5%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.7%
+    [OK ] category   actual=waste              predicted=waste              conf= 35.2%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 75.1%
     -> ALL THREE CORRECT
 
 #8 Paki-tingnan po ang barangay landfill, tila puno na po at umaapaw na.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 73.7%
-    [OK ] category   actual=waste              predicted=waste              conf= 82.6%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.2%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 88.0%
+    [OK ] category   actual=waste              predicted=waste              conf= 45.2%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 77.7%
     -> ALL THREE CORRECT
 
 #9 Maganda po ang bagong basurahan na nilagay sa plaza, salamat po!
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [XX ] category   actual=waste              predicted=public_facilities  conf= 47.1%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [XX ] category   actual=waste              predicted=public_facilities  conf= 82.7%
+    [OK ] urgency    actual=low                predicted=low                conf= 93.4%
     -> MISMATCH(ES)
 
 #10 May malaking lubak po sa Maharlika Highway papuntang Real, delikado po sa mga motorsiklo.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=road               predicted=road               conf= 99.1%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=road               predicted=road               conf= 81.7%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 75.7%
     -> ALL THREE CORRECT
 
 #11 Salamat po at naayos na ang nasirang kalsada dito sa may crossing, ligtas na po.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=road               predicted=road               conf= 99.7%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=road               predicted=road               conf= 83.2%
+    [OK ] urgency    actual=low                predicted=low                conf= 96.7%
     -> ALL THREE CORRECT
 
 #12 Kailan po ba ipapaayos ang nasirang aspalto sa Purok 3? Matagal na pong sira.
     [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.9%
-    [XX ] category   actual=road               predicted=water              conf= 51.6%
-    [OK ] urgency    actual=low                predicted=low                conf= 99.7%
+    [XX ] category   actual=road               predicted=water              conf= 47.6%
+    [OK ] urgency    actual=low                predicted=low                conf= 78.8%
     -> MISMATCH(ES)
 
 #13 Nasira po ang kalsada dahil sa malakas na ulan, hindi na po ito madaraanan.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 94.1%
-    [XX ] category   actual=road               predicted=flood_drainage     conf= 91.4%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf= 99.8%
+    [XX ] sentiment  actual=negative           predicted=positive           conf= 50.7%
+    [XX ] category   actual=road               predicted=flood_drainage     conf= 63.9%
+    [XX ] urgency    actual=emergency          predicted=moderate           conf= 68.9%
     -> MISMATCH(ES)
 
 #14 May ginagawang kalsada po dito, paki-siguraduhan na ligtas para sa mga dumadaan.
-    [XX ] sentiment  actual=neutral            predicted=negative           conf= 95.5%
-    [OK ] category   actual=road               predicted=road               conf= 70.0%
-    [XX ] urgency    actual=low                predicted=emergency          conf= 57.2%
+    [XX ] sentiment  actual=neutral            predicted=negative           conf= 61.3%
+    [XX ] category   actual=road               predicted=lighting           conf= 25.8%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 47.6%
     -> MISMATCH(ES)
 
 #15 Napakalakas po ng ingay mula sa construction ng kalsada kahit gabi na.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [XX ] category   actual=road               predicted=peace_order        conf= 84.1%
-    [XX ] urgency    actual=low                predicted=moderate           conf=100.0%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.7%
+    [OK ] category   actual=road               predicted=road               conf= 25.1%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 83.8%
     -> MISMATCH(ES)
 
 #16 Pakilibre po ang drainage sa kalsada dahil bumabaha na po tuwing umuulan.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.6%
-    [XX ] category   actual=road               predicted=flood_drainage     conf= 91.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.9%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 94.7%
+    [XX ] category   actual=road               predicted=flood_drainage     conf= 45.9%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 67.7%
     -> MISMATCH(ES)
 
 #17 Maayos po ang bagong kalsada sa Barangay Bucal, masarap na po maglakad.
-    [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=road               predicted=road               conf= 81.7%
-    [OK ] urgency    actual=low                predicted=low                conf= 99.5%
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 99.9%
+    [OK ] category   actual=road               predicted=road               conf= 55.0%
+    [OK ] urgency    actual=low                predicted=low                conf= 76.7%
     -> ALL THREE CORRECT
 
 #18 Ilang araw na po kaming walang tubig dito sa may elevated na purok, paki-aksyunan naman po.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.8%
-    [OK ] category   actual=water              predicted=water              conf= 82.9%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.8%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.7%
+    [OK ] category   actual=water              predicted=water              conf= 60.8%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 80.2%
     -> ALL THREE CORRECT
 
 #19 May tulo po ang main water pipe sa tapat ng bahay namin, sayang po ang tubig.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=water              predicted=water              conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=water              predicted=water              conf= 98.3%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 87.4%
     -> ALL THREE CORRECT
 
 #20 Salamat po at naibalik na ang supply ng tubig dito sa Barangay Barandal.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=water              predicted=water              conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=water              predicted=water              conf= 98.8%
+    [OK ] urgency    actual=low                predicted=low                conf= 76.9%
     -> ALL THREE CORRECT
 
 #21 Bukas na po ba ang opisina ng CWD para sa reklamo sa mataas na singil sa tubig?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=water              predicted=water              conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=water              predicted=water              conf= 96.6%
+    [OK ] urgency    actual=low                predicted=low                conf= 98.9%
     -> ALL THREE CORRECT
 
 #22 Turbid po ang tubig na lumalabas sa gripo, madilaw at maalat po ang lasa.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=water              predicted=water              conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=water              predicted=water              conf= 96.7%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 92.4%
     -> ALL THREE CORRECT
 
 #23 Walang anunsyo po na magkakaroon ng water interruption ngayong araw.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 67.6%
-    [OK ] category   actual=water              predicted=water              conf= 99.9%
-    [XX ] urgency    actual=low                predicted=moderate           conf= 90.5%
+    [XX ] sentiment  actual=negative           predicted=neutral            conf= 61.7%
+    [OK ] category   actual=water              predicted=water              conf= 88.0%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 60.0%
     -> MISMATCH(ES)
 
 #24 Mababa po ang presyon ng tubig sa aming purok tuwing umaga, mabagal po ang daloy.
     [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
-    [OK ] category   actual=water              predicted=water              conf=100.0%
-    [XX ] urgency    actual=low                predicted=moderate           conf= 99.9%
+    [OK ] category   actual=water              predicted=water              conf= 94.1%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 77.9%
     -> MISMATCH(ES)
 
 #25 Malinis na po ba at ligtas inumin ang tubig dito pagkatapos ng linya maintenance?
-    [XX ] sentiment  actual=neutral            predicted=positive           conf= 99.5%
-    [OK ] category   actual=water              predicted=water              conf= 97.5%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [XX ] sentiment  actual=neutral            predicted=positive           conf= 71.8%
+    [OK ] category   actual=water              predicted=water              conf= 73.3%
+    [OK ] urgency    actual=low                predicted=low                conf= 96.0%
     -> MISMATCH(ES)
 
 #26 Pundido po ang ilaw sa kalye dito sa eskinita, madilim at delikado po para sa mga bata.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=lighting           predicted=lighting           conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 99.4%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 92.6%
     -> ALL THREE CORRECT
 
 #27 Salamat po at inayos na ang sira na poste ng ilaw sa kanto ng Purok 2.
-    [XX ] sentiment  actual=positive           predicted=negative           conf= 79.7%
-    [OK ] category   actual=lighting           predicted=lighting           conf= 99.8%
-    [XX ] urgency    actual=low                predicted=moderate           conf= 99.6%
+    [XX ] sentiment  actual=positive           predicted=negative           conf= 98.5%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 95.6%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 79.1%
     -> MISMATCH(ES)
 
 #28 Paki-replace po ang pundidong solar streetlight sa may bypass road para sa kaligtasan.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 94.4%
-    [OK ] category   actual=lighting           predicted=lighting           conf= 99.8%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.5%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 56.0%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 91.7%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 75.9%
     -> ALL THREE CORRECT
 
 #29 Ligtas na po ba ang bagong ilaw na nilagay sa pedestrian lane sa gabi?
-    [XX ] sentiment  actual=neutral            predicted=positive           conf= 70.3%
-    [OK ] category   actual=lighting           predicted=lighting           conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [XX ] sentiment  actual=neutral            predicted=positive           conf= 64.4%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 95.0%
+    [OK ] urgency    actual=low                predicted=low                conf= 94.3%
     -> MISMATCH(ES)
 
 #30 Madilim po sa daanan papuntang paaralan, takot po ang mga estudyante at baka ma-akidente.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=lighting           predicted=lighting           conf=100.0%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf=100.0%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 97.3%
+    [XX ] urgency    actual=emergency          predicted=moderate           conf= 91.1%
     -> MISMATCH(ES)
 
 #31 May kumikislap po na ilaw sa poste sa harap ng tindahan namin, tila maluwag ang koneksyon.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=lighting           predicted=lighting           conf=100.0%
-    [XX ] urgency    actual=low                predicted=moderate           conf=100.0%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 99.4%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 96.1%
     -> MISMATCH(ES)
 
 #32 Maaliwalas na po ang daan ngayon dahil sa bagong ilaw, salamat po sa barangay.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=lighting           predicted=lighting           conf= 99.9%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 83.5%
+    [OK ] urgency    actual=low                predicted=low                conf= 96.7%
     -> ALL THREE CORRECT
 
 #33 Sobrang lakas ng videoke at sigawan kahit lampas 11 PM na po, hindi na po kami makatulog.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=peace_order        predicted=peace_order        conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=peace_order        predicted=peace_order        conf= 99.3%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 91.0%
     -> ALL THREE CORRECT
 
 #34 Salamat po at agad na umaksyon ang barangay tanod sa ingay na reklamo namin kagabi.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=peace_order        predicted=peace_order        conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=peace_order        predicted=peace_order        conf= 98.5%
+    [OK ] urgency    actual=low                predicted=low                conf= 95.3%
     -> ALL THREE CORRECT
 
 #35 May suntukan po na nangyayari sa harap ng aming bahay, paki-tawag po agad ng tanod!
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
-    [OK ] category   actual=peace_order        predicted=peace_order        conf= 81.3%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf= 99.8%
-    -> MISMATCH(ES)
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.6%
+    [OK ] category   actual=peace_order        predicted=peace_order        conf= 74.8%
+    [OK ] urgency    actual=emergency          predicted=emergency          conf=100.0%
+    -> ALL THREE CORRECT
 
 #36 May malakas na tambutso po ang mga motor dito kada gabi, nakakaistorbo po sa mga residente.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
-    [OK ] category   actual=peace_order        predicted=peace_order        conf= 90.5%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.6%
+    [OK ] category   actual=peace_order        predicted=peace_order        conf= 35.4%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 84.0%
     -> ALL THREE CORRECT
 
 #37 Payapa na po ang looban namin ngayon, salamat at naaksyunan ang gulo noong nakaraang linggo.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=peace_order        predicted=peace_order        conf= 45.9%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=peace_order        predicted=peace_order        conf= 39.4%
+    [OK ] urgency    actual=low                predicted=low                conf= 82.2%
     -> ALL THREE CORRECT
 
 #38 May kawatan po ba na iniulat sa lugar na ito noong nakaraang buwan?
-    [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [XX ] category   actual=peace_order        predicted=flood_drainage     conf= 70.0%
-    [OK ] urgency    actual=low                predicted=low                conf= 99.9%
+    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.8%
+    [XX ] category   actual=peace_order        predicted=waste              conf= 31.0%
+    [OK ] urgency    actual=low                predicted=low                conf= 84.5%
     -> MISMATCH(ES)
 
 #39 May illegal double parking po sa kanto, nakaharang po sa mga dumadaan na sasakyan.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=traffic_obstruction predicted=traffic_obstruction conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=traffic_obstruction predicted=traffic_obstruction conf= 97.1%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 88.3%
     -> ALL THREE CORRECT
 
 #40 Salamat po at inilipat na ang mga vendor na nakaokupa sa pedestrian lane.
-    [OK ] sentiment  actual=positive           predicted=positive           conf= 98.1%
-    [OK ] category   actual=traffic_obstruction predicted=traffic_obstruction conf=100.0%
-    [XX ] urgency    actual=low                predicted=moderate           conf= 82.4%
+    [XX ] sentiment  actual=positive           predicted=negative           conf= 75.2%
+    [OK ] category   actual=traffic_obstruction predicted=traffic_obstruction conf= 89.8%
+    [OK ] urgency    actual=low                predicted=low                conf= 53.7%
     -> MISMATCH(ES)
 
 #41 Magandang araw po, nakaharang po ang isang truck sa malapit sa jeepney terminal, nagkabuhol-buhol ang trapiko.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=traffic_obstruction predicted=traffic_obstruction conf= 99.7%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 92.0%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
+    [OK ] category   actual=traffic_obstruction predicted=traffic_obstruction conf= 88.0%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 79.3%
     -> ALL THREE CORRECT
 
 #42 May mga sasakyan po bang pwedeng i-impound dahil sa harang sa daan papuntang palengke?
-    [XX ] sentiment  actual=neutral            predicted=negative           conf= 99.8%
-    [XX ] category   actual=traffic_obstruction predicted=road               conf= 87.0%
-    [XX ] urgency    actual=low                predicted=emergency          conf= 48.3%
+    [XX ] sentiment  actual=neutral            predicted=negative           conf= 99.1%
+    [XX ] category   actual=traffic_obstruction predicted=road               conf= 64.4%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 44.8%
     -> MISMATCH(ES)
 
 #43 Naayos na po ba ang pagsasara ng kalsada dahil sa road repair? Mahaba na po ang pila sa trapiko.
-    [XX ] sentiment  actual=negative           predicted=neutral            conf= 95.3%
-    [XX ] category   actual=traffic_obstruction predicted=road               conf=100.0%
-    [XX ] urgency    actual=moderate           predicted=low                conf=100.0%
+    [XX ] sentiment  actual=negative           predicted=neutral            conf= 97.1%
+    [XX ] category   actual=traffic_obstruction predicted=road               conf= 99.8%
+    [XX ] urgency    actual=moderate           predicted=low                conf= 98.4%
     -> MISMATCH(ES)
 
 #44 Maayos na po ang daloy ng sasakyan ngayon, salamat dahil nilinis ang daan.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=traffic_obstruction predicted=traffic_obstruction conf= 94.4%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
-    -> ALL THREE CORRECT
+    [XX ] category   actual=traffic_obstruction predicted=road               conf= 54.7%
+    [OK ] urgency    actual=low                predicted=low                conf= 95.8%
+    -> MISMATCH(ES)
 
 #45 Bumabaha po sa Mayapa at hindi po makadaan ang mga sasakyan at motorsiklo, malalim po ang tubig.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [XX ] category   actual=flood_drainage     predicted=traffic_obstruction conf= 67.1%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf=100.0%
+    [XX ] category   actual=flood_drainage     predicted=road               conf= 48.2%
+    [XX ] urgency    actual=emergency          predicted=moderate           conf= 90.6%
     -> MISMATCH(ES)
 
 #46 Salamat po at nalinis ang kanal dito sa may estero kaya hindi na po bumaha.
     [OK ] sentiment  actual=positive           predicted=positive           conf= 99.9%
-    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf= 89.4%
+    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 98.6%
+    [OK ] urgency    actual=low                predicted=low                conf= 63.1%
     -> ALL THREE CORRECT
 
 #47 Paki-check po ang nakatakip na sewage line na nagdudulot ng baha sa bawat malakas na ulan.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 98.3%
-    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 99.6%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.2%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 81.7%
+    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 84.1%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 72.6%
     -> ALL THREE CORRECT
 
 #48 Mabuhay po, may tumagos pong putik ang tubig-baha sa bahay namin sa Pansol kagabi dahil sa pagbaha.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [XX ] category   actual=flood_drainage     predicted=health_sanitation  conf= 65.5%
-    [XX ] urgency    actual=moderate           predicted=emergency          conf= 65.4%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.4%
+    [XX ] category   actual=flood_drainage     predicted=health_sanitation  conf= 27.8%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 55.8%
     -> MISMATCH(ES)
 
 #49 Aksyunan po agad ang pagbaha sa pangunahing daan, hindi na po makadaan ang ambulansya!
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 97.5%
-    [XX ] category   actual=flood_drainage     predicted=road               conf= 56.4%
-    [OK ] urgency    actual=emergency          predicted=emergency          conf= 52.8%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 96.8%
+    [XX ] category   actual=flood_drainage     predicted=traffic_obstruction conf= 50.4%
+    [XX ] urgency    actual=emergency          predicted=moderate           conf= 46.6%
     -> MISMATCH(ES)
 
 #50 May nakaipon pong basura sa drainage na nagdudulot ng baradong agos ng tubig.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.1%
-    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 99.9%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.9%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.0%
+    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 64.3%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 71.7%
     -> ALL THREE CORRECT
 
 #51 Malinaw na po ba ang daluyan ng tubig dito pagkatapos ng dredging noong nakaraang linggo?
-    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 77.0%
-    [XX ] category   actual=flood_drainage     predicted=water              conf= 99.7%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.4%
+    [XX ] category   actual=flood_drainage     predicted=water              conf= 93.5%
+    [OK ] urgency    actual=low                predicted=low                conf= 95.9%
     -> MISMATCH(ES)
 
 #52 May tambak po ng dumi na iniiwan ng mga aso at pusa dito sa kanto, nakaka-amoy po at delikado sa kalusugan.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [XX ] category   actual=health_sanitation  predicted=waste              conf= 76.9%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [XX ] category   actual=health_sanitation  predicted=waste              conf= 50.4%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 87.7%
     -> MISMATCH(ES)
 
 #53 Salamat po sa libreng medical mission sa Barangay Pansol, marami po kaming natulungan!
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 99.5%
+    [OK ] urgency    actual=low                predicted=low                conf= 97.2%
     -> ALL THREE CORRECT
 
 #54 May stagnant na tubig po na pugad ng lamok, paki-spray na po ng dengue prevention.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 61.7%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
+    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 88.4%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 82.6%
     -> ALL THREE CORRECT
 
 #55 Bukas po ba ang health center ngayong linggo para sa libreng bakuna ng mga bata?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 99.3%
+    [OK ] urgency    actual=low                predicted=low                conf= 98.9%
     -> ALL THREE CORRECT
 
 #56 May burot na basura po sa kalsada na posibleng pagmulan ng sakit, paki-aksyunan na po.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
-    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 93.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.9%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.5%
+    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 47.7%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 75.2%
     -> ALL THREE CORRECT
 
 #57 Salamat po at may nag-inspeksyon ng food sanitation sa mga karinderya, mas ligtas na po kumain.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 86.5%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 55.7%
+    [OK ] urgency    actual=low                predicted=low                conf= 88.8%
     -> ALL THREE CORRECT
 
 #58 Kailan po ang susunod na deworming para sa mga bata sa aming barangay?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [XX ] category   actual=health_sanitation  predicted=general_inquiry    conf= 97.3%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [XX ] category   actual=health_sanitation  predicted=general_inquiry    conf= 37.7%
+    [OK ] urgency    actual=low                predicted=low                conf= 86.1%
     -> MISMATCH(ES)
 
 #59 May live wire po na nakalantad at sumasabog na transformer sa may poste, paki-tawag po agad ng Meralco!
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf=100.0%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 98.6%
+    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 99.2%
     [OK ] urgency    actual=emergency          predicted=emergency          conf=100.0%
     -> ALL THREE CORRECT
 
 #60 Salamat po at inayos ng Meralco ang nakasabit na mga wire dito sa looban.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 99.3%
+    [OK ] urgency    actual=low                predicted=low                conf= 95.9%
     -> ALL THREE CORRECT
 
 #61 May mababang nakasabit na wire na nasa tapat ng school gate, delikado po sa mga estudyante.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 90.3%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.7%
+    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 92.8%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 78.2%
     -> ALL THREE CORRECT
 
 #62 Paki-reach out po sa Meralco para sa nakalantad na poste na walang takip sa may palengke.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 71.3%
-    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 96.7%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 98.3%
+    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 97.7%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 75.0%
     -> ALL THREE CORRECT
 
 #63 May amoy sunog po sa aming poste kagabi, tila may short circuit, delikado po!
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf=100.0%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf=100.0%
-    -> MISMATCH(ES)
-
-#64 Kailan po nila mababaklas ang lumang poste na wala nang gamit sa tabi ng daan?
-    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.9%
-    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 99.7%
-    [OK ] urgency    actual=low                predicted=low                conf= 99.5%
+    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 98.3%
+    [OK ] urgency    actual=emergency          predicted=emergency          conf=100.0%
     -> ALL THREE CORRECT
 
+#64 Kailan po nila mababaklas ang lumang poste na wala nang gamit sa tabi ng daan?
+    [XX ] sentiment  actual=neutral            predicted=negative           conf= 78.5%
+    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 79.4%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 52.0%
+    -> MISMATCH(ES)
+
 #65 Na-resolve na po ba ang palaging brownout dito sa aming purok? Nakakasira po sa appliances.
-    [XX ] sentiment  actual=negative           predicted=neutral            conf= 99.3%
-    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 99.8%
-    [XX ] urgency    actual=moderate           predicted=low                conf= 99.8%
+    [XX ] sentiment  actual=negative           predicted=neutral            conf= 96.3%
+    [OK ] category   actual=electrical_hazard  predicted=electrical_hazard  conf= 70.5%
+    [XX ] urgency    actual=moderate           predicted=low                conf= 87.6%
     -> MISMATCH(ES)
 
 #66 Sira po ang ilaw at upuan sa covered court namin, paki-ayos naman po para sa mga bata.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=public_facilities  predicted=public_facilities  conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=public_facilities  predicted=public_facilities  conf= 95.8%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 86.0%
     -> ALL THREE CORRECT
 
 #67 Salamat po at inayos ang playground ng mga bata dito sa parke ng barangay.
-    [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=public_facilities  predicted=public_facilities  conf= 99.8%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 99.9%
+    [OK ] category   actual=public_facilities  predicted=public_facilities  conf= 88.1%
+    [OK ] urgency    actual=low                predicted=low                conf= 86.9%
     -> ALL THREE CORRECT
 
 #68 Wala po bang nagtatrabaho sa barangay hall ngayong hapon? Mahaba po ang pila ng mga nagrereklamo.
-    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.7%
-    [XX ] category   actual=public_facilities  predicted=road               conf= 58.4%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.8%
+    [XX ] category   actual=public_facilities  predicted=general_inquiry    conf= 39.2%
+    [OK ] urgency    actual=low                predicted=low                conf= 70.8%
     -> MISMATCH(ES)
 
 #69 May sira pong water fountain sa plaza na sayang na tumutuloy ang tubig.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [XX ] category   actual=public_facilities  predicted=water              conf= 90.7%
-    [XX ] urgency    actual=low                predicted=moderate           conf=100.0%
+    [XX ] category   actual=public_facilities  predicted=water              conf= 48.6%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 86.4%
     -> MISMATCH(ES)
 
 #70 Bukas po ba ang barangay library tuwing weekend para sa mga estudyante?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [XX ] category   actual=public_facilities  predicted=general_inquiry    conf= 96.9%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [XX ] category   actual=public_facilities  predicted=general_inquiry    conf= 82.0%
+    [OK ] urgency    actual=low                predicted=low                conf= 95.3%
     -> MISMATCH(ES)
 
 #71 Malinis at maayos na po ang bagong palikuran sa palengke, salamat po!
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [OK ] category   actual=public_facilities  predicted=public_facilities  conf= 79.1%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=public_facilities  predicted=public_facilities  conf= 62.5%
+    [OK ] urgency    actual=low                predicted=low                conf= 98.1%
     -> ALL THREE CORRECT
 
 #72 Sirang-pinto po ang CR ng Health Center, hindi po magamit ng mga pasyente.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 65.9%
-    [OK ] category   actual=public_facilities  predicted=public_facilities  conf= 49.9%
-    [XX ] urgency    actual=moderate           predicted=low                conf= 69.2%
+    [XX ] sentiment  actual=negative           predicted=positive           conf= 65.4%
+    [XX ] category   actual=public_facilities  predicted=health_sanitation  conf= 43.3%
+    [XX ] urgency    actual=moderate           predicted=low                conf= 54.6%
     -> MISMATCH(ES)
 
 #73 Ano po ang requirements para sa pagkuha ng barangay clearance bukas?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 99.5%
+    [OK ] urgency    actual=low                predicted=low                conf= 85.5%
     -> ALL THREE CORRECT
 
 #74 Saan po pwede mag-apply para sa cash assistance ng barangay?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 96.8%
+    [OK ] urgency    actual=low                predicted=low                conf= 95.7%
     -> ALL THREE CORRECT
 
 #75 Salamat po sa mabilis na tugon ng opisina sa aking katanungan tungkol sa ayuda.
-    [OK ] sentiment  actual=positive           predicted=positive           conf= 99.8%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 85.6%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 99.7%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 28.1%
+    [OK ] urgency    actual=low                predicted=low                conf= 93.8%
     -> ALL THREE CORRECT
 
 #76 Magkano po ba ang bayad para sa certificate of residency?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 99.9%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 95.0%
+    [OK ] urgency    actual=low                predicted=low                conf= 96.2%
     -> ALL THREE CORRECT
 
 #77 Anong oras po ang closing ng opisina ng barangay sa Biyernes?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.9%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 99.7%
-    [OK ] urgency    actual=low                predicted=low                conf= 99.7%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 84.3%
+    [OK ] urgency    actual=low                predicted=low                conf= 48.8%
     -> ALL THREE CORRECT
 
 #78 Ilang araw po bago makuha ang barangay clearance pagkatapos magbayad?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 97.7%
+    [OK ] urgency    actual=low                predicted=low                conf= 47.5%
     -> ALL THREE CORRECT
 
 #79 Paano po magreport ng lost ID sa barangay hall?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 95.9%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 78.5%
+    [OK ] urgency    actual=low                predicted=low                conf= 91.7%
     -> ALL THREE CORRECT
 
 #80 Nakakatanggap po ba kayo ng online na reklamo o chat lang po?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 98.7%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=general_inquiry    predicted=general_inquiry    conf= 71.1%
+    [OK ] urgency    actual=low                predicted=low                conf= 91.4%
     -> ALL THREE CORRECT
 
 #81 May basura po na itinapon sa ilog malapit sa subdivision, nakabara po at mabaho na ang tubig.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=waste              predicted=waste              conf= 90.1%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
+    [OK ] category   actual=waste              predicted=waste              conf= 50.7%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 93.1%
     -> ALL THREE CORRECT
 
 #82 Paano po ba makapag-recycle ng plastic dito sa barangay natin? May programa po ba?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=waste              predicted=waste              conf= 99.9%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=waste              predicted=waste              conf= 96.0%
+    [OK ] urgency    actual=low                predicted=low                conf= 97.5%
     -> ALL THREE CORRECT
 
 #83 Napakalinis na po ng kalsada dahil sa araw-araw na pagwawalis ng mga tanod, magaling!
-    [OK ] sentiment  actual=positive           predicted=positive           conf= 99.2%
-    [OK ] category   actual=waste              predicted=waste              conf= 81.9%
-    [OK ] urgency    actual=low                predicted=low                conf= 64.8%
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 91.0%
+    [OK ] category   actual=waste              predicted=waste              conf= 27.0%
+    [OK ] urgency    actual=low                predicted=low                conf= 43.2%
     -> ALL THREE CORRECT
 
 #84 May gapang po na bangketa, hindi po madadaan ng bata at matatanda, pakiayos nga po.
-    [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [XX ] category   actual=road               predicted=water              conf= 72.9%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 95.1%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
+    [XX ] category   actual=road               predicted=water              conf= 25.3%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 63.5%
     -> MISMATCH(ES)
 
 #85 Salamat po sa paglalagay ng mga anggulo ng daan para hindi maaksidente ang mga nagmamaneho.
-    [OK ] sentiment  actual=positive           predicted=positive           conf= 96.8%
-    [XX ] category   actual=road               predicted=lighting           conf= 84.6%
-    [OK ] urgency    actual=low                predicted=low                conf= 98.8%
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 95.5%
+    [XX ] category   actual=road               predicted=lighting           conf= 31.4%
+    [OK ] urgency    actual=low                predicted=low                conf= 65.7%
     -> MISMATCH(ES)
 
 #86 Kailan po ang imbestigasyon sa gumuhong kalsada sa may subdibisyon, delikado po ito.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 96.9%
-    [OK ] category   actual=road               predicted=road               conf=100.0%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf= 99.0%
+    [XX ] sentiment  actual=negative           predicted=neutral            conf= 57.2%
+    [OK ] category   actual=road               predicted=road               conf= 95.4%
+    [OK ] urgency    actual=emergency          predicted=emergency          conf=100.0%
     -> MISMATCH(ES)
 
 #87 Reliable na po ba ang schedule ng water delivery dito sa mataas na lugar?
     [OK ] sentiment  actual=neutral            predicted=neutral            conf=100.0%
-    [OK ] category   actual=water              predicted=water              conf= 88.8%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [OK ] category   actual=water              predicted=water              conf= 66.3%
+    [OK ] urgency    actual=low                predicted=low                conf= 98.9%
     -> ALL THREE CORRECT
 
 #88 May tagas po sa mga lumang tubo ng CWD na sayang po ang inumin na tubig.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.6%
-    [OK ] category   actual=water              predicted=water              conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.4%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
+    [OK ] category   actual=water              predicted=water              conf= 97.0%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 70.4%
     -> ALL THREE CORRECT
 
 #89 Napakasayang po at naayos na agad ang sirang balsa ng tubig sa aming purok.
-    [OK ] sentiment  actual=positive           predicted=positive           conf= 98.7%
-    [XX ] category   actual=water              predicted=road               conf= 51.2%
-    [OK ] urgency    actual=low                predicted=low                conf= 98.8%
-    -> MISMATCH(ES)
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 97.5%
+    [OK ] category   actual=water              predicted=water              conf= 69.9%
+    [OK ] urgency    actual=low                predicted=low                conf= 76.1%
+    -> ALL THREE CORRECT
 
 #90 Madilim na madilim po sa may basketball court pagdating ng gabi, maganda pong lagyan ng ilaw.
-    [XX ] sentiment  actual=positive           predicted=negative           conf= 98.7%
-    [OK ] category   actual=lighting           predicted=lighting           conf= 99.9%
-    [XX ] urgency    actual=low                predicted=moderate           conf=100.0%
+    [XX ] sentiment  actual=positive           predicted=negative           conf= 93.9%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 97.0%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 70.4%
     -> MISMATCH(ES)
 
 #91 Sira po ang ilaw sa tawiran ng kindergarten, hindi makita ang mga bata sa gabi.
     [OK ] sentiment  actual=negative           predicted=negative           conf=100.0%
-    [OK ] category   actual=lighting           predicted=lighting           conf=100.0%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf=100.0%
+    [OK ] category   actual=lighting           predicted=lighting           conf= 99.5%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 92.3%
     -> ALL THREE CORRECT
 
 #92 May gulo po ngayon sa kanto, may nag-aaway, paki-samahan na po ng tanod!
-    [XX ] sentiment  actual=negative           predicted=positive           conf= 79.0%
-    [OK ] category   actual=peace_order        predicted=peace_order        conf= 99.1%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf= 92.7%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 52.6%
+    [OK ] category   actual=peace_order        predicted=peace_order        conf= 70.3%
+    [XX ] urgency    actual=emergency          predicted=moderate           conf= 54.6%
     -> MISMATCH(ES)
 
 #93 Ayos na po ang sistema ng barangay tanod dito at may patrulya po tuwing gabi, ligtas kami.
-    [OK ] sentiment  actual=positive           predicted=positive           conf= 99.0%
-    [OK ] category   actual=peace_order        predicted=peace_order        conf=100.0%
-    [OK ] urgency    actual=low                predicted=low                conf= 96.2%
-    -> ALL THREE CORRECT
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 96.4%
+    [OK ] category   actual=peace_order        predicted=peace_order        conf= 88.7%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 56.5%
+    -> MISMATCH(ES)
 
 #94 Bakit po ba masikip masyado ang kalsada malapit sa simbahan pagdating ng Linggo?
-    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.6%
-    [XX ] category   actual=traffic_obstruction predicted=road               conf= 57.1%
-    [OK ] urgency    actual=low                predicted=low                conf= 96.8%
+    [OK ] sentiment  actual=neutral            predicted=neutral            conf= 99.5%
+    [XX ] category   actual=traffic_obstruction predicted=road               conf= 28.6%
+    [OK ] urgency    actual=low                predicted=low                conf= 70.1%
     -> MISMATCH(ES)
 
 #95 Maliwanag na po ang daan ngayon at malinis, mas masaya na pong dumaan dito.
     [OK ] sentiment  actual=positive           predicted=positive           conf=100.0%
-    [XX ] category   actual=traffic_obstruction predicted=lighting           conf= 86.4%
-    [OK ] urgency    actual=low                predicted=low                conf=100.0%
+    [XX ] category   actual=traffic_obstruction predicted=public_facilities  conf= 43.4%
+    [OK ] urgency    actual=low                predicted=low                conf= 90.9%
     -> MISMATCH(ES)
 
 #96 Bumaha po sa may aming barangay kahit bahagyang ulan lang, hindi na po namin kaya.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.8%
-    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf=100.0%
-    [XX ] urgency    actual=emergency          predicted=moderate           conf=100.0%
+    [XX ] sentiment  actual=negative           predicted=positive           conf= 70.9%
+    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 97.0%
+    [XX ] urgency    actual=emergency          predicted=moderate           conf= 86.7%
     -> MISMATCH(ES)
 
 #97 Naku, parang mas malala na po ang baha dito taon-taon, paki-investigate po.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 85.7%
-    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 97.7%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 95.1%
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 60.4%
+    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 53.3%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 62.6%
     -> ALL THREE CORRECT
 
 #98 Magaling po ang ginawang drainage ng barangay, wala na pong tumigas na baha ngayon.
-    [OK ] sentiment  actual=positive           predicted=positive           conf= 98.0%
-    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 84.8%
-    [OK ] urgency    actual=low                predicted=low                conf= 90.9%
-    -> ALL THREE CORRECT
+    [OK ] sentiment  actual=positive           predicted=positive           conf= 92.7%
+    [OK ] category   actual=flood_drainage     predicted=flood_drainage     conf= 72.0%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 49.7%
+    -> MISMATCH(ES)
 
 #99 May nakahambalang bang nagkasakit dito dahil sa maruming simbahan? Paki check po.
-    [XX ] sentiment  actual=neutral            predicted=negative           conf= 96.9%
-    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 43.8%
-    [XX ] urgency    actual=low                predicted=moderate           conf= 88.7%
+    [XX ] sentiment  actual=neutral            predicted=negative           conf= 79.4%
+    [XX ] category   actual=health_sanitation  predicted=flood_drainage     conf= 33.7%
+    [XX ] urgency    actual=low                predicted=moderate           conf= 59.2%
     -> MISMATCH(ES)
 
 #100 Nakababahala po ang dami ng langaw at daga dito sa palengke, paki-linisin naman po agad.
-    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.9%
-    [OK ] category   actual=health_sanitation  predicted=health_sanitation  conf= 86.3%
-    [OK ] urgency    actual=moderate           predicted=moderate           conf= 99.9%
-    -> ALL THREE CORRECT
+    [OK ] sentiment  actual=negative           predicted=negative           conf= 99.7%
+    [XX ] category   actual=health_sanitation  predicted=waste              conf= 53.4%
+    [OK ] urgency    actual=moderate           predicted=moderate           conf= 74.8%
+    -> MISMATCH(ES)

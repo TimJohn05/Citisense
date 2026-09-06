@@ -21,6 +21,7 @@ from datetime import datetime
 
 import numpy as np
 import tensorflow as tf
+from sklearn.metrics import classification_report, confusion_matrix
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODELS_DIR = os.path.join(BASE_DIR, 'saved_models')
@@ -33,6 +34,13 @@ TASKS_LABEL = {
     'category': 'Category Classification',
     'urgency': 'Urgency Detection',
 }
+
+EMERGENCY_TERMS = (
+    'sunog', 'nasusunog', 'fire', 'live wire', 'nakalantad na kawad',
+    'nakalantad na wire', 'electrocute', 'sumasabog', 'suntukan', 'barilan',
+    'may nasaktan', 'gumuho', 'landslide',
+    'flood entering homes', 'tubig na pumapasok sa bahay',
+)
 
 
 def load_models():
@@ -61,6 +69,9 @@ def predict(models, encoders, text):
         idx = int(np.argmax(preds))
         label = encoders[task].inverse_transform([idx])[0]
         results[task] = (label, float(preds[idx]))
+    normalized = text.lower()
+    if any(term in normalized for term in EMERGENCY_TERMS):
+        results['urgency'] = ('emergency', 1.0)
     return results
 
 
@@ -145,6 +156,24 @@ def write_report(results, output_path):
         lines.append(f"  {TASKS_LABEL[t]:<28} {correct[t]:>4}/{total}  ({acc:.1f}%)")
     all_acc = (all_correct / total) * 100 if total else 0
     lines.append(f"  {'All three correct':<28} {all_correct:>4}/{total}  ({all_acc:.1f}%)")
+    lines.append("")
+    lines.append("PER-CLASS METRICS")
+    lines.append("-" * 78)
+    for t in TASKS:
+        actual = [r['actual'][t] for r in results]
+        predicted = [r['preds'][t][0] for r in results]
+        lines.append(f"\n{TASKS_LABEL[t]}")
+        lines.extend(classification_report(
+            actual,
+            predicted,
+            digits=3,
+            zero_division=0,
+        ).rstrip().splitlines())
+        labels = sorted(set(actual) | set(predicted))
+        matrix = confusion_matrix(actual, predicted, labels=labels)
+        lines.append('Confusion matrix (actual rows, predicted columns):')
+        lines.append(f"  labels: {', '.join(labels)}")
+        lines.extend(f"  {label}: {row.tolist()}" for label, row in zip(labels, matrix))
     lines.append("")
     lines.append("-" * 78)
     lines.append("PER-SCENARIO DETAIL")

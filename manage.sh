@@ -11,6 +11,11 @@ APP_DIR="$ROOT_DIR/citisense"
 ML_DIR="$ROOT_DIR/ml"
 PYTHON_BIN="$ML_DIR/.venv/bin/python"
 
+# Bootstrap the ML venv on first use (uv-managed; pyproject.toml + uv.lock).
+if [ ! -x "$PYTHON_BIN" ]; then
+  (cd "$ML_DIR" && uv sync)
+fi
+
 # Text styles
 BOLD="\033[1m"
 GREEN="\033[32m"

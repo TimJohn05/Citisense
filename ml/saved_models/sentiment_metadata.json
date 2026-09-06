@@ -1,0 +1,13 @@
+{
+  "task": "sentiment",
+  "seed": 42,
+  "trained_at_utc": "2026-09-06T18:15:47.949633+00:00",
+  "dataset_sha256": "9c8a404c00f9b47585b7f01bc078089ee7e5de2190dfb747fc09aba595a827d3",
+  "dataset_rows": 6000,
+  "validation_rows": 1172,
+  "validation_strategy": "StratifiedGroupKFold by source_id",
+  "validation_accuracy": 0.9556313753128052,
+  "vocab_size": 5000,
+  "ngrams": 2,
+  "units": 96
+}

@@ -19,12 +19,19 @@ Design notes (validated empirically against a 100-scenario held-out test):
 See benchmark.py for the empirical comparison.
 """
 
+import hashlib
+import json
 import os
+import random
+from datetime import datetime, timezone
+
+os.environ.setdefault('TF_DETERMINISTIC_OPS', '1')
+
 import pickle
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.preprocessing import LabelEncoder
 from sklearn.utils.class_weight import compute_class_weight
 
@@ -37,6 +44,11 @@ UNITS = int(os.environ.get('UNITS', '96'))
 EPOCHS = int(os.environ.get('EPOCHS', '40'))
 PATIENCE = int(os.environ.get('PATIENCE', '8'))
 BATCH_SIZE = 64
+SEED = int(os.environ.get('CITISENSE_NLP_SEED', '42'))
+
+random.seed(SEED)
+np.random.seed(SEED)
+tf.keras.utils.set_random_seed(SEED)
 
 gpus = tf.config.list_physical_devices('GPU')
 if gpus:
@@ -70,9 +82,15 @@ def train_task(df, target_col, task_name):
     print(f"Classes found: {label_encoder.classes_}")
     print(f"Samples/class: {dict(zip(label_encoder.classes_, np.bincount(y_int)))}")
 
-    X_train_raw, X_test_raw, y_train_raw, y_test_raw = train_test_split(
-        X_raw, y_int, test_size=0.2, random_state=42, stratify=y_int
-    )
+    if 'source_id' not in df.columns:
+        raise ValueError(
+            'Dataset has no source_id column. Regenerate it with '
+            'generate_dataset.py before training.'
+        )
+    splitter = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=SEED)
+    train_index, test_index = next(splitter.split(X_raw, y_int, df['source_id']))
+    X_train_raw, X_test_raw = X_raw[train_index], X_raw[test_index]
+    y_train_raw, y_test_raw = y_int[train_index], y_int[test_index]
     X_train = tf.constant(X_train_raw, dtype=tf.string)
     X_test = tf.constant(X_test_raw, dtype=tf.string)
     y_train = tf.constant(y_train_raw, dtype=tf.int32)
@@ -122,7 +140,7 @@ def train_task(df, target_col, task_name):
     )
 
     loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
-    print(f"\nHoldout (20%) Val Accuracy: {accuracy * 100:.2f}%")
+    print(f"\nTemplate-grouped validation accuracy: {accuracy * 100:.2f}%")
 
     os.makedirs(MODELS_DIR, exist_ok=True)
     model_path = os.path.join(MODELS_DIR, f"{target_col}_model.keras")
@@ -130,6 +148,24 @@ def train_task(df, target_col, task_name):
     encoder_path = os.path.join(MODELS_DIR, f"{target_col}_encoder.pkl")
     with open(encoder_path, 'wb') as f:
         pickle.dump(label_encoder, f)
+
+    with open(DATASET_PATH, 'rb') as f:
+        dataset_sha256 = hashlib.sha256(f.read()).hexdigest()
+    metadata_path = os.path.join(MODELS_DIR, f'{target_col}_metadata.json')
+    with open(metadata_path, 'w', encoding='utf-8') as f:
+        json.dump({
+            'task': target_col,
+            'seed': SEED,
+            'trained_at_utc': datetime.now(timezone.utc).isoformat(),
+            'dataset_sha256': dataset_sha256,
+            'dataset_rows': len(df),
+            'validation_rows': len(test_index),
+            'validation_strategy': 'StratifiedGroupKFold by source_id',
+            'validation_accuracy': float(accuracy),
+            'vocab_size': VOCAB_SIZE,
+            'ngrams': NGRAMS,
+            'units': UNITS,
+        }, f, indent=2)
 
     print(f"Saved Keras model to {model_path}")
     print(f"Saved Label Encoder to {encoder_path}")

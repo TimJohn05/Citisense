@@ -886,6 +886,8 @@ def augment_text(text):
 
 
 def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp.csv'):
+    seed = int(os.environ.get('CITISENSE_NLP_SEED', '42'))
+    random.seed(seed)
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
     rows = []
@@ -899,7 +901,8 @@ def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp
 
     while len(rows) < target_count and attempts < max_attempts:
         attempts += 1
-        tpl_group = random.choice(all_templates)
+        tpl_index = random.randrange(len(all_templates))
+        tpl_group = all_templates[tpl_index]
         loc = random.choice(LOCATIONS)
         prefix = random.choice(PREFIXES)
         base_text = random.choice(tpl_group['texts']).format(loc=loc)
@@ -914,6 +917,7 @@ def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp
             seen_texts.add(full_text)
             rows.append({
                 'text': full_text,
+                'source_id': f'template_{tpl_index}',
                 'category': tpl_group['category'],
                 'sentiment': tpl_group['sentiment'],
                 'urgency': tpl_group['urgency']
@@ -922,7 +926,11 @@ def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp
     random.shuffle(rows)
 
     with open(output_file, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=['text', 'category', 'sentiment', 'urgency'])
+        writer = csv.DictWriter(
+            f,
+            fieldnames=['text', 'source_id', 'category', 'sentiment', 'urgency'],
+            lineterminator='\n',
+        )
         writer.writeheader()
         writer.writerows(rows)
 

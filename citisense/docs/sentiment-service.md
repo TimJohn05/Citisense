@@ -28,7 +28,7 @@ Use a **multilingual transformer model** served as a tiny Python microservice. T
 
 Two-stage plan (recommended):
 1. **Stage A (fast to try):** FastAPI + `cardiffnlp/twitter-xlm-roberta-base-sentiment`. Works on this laptop, no training needed.
-2. **Stage B (paper-grade):** fine-tune `jcblaise/bert-tagalog-base` on a Filipino sentiment dataset (e.g. *Filipino SentiWordNet*, Kaggle "Filipino text sentiment") to get ~90%+ accuracy on Taglish text. The service API stays identical, so the app doesn't change.
+2. **Stage B (paper-grade):** fine-tune `jcblaise/bert-tagalog-base` on a Filipino sentiment dataset and report its measured held-out performance. The service API stays identical, so the app doesn't change. Do not claim a target accuracy until it has been independently evaluated on CitiSense-style Taglish reports.
 
 ## Setup — Stage A (run it today)
 
