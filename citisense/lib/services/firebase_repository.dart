@@ -26,6 +26,9 @@ class FirebaseRepository implements AppRepository {
     return _userFromUid(credential.user!.uid);
   }
 
+  @override
+  Future<void> signOut() => _auth.signOut();
+
   Future<AppUser?> _userFromUid(String uid) async {
     final doc = await _db.collection('users').doc(uid).get();
     if (!doc.exists) return null;
@@ -98,6 +101,17 @@ class FirebaseRepository implements AppRepository {
   @override
   Future<void> saveLog(SystemLog log) async {
     await _db.collection('logs').doc(log.id).set(log.toMap());
+  }
+
+  @override
+  Future<String?> uploadMedia(File file, String folder) async {
+    final contentType = file.path.toLowerCase().endsWith('.mp4')
+        ? 'video/mp4'
+        : 'application/octet-stream';
+    final ref = _storage.ref().child('$folder/${_uuid.v4()}');
+    final meta = SettableMetadata(contentType: contentType);
+    await ref.putFile(file, meta);
+    return ref.getDownloadURL();
   }
 
   @override

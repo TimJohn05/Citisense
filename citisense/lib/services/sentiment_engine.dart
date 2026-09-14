@@ -1,4 +1,5 @@
 import '../models/enums.dart';
+import 'nb_tfidf_classifier.dart';
 
 class SentimentResult {
   final Sentiment sentiment;
@@ -379,6 +380,15 @@ class SentimentEngine {
   ];
 
   static SentimentResult analyze(String message, ComplaintCategory category) {
+    final nb = NbTfidfClassifier.instance;
+    if (nb != null && nb.available) {
+      final prediction = nb.predict(message);
+      return SentimentResult(
+        sentiment: prediction.sentiment,
+        recommendation: _recommendation(prediction.sentiment, category),
+      );
+    }
+
     final msg = message.toLowerCase();
 
     var negative = 0;

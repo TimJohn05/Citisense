@@ -13,8 +13,10 @@ class Complaint {
   final String? rejectReason;
   final double? latitude;
   final double? longitude;
-  final String? evidenceImage;
-  final String? proofImage;
+  final List<String> evidencePhotos;
+  final List<String> evidenceVideos;
+  final List<String> proofPhotos;
+  final List<String> proofVideos;
   final String? resolvedBy;
   final DateTime? resolvedAt;
   final DateTime createdAt;
@@ -32,14 +34,21 @@ class Complaint {
     this.rejectReason,
     this.latitude,
     this.longitude,
-    this.evidenceImage,
-    this.proofImage,
+    this.evidencePhotos = const [],
+    this.evidenceVideos = const [],
+    this.proofPhotos = const [],
+    this.proofVideos = const [],
     this.resolvedBy,
     this.resolvedAt,
     required this.createdAt,
   });
 
   bool get hasLocation => latitude != null && longitude != null;
+
+  String? get evidenceImage =>
+      evidencePhotos.isEmpty ? null : evidencePhotos.first;
+
+  String? get proofImage => proofPhotos.isEmpty ? null : proofPhotos.first;
 
   Complaint copyWith({
     String? id,
@@ -54,8 +63,10 @@ class Complaint {
     String? rejectReason,
     double? latitude,
     double? longitude,
-    String? evidenceImage,
-    String? proofImage,
+    List<String>? evidencePhotos,
+    List<String>? evidenceVideos,
+    List<String>? proofPhotos,
+    List<String>? proofVideos,
     String? resolvedBy,
     DateTime? resolvedAt,
     DateTime? createdAt,
@@ -73,8 +84,10 @@ class Complaint {
       rejectReason: rejectReason ?? this.rejectReason,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
-      evidenceImage: evidenceImage ?? this.evidenceImage,
-      proofImage: proofImage ?? this.proofImage,
+      evidencePhotos: evidencePhotos ?? this.evidencePhotos,
+      evidenceVideos: evidenceVideos ?? this.evidenceVideos,
+      proofPhotos: proofPhotos ?? this.proofPhotos,
+      proofVideos: proofVideos ?? this.proofVideos,
       resolvedBy: resolvedBy ?? this.resolvedBy,
       resolvedAt: resolvedAt ?? this.resolvedAt,
       createdAt: createdAt ?? this.createdAt,
@@ -95,8 +108,10 @@ class Complaint {
       'rejectReason': rejectReason,
       'latitude': latitude,
       'longitude': longitude,
-      'evidenceImage': evidenceImage,
-      'proofImage': proofImage,
+      'evidencePhotos': evidencePhotos,
+      'evidenceVideos': evidenceVideos,
+      'proofPhotos': proofPhotos,
+      'proofVideos': proofVideos,
       'resolvedBy': resolvedBy,
       'resolvedAt': resolvedAt?.toIso8601String(),
       'createdAt': createdAt.toIso8601String(),
@@ -117,12 +132,32 @@ class Complaint {
       rejectReason: map['rejectReason'] as String?,
       latitude: (map['latitude'] as num?)?.toDouble(),
       longitude: (map['longitude'] as num?)?.toDouble(),
-      evidenceImage: map['evidenceImage'] as String?,
-      proofImage: map['proofImage'] as String?,
+      evidencePhotos: _stringList(map['evidencePhotos'])
+          .ifEmpty(_legacySingle(map['evidenceImage'])),
+      evidenceVideos: _stringList(map['evidenceVideos']),
+      proofPhotos: _stringList(map['proofPhotos'])
+          .ifEmpty(_legacySingle(map['proofImage'])),
+      proofVideos: _stringList(map['proofVideos']),
       resolvedBy: map['resolvedBy'] as String?,
       resolvedAt: DateTime.tryParse(map['resolvedAt'] as String? ?? ''),
       createdAt:
           DateTime.tryParse(map['createdAt'] as String? ?? '') ?? DateTime.now(),
     );
   }
+
+  static List<String> _stringList(dynamic value) {
+    if (value is List) {
+      return value.whereType<String>().toList();
+    }
+    return const [];
+  }
+
+  static List<String> _legacySingle(dynamic value) {
+    if (value is String && value.isNotEmpty) return [value];
+    return const [];
+  }
+}
+
+extension _ListIsEmpty on List<String> {
+  List<String> ifEmpty(List<String> fallback) => isEmpty ? fallback : this;
 }

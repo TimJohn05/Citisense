@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../core/theme/app_colors.dart';
+import '../widgets/offline_first_tile_provider.dart';
 
 class StaticMapPreview extends StatelessWidget {
   final double latitude;
@@ -34,6 +35,8 @@ class StaticMapPreview extends StatelessWidget {
             TileLayer(
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               userAgentPackageName: 'com.citisense',
+              tileProvider: offlineFirstTileProvider,
+              maxNativeZoom: 16,
             ),
             MarkerLayer(
               markers: [

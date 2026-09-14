@@ -82,6 +82,10 @@ class MockRepository implements AppRepository {
         status: ComplaintStatus.pending,
         latitude: 14.1956,
         longitude: 121.1469,
+        evidencePhotos: const ['https://placehold.co/600x400?text=Garbage+Pile'],
+        evidenceVideos: const [
+          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+        ],
         createdAt: DateTime(2026, 7, 28, 9, 30),
       ),
       Complaint(
@@ -111,7 +115,7 @@ class MockRepository implements AppRepository {
         recommendation: 'Acknowledge the stable water service',
         status: ComplaintStatus.resolved,
         officerNotes: 'Filter unit replaced and pressure restored to normal.',
-        proofImage: 'https://placehold.co/600x400?text=Water+Restored',
+        proofPhotos: ['https://placehold.co/600x400?text=Water+Restored'],
         resolvedBy: 'Hon. Jose Santos',
         resolvedAt: DateTime(2026, 7, 30, 11, 45),
         latitude: 14.1865,
@@ -217,7 +221,7 @@ class MockRepository implements AppRepository {
         recommendation: 'Schedule facility repair and post safety notice',
         status: ComplaintStatus.resolved,
         officerNotes: 'Ring replaced and floor patched by maintenance crew.',
-        proofImage: 'https://placehold.co/600x400?text=Court+Repaired',
+        proofPhotos: ['https://placehold.co/600x400?text=Court+Repaired'],
         resolvedBy: 'Hon. Jose Santos',
         resolvedAt: DateTime(2026, 8, 5, 14, 30),
         latitude: 14.1920,
@@ -259,6 +263,9 @@ class MockRepository implements AppRepository {
         );
     return user.isEmpty ? null : user.first;
   }
+
+  @override
+  Future<void> signOut() async {}
 
   @override
   Future<AppUser> signup({
@@ -325,6 +332,12 @@ class MockRepository implements AppRepository {
   @override
   Future<void> saveLog(SystemLog log) async {
     _logs.insert(0, log);
+  }
+
+  @override
+  Future<String?> uploadMedia(File file, String folder) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    return file.path;
   }
 
   @override

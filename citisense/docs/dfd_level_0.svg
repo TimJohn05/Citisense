@@ -1,1 +1,404 @@
-<svg id="my-svg" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart" style="max-width: 996.953px; background-color: transparent;" viewBox="0 17.630470275878906 996.953125 379.7913818359375" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#my-svg .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#my-svg .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#my-svg .cluster-label text{fill:#333;}#my-svg .cluster-label span{color:#333;}#my-svg .cluster-label span p{background-color:transparent;}#my-svg .label text,#my-svg span{fill:#333;color:#333;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .rough-node .label text,#my-svg .node .label text,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-anchor:middle;}#my-svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#my-svg .rough-node .label,#my-svg .node .label,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-align:center;}#my-svg .node.clickable{cursor:pointer;}#my-svg .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#my-svg .arrowheadPath{fill:#333333;}#my-svg .edgePath .path{stroke:#333333;stroke-width:1px;}#my-svg .flowchart-link{stroke:#333333;fill:none;}#my-svg .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#my-svg .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#my-svg .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#my-svg .cluster text{fill:#333;}#my-svg .cluster span{color:#333;}#my-svg .node .collapsed-indicator{fill:#aaaa33;stroke:none;opacity:0.6;}#my-svg .node .collapsed-separator{stroke:#aaaa33;stroke-width:0.75px;}#my-svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#my-svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg rect.text{fill:none;stroke-width:0;}#my-svg .icon-shape,#my-svg .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .icon-shape p,#my-svg .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#my-svg .icon-shape .label rect,#my-svg .image-shape .label rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#my-svg .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#my-svg .node .neo-node{stroke:#9370DB;}#my-svg [data-look="neo"].node rect,#my-svg [data-look="neo"].cluster rect,#my-svg [data-look="neo"].node polygon{stroke:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#my-svg [data-look="neo"].swimlane.cluster rect{filter:none;}#my-svg [data-look="neo"].node path{stroke:#9370DB;stroke-width:1px;}#my-svg [data-look="neo"].node .outer-path{filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#my-svg [data-look="neo"].node .neo-line path{stroke:#9370DB;filter:none;}#my-svg [data-look="neo"].node circle{stroke:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#my-svg [data-look="neo"].node circle .state-start{fill:#000000;}#my-svg [data-look="neo"].icon-shape .icon{fill:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#my-svg [data-look="neo"].icon-shape .icon-neo path{stroke:#9370DB;filter:drop-shadow(1px 2px 2px rgba(185, 185, 185, 1));}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker id="my-svg_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerUnits="userSpaceOnUse" markerWidth="10.5" markerHeight="14" orient="auto"><path d="M 0 0 L 11.5 7 L 0 14 z" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerUnits="userSpaceOnUse" markerWidth="11.5" markerHeight="14" orient="auto"><polygon points="0,7 11.5,14 11.5,0" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refY="5" refX="12.25" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 0; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"/></marker><marker id="my-svg_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5;"/></marker><marker id="my-svg_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 1,1 L 14,14 M 1,14 L 14,1" class="arrowMarkerPath" style="stroke-width: 2.5; stroke-dasharray: 1, 0;"/></marker><g class="root"><g class="clusters"/><g class="edgePaths"><path d="M116.906,182.939L137.74,174.116C158.573,165.292,200.24,147.646,242.085,146.967C283.931,146.288,325.956,162.576,346.969,170.721L367.981,178.865" id="my-svg-L_Citizen_System_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Citizen_System_0" data-points="W3sieCI6MTE2LjkwNjI1LCJ5IjoxODIuOTM4NjE1NTg1NTQ2MzZ9LHsieCI6MjQxLjkwNjI1LCJ5IjoxMzB9LHsieCI6MzcxLjcxMDYxMzczMjU1ODk1LCJ5IjoxODAuMzEwMjQ1NDQzNjU2NDR9XQ==" data-look="classic" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/><path d="M371.711,231.69L350.077,240.075C328.442,248.46,285.174,265.23,243.321,265.052C201.467,264.874,161.028,247.748,140.809,239.184L120.59,230.621" id="my-svg-L_System_Citizen_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_System_Citizen_0" data-points="W3sieCI6MzcxLjcxMDYxMzczMjU1ODk1LCJ5IjoyMzEuNjg5NzU0NTU2MzQzNTZ9LHsieCI6MjQxLjkwNjI1LCJ5IjoyODJ9LHsieCI6MTE2LjkwNjI1LCJ5IjoyMjkuMDYxMzg0NDE0NDUzNjR9XQ==" data-look="classic" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/><path d="M759.078,120.91L738.245,125.425C717.411,129.94,675.745,138.97,634.231,149.602C592.717,160.234,551.356,172.468,530.675,178.585L509.994,184.703" id="my-svg-L_Official_System_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Official_System_0" data-points="W3sieCI6NzU5LjA3ODEyNSwieSI6MTIwLjkwOTYxMTg3ODA5MzI2fSx7IngiOjYzNC4wNzgxMjUsInkiOjE0OH0seyJ4Ijo1MDYuMTU4NjY3OTcyOTA0OTQsInkiOjE4NS44MzcxMjY5MzYwOTkyfV0=" data-look="classic" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/><path d="M492.795,160.724L516.342,141.27C539.889,121.816,586.984,82.908,630.713,67.828C674.442,52.748,714.805,61.495,734.987,65.869L755.169,70.243" id="my-svg-L_System_Official_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_System_Official_0" data-points="W3sieCI6NDkyLjc5NDUzNTUxOTQ4MjksInkiOjE2MC43MjQwMzMyODY5MDM5M30seyJ4Ijo2MzQuMDc4MTI1LCJ5Ijo0NH0seyJ4Ijo3NTkuMDc4MTI1LCJ5Ijo3MS4wOTAzODgxMjE5MDY3NH1d" data-look="classic" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/><path d="M768.445,338.88L746.051,343.733C723.656,348.586,678.867,358.293,633.439,344.117C588.012,329.941,541.945,291.882,518.912,272.853L495.878,253.824" id="my-svg-L_Admin_System_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Admin_System_0" data-points="W3sieCI6NzY4LjQ0NTMxMjUsInkiOjMzOC44Nzk1MjU5MTgyMDc5fSx7IngiOjYzNC4wNzgxMjUsInkiOjM2OH0seyJ4Ijo0OTIuNzk0NTM1NTE5NDgyOSwieSI6MjUxLjI3NTk2NjcxMzA5NjA3fV0=" data-look="classic" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/><path d="M506.159,226.163L527.479,232.469C548.798,238.775,591.438,251.388,634.501,262.406C677.564,273.424,721.05,282.849,742.793,287.561L764.536,292.273" id="my-svg-L_System_Admin_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_System_Admin_0" data-points="W3sieCI6NTA2LjE1ODY2Nzk3MjkwNDk0LCJ5IjoyMjYuMTYyODczMDYzOTAwOH0seyJ4Ijo2MzQuMDc4MTI1LCJ5IjoyNjR9LHsieCI6NzY4LjQ0NTMxMjUsInkiOjI5My4xMjA0NzQwODE3OTIxfV0=" data-look="classic" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/></g><g class="edgeLabels"><g class="edgeLabel" transform="translate(241.90625, 130)"><g class="label" data-id="L_Citizen_System_0" transform="translate(-100, -72)"><foreignObject width="200" height="144"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>1. Signup / Login Credentials<br />2. Submit Complaint<br />   (Category, Description,<br />    Evidence Photo, Map Coordinates)</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(243.52175, 281.37385)"><g class="label" data-id="L_System_Citizen_0" transform="translate(-100, -60)"><foreignObject width="200" height="120"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>1. Sentiment Result &amp; Recommendation<br />2. Complaint Status Updates<br />3. Privacy Policy</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(634.078125, 148)"><g class="label" data-id="L_Official_System_0" transform="translate(-100, -48)"><foreignObject width="200" height="96"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>1. Login Credentials<br />2. Acknowledge / Resolve (Proof Photo)<br />   / Reject (Reason)</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(612.73809, 61.63047)"><g class="label" data-id="L_System_Official_0" transform="translate(-96.9296875, -36)"><foreignObject width="193.859375" height="72"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>1. Complaint Feed &amp; Filters<br />2. Dashboard Statistics<br />3. Complaint Detail + Map</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(616.43264, 353.42185)"><g class="label" data-id="L_Admin_System_0" transform="translate(-81.671875, -36)"><foreignObject width="163.34375" height="72"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"><p>1. Admin Credentials<br />2. Add/Revoke Officers<br />3. Delete Complaints</p></span></div></foreignObject></g></g><g class="edgeLabel" transform="translate(636.07599, 264.43298)"><g class="label" data-id="L_System_Admin_0" transform="translate(-100, -48)"><foreignObject width="200" height="96"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table; white-space: break-spaces; line-height: 1.5; max-width: 200px; text-align: center; width: 200px;"><span class="edgeLabel"><p>1. System Dashboard (Charts)<br />2. User Management<br />3. Audit Logs</p></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="my-svg-flowchart-Citizen-0" data-look="classic" transform="translate(62.453125, 206)"><rect class="basic label-container" style="" x="-54.453125" y="-27" width="108.90625" height="54"/><g class="label" style="" transform="translate(-24.453125, -12)"><rect/><foreignObject width="48.90625" height="24"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Citizen</p></span></div></foreignObject></g></g><g class="node default" id="my-svg-flowchart-Official-1" data-look="classic" transform="translate(874.015625, 96)"><rect class="basic label-container" style="" x="-114.9375" y="-39" width="229.875" height="78"/><g class="label" style="" transform="translate(-84.9375, -24)"><rect/><foreignObject width="169.875" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Barangay Official<br />Monitoring &amp; Resolution</p></span></div></foreignObject></g></g><g class="node default" id="my-svg-flowchart-Admin-2" data-look="classic" transform="translate(874.015625, 316)"><rect class="basic label-container" style="" x="-105.5703125" y="-39" width="211.140625" height="78"/><g class="label" style="" transform="translate(-75.5703125, -24)"><rect/><foreignObject width="151.140625" height="48"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>System Admin<br />User &amp; System Mgmt</p></span></div></foreignObject></g></g><g class="node default" id="my-svg-flowchart-System-3" data-look="classic" transform="translate(437.9921875, 206)"><circle class="basic label-container" style="" r="71.0859375" cx="0" cy="0"/><g class="label" style="" transform="translate(-63.5859375, -36)"><rect/><foreignObject width="127.171875" height="72"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>0.0 CitiSense<br />Native Flutter App<br />Calamba City</p></span></div></foreignObject></g></g></g></g></g><defs><filter id="my-svg-drop-shadow" height="130%" width="130%"><feDropShadow dx="4" dy="4" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"/></filter></defs><defs><filter id="my-svg-drop-shadow-small" height="150%" width="150%"><feDropShadow dx="2" dy="2" stdDeviation="0" flood-opacity="0.06" flood-color="#000000"/></filter></defs></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1200 640"
+   width="1200"
+   height="640"
+   version="1.1"
+   id="svg42"
+   sodipodi:docname="dfd_level_0.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview42"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.0133333"
+     inkscape:cx="638.48686"
+     inkscape:cy="453.94738"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg42" />
+  <rect
+     width="100%"
+     height="100%"
+     fill="#ffffff"
+     id="rect1"
+     x="3.1254612e-07"
+     y="-4.8846192" />
+  <defs
+     id="defs1">
+    <marker
+       id="arr"
+       markerWidth="8"
+       markerHeight="8"
+       refX="6"
+       refY="4"
+       orient="auto">
+      <path
+         d="M0,0 L0,8 L8,4 z"
+         fill="#1e293b"
+         id="path1" />
+    </marker>
+  </defs>
+  <circle
+     cx="600"
+     cy="320"
+     r="120"
+     fill="#eff6ff"
+     stroke="#2563eb"
+     stroke-width="3"
+     id="circle1" />
+  <text
+     x="600"
+     y="302"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:20px;fill:#1e3a8a;font-weight:bold;"
+     id="text2">0.0 CitiSense Native</text>
+  <text
+     x="600"
+     y="322"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:21px;fill:#1e3a8a;font-weight:bold;"
+     id="text4">Flutter Application</text>
+  <text
+     x="600"
+     y="340"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:18px;fill:#2563eb;font-weight:normal;"
+     id="text6">(Calamba City)</text>
+  <rect
+     x="35"
+     y="275"
+     width="230"
+     height="90"
+     rx="6"
+     fill="#f8fafc"
+     stroke="#334155"
+     stroke-width="2.5"
+     id="rect6" />
+  <text
+     x="150"
+     y="318"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:21px;fill:#0f172a;font-weight:bold;"
+     id="text8">Citizen</text>
+  <text
+     x="150"
+     y="335"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:18px;fill:#64748b;font-weight:normal;"
+     id="text10">(Residents)</text>
+  <rect
+     x="939.07147"
+     y="112.1813"
+     width="240"
+     height="85"
+     rx="6"
+     fill="#f8fafc"
+     stroke="#334155"
+     stroke-width="2.5"
+     id="rect10" />
+  <text
+     x="1052.7911"
+     y="152.18129"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:21px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a"
+     id="text12">Barangay Official</text>
+  <text
+     x="1059.7693"
+     y="183.83516"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:18px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#64748b"
+     id="text14">(Monitoring &amp; Resolution)</text>
+  <rect
+     x="926.51099"
+     y="454.98355"
+     width="240"
+     height="85"
+     rx="6"
+     fill="#f8fafc"
+     stroke="#334155"
+     stroke-width="2.5"
+     id="rect14" />
+  <text
+     x="1046.511"
+     y="494.98355"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:21px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a"
+     id="text16">System Admin</text>
+  <text
+     x="1046.511"
+     y="511.98355"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:18px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#64748b"
+     id="text18">(Platform Maintenance)</text>
+  <line
+     x1="268.60992"
+     y1="290"
+     x2="484.2326"
+     y2="290"
+     stroke="#1e293b"
+     stroke-width="1.88011"
+     marker-end="url(#arr)"
+     id="line18" />
+  <text
+     x="356.15616"
+     y="224.85651"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:18px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a"
+     id="text20">Submit Complaint</text>
+  <text
+     x="353.96356"
+     y="246.87097"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:14px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#475569"
+     id="text22"><tspan
+       sodipodi:role="line"
+       id="tspan45"
+       x="353.96356"
+       y="246.87097">(Category, Description,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan46"
+       x="353.96356"
+       y="264.37097">Evidence Photo, Map Pin Location)</tspan></text>
+  <line
+     x1="484"
+     y1="350"
+     x2="267.68518"
+     y2="350"
+     stroke="#1e293b"
+     stroke-width="1.88312"
+     marker-end="url(#arr)"
+     id="line22" />
+  <text
+     x="340.92859"
+     y="387.53848"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:13px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a"
+     id="text24"><tspan
+       sodipodi:role="line"
+       id="tspan47"
+       x="340.92859"
+       y="387.53848">Sentiment Results, Recommendations,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan48"
+       x="340.92859"
+       y="403.78848">and Status Timeline Updates</tspan></text>
+  <text
+     x="350"
+     y="382"
+     text-anchor="middle"
+     fill="#ffffff"
+     stroke="#ffffff"
+     stroke-width="4"
+     stroke-linejoin="round"
+     style="font-weight:normal;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif"
+     id="text25" />
+  <text
+     x="350"
+     y="382"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#475569"
+     id="text26" />
+  <polyline
+     points="930,160 740,160 648,210"
+     fill="none"
+     stroke="#1e293b"
+     stroke-width="2"
+     marker-end="url(#arr)"
+     id="polyline26"
+     transform="matrix(1.191909,0,0,1.1611416,-170.78601,-49.346046)" />
+  <text
+     x="723.00537"
+     y="92.131813"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:18px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a"
+     id="text28">Complaint Actions &amp; Resolution Proof</text>
+  <text
+     x="734.8681"
+     y="120.7857"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#475569"
+     id="text30">(Acknowledge / Resolve / Reject with Reason)</text>
+  <polyline
+     points="689,240 770,200 930,200"
+     fill="none"
+     stroke="#1e293b"
+     stroke-width="2"
+     marker-end="url(#arr)"
+     id="polyline30"
+     transform="matrix(1.1863084,0,0,1.179171,-166.66226,-78.037383)" />
+  <text
+     x="1026.1947"
+     y="175.22459"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:14.7341px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;fill-opacity:1;stroke-width:0.920883"
+     id="text32"
+     transform="scale(0.80980078,1.2348716)"><tspan
+       sodipodi:role="line"
+       id="tspan49"
+       x="1026.1947"
+       y="175.22459"
+       style="stroke-width:0.920883">Dashboard Analytics, Urgent Alerts,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan50"
+       x="1026.1947"
+       y="193.64224"
+       style="stroke-width:0.920883">and Actionable Policy Recommendations</tspan></text>
+  <text
+     x="850"
+     y="238"
+     text-anchor="middle"
+     fill="#ffffff"
+     stroke="#ffffff"
+     stroke-width="4"
+     stroke-linejoin="round"
+     style="font-weight:normal;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif"
+     id="text33" />
+  <text
+     x="852.4671"
+     y="238.49341"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#484e5d;fill-opacity:1"
+     id="text34" />
+  <polyline
+     points="930,440 770,440 689,400"
+     fill="none"
+     stroke="#1e293b"
+     stroke-width="2"
+     marker-end="url(#arr)"
+     id="polyline34"
+     transform="matrix(1.0213664,0,0,1.4944037,-24.254934,-180.11191)" />
+  <text
+     x="898.01147"
+     y="413.08905"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a"
+     id="text36">User Management &amp; Role Configuration</text>
+  <text
+     x="894.53271"
+     y="438.3035"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:13px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#475569"
+     id="text38">(Create Official, Revoke, Delete Inappropriate Posts)</text>
+  <polyline
+     points="648,430 740,480 930,480"
+     fill="none"
+     stroke="#1e293b"
+     stroke-width="2"
+     marker-end="url(#arr)"
+     id="polyline38"
+     transform="matrix(0.97124538,0,0,1.6408824,22.709281,-273.7041)" />
+  <text
+     x="902.37097"
+     y="572.45721"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:18px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a"
+     id="text40"><tspan
+       sodipodi:role="line"
+       id="tspan51"
+       x="902.37097"
+       y="572.45721">System Audit Logs, Activity Records,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan52"
+       x="902.37097"
+       y="594.95721">and Platform Performance Metrics</tspan></text>
+  <text
+     x="850"
+     y="510"
+     text-anchor="middle"
+     fill="#ffffff"
+     stroke="#ffffff"
+     stroke-width="4"
+     stroke-linejoin="round"
+     style="font-weight:normal;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif"
+     id="text41" />
+  <text
+     x="500"
+     y="510"
+     text-anchor="middle"
+     style="font-weight:normal;font-size:16px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#475569"
+     id="text42" />
+  <!-- navigation / routing provider (external web service) -->
+  <rect
+     x="945"
+     y="252"
+     width="210"
+     height="90"
+     rx="6"
+     fill="#f8fafc"
+     stroke="#334155"
+     stroke-width="2.5"
+     id="rect20" />
+  <text
+     x="1050"
+     y="288"
+     text-anchor="middle"
+     fill="#ffffff"
+     stroke="#ffffff"
+     stroke-width="4"
+     stroke-linejoin="round"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:21px;font-weight:bold;"
+     id="text44">Navigation</text>
+  <text
+     x="1050"
+     y="288"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:21px;fill:#0f172a;font-weight:bold;"
+     id="text45">Navigation</text>
+  <text
+     x="1050"
+     y="306"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:21px;fill:#0f172a;font-weight:bold;"
+     id="text47">Provider</text>
+  <text
+     x="1050"
+     y="324"
+     text-anchor="middle"
+     style="font-family:DejaVu Sans, Helvetica, Arial, sans-serif;font-size:18px;fill:#64748b;font-weight:normal;"
+     id="text49">(OSRM / Google Maps)</text>
+  <line
+     x1="716"
+     y1="290"
+     x2="943"
+     y2="290"
+     stroke="#1e293b"
+     stroke-width="2"
+     marker-end="url(#arr)"
+     id="line44" />
+  <text
+     x="945.33545"
+     y="245.17355"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:15.7952px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:0.877514"
+     id="text51"
+     transform="scale(0.87751398,1.139583)">Route Request (Coordinates)</text>
+  <line
+     x1="943"
+     y1="340"
+     x2="718"
+     y2="340"
+     stroke="#1e293b"
+     stroke-width="2"
+     marker-end="url(#arr)"
+     id="line45" />
+  <text
+     x="872.80084"
+     y="352.7579"
+     text-anchor="middle"
+     style="font-weight:bold;font-size:17.3597px;font-family:'DejaVu Sans', Helvetica, Arial, sans-serif;fill:#0f172a;stroke-width:0.964427"
+     id="text53"
+     transform="scale(0.96442748,1.0368846)">Route Steps / Navigation</text>
+</svg>

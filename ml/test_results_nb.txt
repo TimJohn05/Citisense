@@ -1,0 +1,13 @@
+dataset rows: 6000
+sentiment dist: {'neutral': 1782, 'positive': 1632, 'negative': 2586}
+category dist: {'peace_order': 588, 'waste': 600, 'electrical_hazard': 610, 'general_inquiry': 231, 'water': 588, 'traffic_obstruction': 591, 'road': 588, 'public_facilities': 579, 'flood_drainage': 577, 'health_sanitation': 572, 'lighting': 476}
+urgency dist: {'low': 3414, 'emergency': 861, 'moderate': 1725}
+vocab (df>=2, cap 12000): 5381
+template-grouped holdout: 1339/6000 (20%)
+
+[sentiment] group-holdout accuracy: 0.8514  (3 classes)
+  saved: sentiment_nb.pkl
+[category] group-holdout accuracy: 0.4137  (11 classes)
+  saved: category_nb.pkl
+[urgency] group-holdout accuracy: 0.8865  (3 classes)
+  saved: urgency_nb.pkl

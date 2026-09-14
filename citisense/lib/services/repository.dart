@@ -7,6 +7,8 @@ import '../models/system_log.dart';
 abstract class AppRepository {
   Future<AppUser?> login(String email, String password);
 
+  Future<void> signOut();
+
   Future<AppUser> signup({
     required String fullName,
     required String email,
@@ -26,4 +28,6 @@ abstract class AppRepository {
   Future<void> saveLog(SystemLog log);
 
   Future<String?> uploadImage(File file, String folder);
+
+  Future<String?> uploadMedia(File file, String folder);
 }

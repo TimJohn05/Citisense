@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
@@ -7,10 +5,12 @@ import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../models/complaint.dart';
 import '../../models/enums.dart';
+import '../../models/media_item.dart';
 import '../../state/app_state.dart';
 import '../../widgets/location_picker.dart';
-import '../../widgets/photo_picker.dart';
+import '../../widgets/media_picker.dart';
 import '../../widgets/settings_button.dart';
+import 'citizen_shell.dart';
 
 class ReportIssueScreen extends StatefulWidget {
   const ReportIssueScreen({super.key});
@@ -22,7 +22,7 @@ class ReportIssueScreen extends StatefulWidget {
 class _ReportIssueScreenState extends State<ReportIssueScreen> {
   ComplaintCategory? _category;
   final _descriptionController = TextEditingController();
-  File? _evidence;
+  List<MediaItem> _evidence = [];
   LatLng? _location;
   bool _submitting = false;
 
@@ -54,7 +54,7 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
             description: description,
             latitude: _location?.latitude,
             longitude: _location?.longitude,
-            evidenceFile: _evidence,
+            evidence: _evidence,
           );
       if (mounted) {
         Navigator.pushReplacement(
@@ -140,7 +140,7 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
           ),
           const SizedBox(height: 20),
           Text(
-            'Evidence photo',
+            'Evidence (photos & videos)',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w700,
@@ -149,9 +149,9 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          PhotoPicker(
-            label: 'Add evidence photo',
-            onChanged: (file) => _evidence = file,
+          MediaPicker(
+            label: 'Add evidence photos & videos',
+            onChanged: (items) => _evidence = items,
           ),
           const SizedBox(height: 20),
           Text(
@@ -311,7 +311,15 @@ class _SubmissionResultScreen extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             FilledButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  PageRouteBuilder(
+                    transitionDuration: Duration.zero,
+                    pageBuilder: (_, _, _) => const CitizenShell(),
+                  ),
+                  (_) => false,
+                );
+              },
               child: const Text('Back to Home'),
             ),
           ],

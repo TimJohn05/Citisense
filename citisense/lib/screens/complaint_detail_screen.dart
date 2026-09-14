@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
 
 import '../core/theme/app_colors.dart';
 import '../models/complaint.dart';
 import '../models/enums.dart';
+import '../models/media_item.dart';
 import '../models/user_role.dart';
+import '../screens/officer/navigation_screen.dart';
 import '../state/app_state.dart';
 import '../widgets/app_image.dart';
 import '../widgets/chips.dart';
-import '../widgets/photo_picker.dart';
+import '../widgets/media_picker.dart';
 import '../widgets/settings_button.dart';
 import '../widgets/static_map_preview.dart';
 
@@ -65,11 +68,12 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
           ),
           const SizedBox(height: 16),
           _buildMetaSection(complaint),
-          if (complaint.evidenceImage != null) ...[
+          if (complaint.evidencePhotos.isNotEmpty ||
+              complaint.evidenceVideos.isNotEmpty) ...[
             const SizedBox(height: 20),
-            const _SectionLabel(label: 'Evidence photo'),
+            const _SectionLabel(label: 'Evidence'),
             const SizedBox(height: 8),
-            TapToZoomImage(path: complaint.evidenceImage),
+            _EvidenceGallery(complaint: complaint),
           ],
           if (complaint.hasLocation) ...[
             const SizedBox(height: 20),
@@ -89,6 +93,26 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
               ),
             ),
           ],
+          if (_role == UserRole.officer && complaint.hasLocation) ...[
+            const SizedBox(height: 20),
+            const _SectionLabel(label: 'Navigation'),
+            const SizedBox(height: 8),
+            FilledButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => NavigationScreen(
+                      latitude: complaint.latitude!,
+                      longitude: complaint.longitude!,
+                      title: complaint.description,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.directions_outlined),
+              label: const Text('Get directions — follow the route'),
+            ),
+          ],
           if (complaint.officerNotes != null &&
               complaint.officerNotes!.isNotEmpty) ...[
             const SizedBox(height: 20),
@@ -105,11 +129,12 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
               color: AppColors.danger,
             ),
           ],
-          if (complaint.proofImage != null) ...[
+          if (complaint.proofPhotos.isNotEmpty ||
+            complaint.proofVideos.isNotEmpty) ...[
             const SizedBox(height: 20),
-            const _SectionLabel(label: 'Resolution proof photo'),
+            const _SectionLabel(label: 'Resolution proof'),
             const SizedBox(height: 8),
-            TapToZoomImage(path: complaint.proofImage),
+            _ProofGallery(complaint: complaint),
           ],
           if (complaint.status == ComplaintStatus.resolved) ...[
             const SizedBox(height: 12),
@@ -472,7 +497,7 @@ class _ResolveSheet extends StatefulWidget {
 
 class _ResolveSheetState extends State<_ResolveSheet> {
   final _notesController = TextEditingController();
-  File? _proof;
+  List<MediaItem> _proof = [];
   bool _submitting = false;
 
   @override
@@ -505,7 +530,7 @@ class _ResolveSheetState extends State<_ResolveSheet> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Confirm the issue has been fixed. Capture a photo as proof that the reported problem is cleared.',
+              'Confirm the issue has been fixed. Capture or attach photos and videos as proof that the reported problem is cleared.',
               style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
             ),
             const SizedBox(height: 16),
@@ -518,9 +543,9 @@ class _ResolveSheetState extends State<_ResolveSheet> {
               ),
             ),
             const SizedBox(height: 16),
-            PhotoPicker(
-              label: 'Proof photo (required)',
-              onChanged: (file) => _proof = file,
+            MediaPicker(
+              label: 'Proof photos & videos',
+              onChanged: (items) => _proof = items,
             ),
             const SizedBox(height: 20),
             FilledButton(
@@ -550,10 +575,11 @@ class _ResolveSheetState extends State<_ResolveSheet> {
       );
       return;
     }
-    if (_proof == null) {
+    if (_proof.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('A proof photo is required to resolve the complaint'),
+          content: Text(
+              'At least one proof photo or video is required to resolve the complaint'),
         ),
       );
       return;
@@ -563,7 +589,7 @@ class _ResolveSheetState extends State<_ResolveSheet> {
     await context.read<AppState>().resolveComplaint(
           widget.complaint,
           notes: notes,
-          proofFile: _proof!,
+          proof: _proof,
         );
     if (mounted) {
       Navigator.pop(context);
@@ -615,6 +641,185 @@ class _NotesBox extends StatelessWidget {
           fontSize: 14,
           height: 1.4,
           color: AppColors.textPrimary,
+        ),
+      ),
+    );
+  }
+}
+
+class _EvidenceGallery extends StatelessWidget {
+  final Complaint complaint;
+
+  const _EvidenceGallery({required this.complaint});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (complaint.evidenceVideos.isNotEmpty) ...[
+          _MediaTileRow(
+            videos: complaint.evidenceVideos,
+            label: 'Video evidence',
+          ),
+          const SizedBox(height: 12),
+        ],
+        for (final photo in complaint.evidencePhotos) ...[
+          TapToZoomImage(path: photo),
+          const SizedBox(height: 12),
+        ],
+      ],
+    );
+  }
+}
+
+class _ProofGallery extends StatelessWidget {
+  final Complaint complaint;
+
+  const _ProofGallery({required this.complaint});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (complaint.proofVideos.isNotEmpty) ...[
+          _MediaTileRow(
+            videos: complaint.proofVideos,
+            label: 'Video proof',
+          ),
+          const SizedBox(height: 12),
+        ],
+        for (final photo in complaint.proofPhotos) ...[
+          TapToZoomImage(path: photo),
+          const SizedBox(height: 12),
+        ],
+      ],
+    );
+  }
+}
+
+class _MediaTileRow extends StatelessWidget {
+  final List<String> videos;
+  final String label;
+
+  const _MediaTileRow({required this.videos, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 120,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: videos.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 10),
+            itemBuilder: (context, index) => _ComplaintVideoPlayer(
+              path: videos[index],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ComplaintVideoPlayer extends StatefulWidget {
+  final String path;
+
+  const _ComplaintVideoPlayer({required this.path});
+
+  @override
+  State<_ComplaintVideoPlayer> createState() => _ComplaintVideoPlayerState();
+}
+
+class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
+  VideoPlayerController? _controller;
+  bool _initialized = false;
+  bool _playing = false;
+
+  @override
+  void dispose() {
+    _controller?.removeListener(_onStatus);
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  void _onStatus() {
+    if (!mounted) return;
+    setState(() {});
+  }
+
+  Future<void> _init() async {
+    if (_controller != null) return;
+    final controller = widget.path.startsWith('http')
+        ? VideoPlayerController.networkUrl(Uri.parse(widget.path))
+        : VideoPlayerController.file(File(widget.path));
+    _controller = controller;
+    controller.addListener(_onStatus);
+    try {
+      await controller.initialize();
+      await controller.setLooping(true);
+      if (mounted) setState(() => _initialized = true);
+    } catch (_) {
+      if (mounted) setState(() => _initialized = true);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(color: Colors.black),
+            if (_initialized && _controller != null)
+              Center(
+                child: AspectRatio(
+                  aspectRatio: _controller!.value.aspectRatio,
+                  child: VideoPlayer(_controller!),
+                ),
+              )
+            else
+              const Center(
+                child: Icon(Icons.videocam, color: Colors.white54, size: 40),
+              ),
+            if (!_playing)
+              Center(
+                child: IconButton(
+                  onPressed: () async {
+                    await _init();
+                    await _controller?.play();
+                    if (mounted) setState(() => _playing = true);
+                  },
+                  icon: const Icon(
+                    Icons.play_circle_fill,
+                    color: Colors.white,
+                    size: 52,
+                  ),
+                ),
+              )
+            else
+              Positioned(
+                bottom: 6,
+                right: 6,
+                child: IconButton(
+                  onPressed: () => _controller?.pause(),
+                  icon: const Icon(Icons.pause_circle,
+                      color: Colors.white, size: 34),
+                ),
+              ),
+          ],
         ),
       ),
     );

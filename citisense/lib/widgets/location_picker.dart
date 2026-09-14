@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../core/theme/app_colors.dart';
 import '../services/location_service.dart';
+import '../widgets/offline_first_tile_provider.dart';
 
 class LocationPicker extends StatefulWidget {
   final LatLng? initialPosition;
@@ -82,6 +83,8 @@ class _LocationPickerState extends State<LocationPicker> {
                     TileLayer(
                       urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                       userAgentPackageName: 'com.citisense',
+                      tileProvider: offlineFirstTileProvider,
+                      maxNativeZoom: 16,
                     ),
                     MarkerLayer(
                       markers: [

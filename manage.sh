@@ -40,7 +40,7 @@ function show_help() {
   echo ""
   echo -e "${BOLD}Machine Learning & NLP:${RESET}"
   echo -e "  ${GREEN}ml:train${RESET}       Train and evaluate 11-category NLP models (Sentiment, Category, Urgency)"
-  echo -e "  ${GREEN}ml:data${RESET}        Generate/augment 1,000 synthetic Taglish civic complaint samples"
+  echo -e "  ${GREEN}ml:data${RESET}        Generate 6,000 deterministic Taglish civic complaint samples"
   echo -e "  ${GREEN}ml:test${RESET}        Run interactive text prediction test in terminal"
   echo ""
   echo -e "${BOLD}Git & Maintenance:${RESET}"

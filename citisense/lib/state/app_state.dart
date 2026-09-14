@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,12 +8,13 @@ import '../core/theme/app_theme.dart';
 import '../models/app_user.dart';
 import '../models/complaint.dart';
 import '../models/enums.dart';
+import '../models/media_item.dart';
 import '../models/system_log.dart';
 import '../models/user_role.dart';
 import '../services/repository.dart';
 import '../services/sentiment_engine.dart';
 
-class AppState extends ChangeNotifier {
+class AppState extends ChangeNotifier with WidgetsBindingObserver {
   final AppRepository repository;
 
   AppUser? _user;
@@ -21,6 +23,7 @@ class AppState extends ChangeNotifier {
   List<SystemLog> _logs = [];
 
   bool _isLoading = false;
+  bool _restoringSession = true;
   String? _error;
 
   ThemeStyle _themeStyle = ThemeStyle.system;
@@ -28,10 +31,45 @@ class AppState extends ChangeNotifier {
 
   static const _kThemeStyle = 'settings.theme_style';
   static const _kHighContrast = 'settings.high_contrast';
+  static const _kSession = 'session.user';
+
+  static const _backgroundSessionTimeout = Duration(hours: 2);
+  Timer? _backgroundTimer;
 
   AppState({required this.repository}) {
+    WidgetsBinding.instance.addObserver(this);
     _loadSettings();
+    _restoreSession();
   }
+
+  @override
+  void dispose() {
+    _backgroundTimer?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _backgroundTimer?.cancel();
+        _backgroundTimer = null;
+        break;
+      case AppLifecycleState.detached:
+        _backgroundTimer?.cancel();
+        _backgroundTimer = null;
+        _secureSessionEnd();
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.hidden:
+        _backgroundTimer ??= Timer(_backgroundSessionTimeout, _secureSessionEnd);
+        break;
+    }
+  }
+
+  bool get isRestoringSession => _restoringSession;
 
   ThemeStyle get themeStyle => _themeStyle;
   bool get highContrast => _highContrast;
@@ -142,6 +180,7 @@ class AppState extends ChangeNotifier {
         return false;
       }
       _user = user;
+      await _persistSession(user);
       await _loadData();
       await _addLog(
         'Login',
@@ -170,6 +209,7 @@ class AppState extends ChangeNotifier {
         password: password,
       );
       _user = user;
+      await _persistSession(user);
       await _loadData();
       await _addLog('Signup', 'New citizen account created for ${user.fullName}.');
       _setLoading(false);
@@ -183,12 +223,80 @@ class AppState extends ChangeNotifier {
 
   Future<void> logout() async {
     final name = _user?.fullName;
-    await _addLog('Logout', '$name signed out.');
     _user = null;
     _complaints = [];
     _users = [];
     _logs = [];
+    await _clearSession();
+    await repository.signOut();
     notifyListeners();
+    try {
+      await _addLog('Logout', '$name signed out.');
+    } catch (_) {
+      // Repository may be offline — logout must still complete.
+    }
+  }
+
+  Future<void> _secureSessionEnd() async {
+    if (_user == null) return;
+    final name = _user?.fullName;
+    _user = null;
+    _complaints = [];
+    _users = [];
+    _logs = [];
+    await _clearSession();
+    await repository.signOut();
+    notifyListeners();
+    try {
+      await _addLog('Logout', '$name session ended by app closure.');
+    } catch (_) {
+      // Best-effort logging only.
+    }
+  }
+
+  Future<void> _restoreSession() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getString(_kSession);
+      if (raw == null) return;
+      final data = jsonDecode(raw) as Map<String, dynamic>;
+      final sessionUser = AppUser.fromMap(data);
+      try {
+        await _loadData();
+      } catch (_) {
+        // Repository unavailable (e.g. Firebase unreachable) — keep session.
+      }
+      final matches = _users.where((u) => u.id == sessionUser.id).toList();
+      if (_users.isNotEmpty && matches.isEmpty) {
+        await prefs.remove(_kSession);
+        return;
+      }
+      _user = matches.isNotEmpty ? matches.first : sessionUser;
+    } catch (_) {
+      // Best-effort restore — fall back to the login screen.
+    } finally {
+      _restoringSession = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _persistSession(AppUser user) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final data = user.toMap()..['password'] = '';
+      await prefs.setString(_kSession, jsonEncode(data));
+    } catch (_) {
+      // Best-effort persistence only.
+    }
+  }
+
+  Future<void> _clearSession() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_kSession);
+    } catch (_) {
+      // Best-effort persistence only.
+    }
   }
 
   Future<void> _loadData() async {
@@ -207,7 +315,7 @@ class AppState extends ChangeNotifier {
     required String description,
     required double? latitude,
     required double? longitude,
-    required File? evidenceFile,
+    required List<MediaItem> evidence,
   }) async {
     _setLoading(true);
     try {
@@ -226,14 +334,25 @@ class AppState extends ChangeNotifier {
         createdAt: DateTime.now(),
       );
 
-      String? evidence;
-      if (evidenceFile != null) {
-        evidence = await repository.uploadImage(
-          evidenceFile,
+      final photos = <String>[];
+      final videos = <String>[];
+      for (final item in evidence) {
+        final uri = await _uploadMedia(
+          item,
           'complaints/${complaint.id}/evidence',
         );
+        if (uri == null) continue;
+        if (item.isVideo) {
+          videos.add(uri);
+        } else {
+          photos.add(uri);
+        }
       }
-      final saved = complaint.copyWith(evidenceImage: evidence);
+
+      final saved = complaint.copyWith(
+        evidencePhotos: photos,
+        evidenceVideos: videos,
+      );
       await repository.saveComplaint(saved);
       _complaints.insert(0, saved);
       await _addLog(
@@ -246,6 +365,16 @@ class AppState extends ChangeNotifier {
       _setLoading(false);
       rethrow;
     }
+  }
+
+  Future<String?> _uploadMedia(MediaItem item, String folder) async {
+    if (item.url != null && item.url!.isNotEmpty) {
+      return item.url;
+    }
+    if (item.file != null) {
+      return repository.uploadMedia(item.file!, folder);
+    }
+    return null;
   }
 
   Future<void> acknowledgeComplaint(
@@ -262,22 +391,33 @@ class AppState extends ChangeNotifier {
   Future<void> resolveComplaint(
     Complaint complaint, {
     required String notes,
-    required File proofFile,
+    required List<MediaItem> proof,
   }) async {
-    final proof = await repository.uploadImage(
-      proofFile,
-      'complaints/${complaint.id}/proof',
-    );
+    final photos = <String>[];
+    final videos = <String>[];
+    for (final item in proof) {
+      final uri = await _uploadMedia(
+        item,
+        'complaints/${complaint.id}/proof',
+      );
+      if (uri == null) continue;
+      if (item.isVideo) {
+        videos.add(uri);
+      } else {
+        photos.add(uri);
+      }
+    }
     final updated = complaint.copyWith(
       status: ComplaintStatus.resolved,
       officerNotes: notes,
-      proofImage: proof,
+      proofPhotos: photos,
+      proofVideos: videos,
       resolvedBy: _user!.fullName,
       resolvedAt: DateTime.now(),
     );
     await _persistComplaint(
       updated,
-      'Resolved by ${_user!.fullName} with photo proof.',
+      'Resolved by ${_user!.fullName} with photo and video proof.',
     );
   }
 

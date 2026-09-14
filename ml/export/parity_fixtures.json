@@ -1,0 +1,142 @@
+[
+ {
+  "text": "Walang tubig po dito sa amin for three days na, hirap na kami",
+  "predicted": "negative",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -0.3220710812639638,
+   -1.8676255079217192,
+   -2.1130954696297373
+  ]
+ },
+ {
+  "text": "Salamat po sa mabilis na action ng barangay, maayos na ang ilaw",
+  "predicted": "positive",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -5.602295455064901,
+   -5.198854981970779,
+   -0.00925496514912183
+  ]
+ },
+ {
+  "text": "Magandang umaga, may tanong lang po ako tungkol sa clearance",
+  "predicted": "neutral",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -3.105739522005873,
+   -0.09522859734292766,
+   -3.0781678102861534
+  ]
+ },
+ {
+  "text": "Puno ng basura ang kanal sa harap ng palengke, sobrang mabaho",
+  "predicted": "negative",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -0.08384382474018892,
+   -2.861142255432192,
+   -3.762665585646772
+  ]
+ },
+ {
+  "text": "Maayos na po ang daan ngayon, salamat sa mabilis na pag repair",
+  "predicted": "positive",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -5.01483157698166,
+   -6.374437385047717,
+   -0.008378328990723105
+  ]
+ },
+ {
+  "text": "May nakapark na sasakyan sa kanto na humaharang sa daan",
+  "predicted": "negative",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -0.08324395190038203,
+   -3.073278487985384,
+   -3.3931061855865714
+  ]
+ },
+ {
+  "text": "Nakapag submit na po ako ng report kanina, maraming salamat",
+  "predicted": "positive",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -2.1960032668550014,
+   -1.0486143317735,
+   -0.6192832973665539
+  ]
+ },
+ {
+  "text": "Ano po ba ang requirements para sa barangay clearance?",
+  "predicted": "neutral",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -6.896064283667659,
+   -0.005158624622062291,
+   -5.488610895350767
+  ]
+ },
+ {
+  "text": "Madilim at mausok dito sa lugar namin, delikado para sa mga bata",
+  "predicted": "neutral",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -1.2867317072948836,
+   -0.4434862134599946,
+   -2.5006337001880787
+  ]
+ },
+ {
+  "text": "Tuloy lang po ang magandang serbisyo, abtik ang mga tauhan ng barangay",
+  "predicted": "positive",
+  "classes": [
+   "negative",
+   "neutral",
+   "positive"
+  ],
+  "log_proba": [
+   -1.2324168421450672,
+   -1.5606412388157764,
+   -0.6963289823683461
+  ]
+ }
+]

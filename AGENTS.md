@@ -21,7 +21,7 @@ When you finish a phase, UPDATE the vault notes so the next session is accurate.
 ```bash
 cd ~/SE2-Project/citisense
 flutter analyze            # must be clean before finishing
-flutter test               # 13 tests: app boot, demo login, logout confirm, 10× Taglish sentiment
+flutter test               # 29 tests: boot, login/logout, report flow, NB/TF-IDF, sentiment, compass math
 flutter run -d linux       # local desktop preview
 flutter build apk --release  # Android APK → build/app/outputs/flutter-apk/app-release.apk
 ```

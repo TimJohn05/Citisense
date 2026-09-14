@@ -8,7 +8,13 @@
     <application
         android:label="CitiSense"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round">
+        <!-- Impeller (Vulkan) renders black on some low-end Adreno/Mali GPUs;
+             fall back to Skia for reliable rendering on this device. -->
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

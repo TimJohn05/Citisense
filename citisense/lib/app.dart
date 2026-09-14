@@ -10,6 +10,7 @@ import 'screens/citizen/citizen_shell.dart';
 import 'screens/officer/officer_shell.dart';
 import 'services/repository.dart';
 import 'state/app_state.dart';
+import 'widgets/cs_logo.dart';
 
 class App extends StatelessWidget {
   final AppRepository repository;
@@ -52,6 +53,9 @@ class AuthGate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
+    if (appState.isRestoringSession) {
+      return const _SessionRestoreSplash();
+    }
     if (!appState.isLoggedIn) {
       return const LoginScreen();
     }
@@ -63,5 +67,32 @@ class AuthGate extends StatelessWidget {
       case UserRole.admin:
         return const AdminShell();
     }
+  }
+}
+
+class _SessionRestoreSplash extends StatelessWidget {
+  const _SessionRestoreSplash();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CsLogo(size: 72),
+            const SizedBox(height: 14),
+            Text(
+              'CitiSense',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
