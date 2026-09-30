@@ -37,7 +37,8 @@ backups/
 *.zip
 *.rar
 
-# Firebase config (local only — project identifiers stay out of git history)
+# Firebase config — per-project values stay out of git history.
+# Use the committed .example templates as the source of truth for structure.
 citisense/android/app/google-services.json
 citisense/lib/firebase_options.dart
 

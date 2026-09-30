@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/app_config.dart';
 import '../../core/theme/app_colors.dart';
 import '../../screens/settings/privacy_policy_screen.dart';
 import '../../state/app_state.dart';
@@ -134,13 +135,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text('Create an account'),
                     ),
                     const SizedBox(height: 16),
-                    _DemoCredentials(
-                      onFill: (email) {
-                        _emailController.text = email;
-                        _passwordController.text = 'password';
-                      },
-                    ),
-                    const SizedBox(height: 16),
+                    if (demoAccountsEnabled) ...[
+                      _DemoCredentials(
+                        onFill: (email) {
+                          _emailController.text = email;
+                          _passwordController.text = 'password';
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                    ],
                     TextButton.icon(
                       onPressed: () => Navigator.push(
                         context,

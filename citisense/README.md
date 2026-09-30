@@ -100,17 +100,71 @@ Alternative: **Supabase** (PostgreSQL + Auth + Storage) if your team prefers SQL
 
 ### Enable Firebase
 
+The two Firebase config files are **not committed**, because each one is specific to a
+single Firebase project. Templates with the expected structure are committed instead,
+so a fresh clone knows exactly what to create.
+
 1. Create a project at [console.firebase.google.com](https://console.firebase.google.com).
-2. Add an **Android app** with package id `com.citisense`.
+2. Add an **Android app** with package id `com.citisense.citisense` (must match
+   `android/app/build.gradle.kts`), and a **Web app** for the web build.
 3. Download `google-services.json` and place it in `android/app/`.
-4. In Firebase console enable:
-   - **Authentication** → Email/Password,
-   - **Cloud Firestore**,
-   - **Storage**.
-5. Run the app with:
-   ```bash
-   flutter run --dart-define=USE_FIREBASE=true
-   ```
+4. Generate `lib/firebase_options.dart` (Firebase console → Project settings → Your
+   apps → Web → SDK setup and configuration → copy into `lib/`).
+
+Both files are already in `.gitignore`, so git will not track them.
+
+To start from the committed templates instead:
+
+```bash
+cp android/app/google-services.json.example android/app/google-services.json
+cp lib/firebase_options.example.dart lib/firebase_options.dart
+```
+
+Then replace every `REPLACE_WITH_...` placeholder with the value Firebase prints for
+your project. Both files are required before the app can compile: `main.dart` imports
+`firebase_options.dart` unconditionally, and `android/app/build.gradle.kts` only applies
+the Google Services plugin when `google-services.json` exists.
+
+### Preventing credential leaks
+
+`.githooks/pre-commit` refuses commits containing an API key, private key, cloud access
+token, service account key, keystore, or `.env` file, and refuses the two Firebase config
+files outright. The hook is committed, but git ignores `core.hooksPath`, so enable it once
+per clone:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+Keeping config out of git does not make it secret. A release APK always contains the
+Firebase API key, so anyone who installs it can read that key. What limits the damage is
+application restrictions in Google Cloud Console (restrict the Android key to package name
+plus signing certificate, restrict the Web key to HTTP referrers) and Firestore rules that
+reject unauthenticated or unauthorised access. Neither is enforced by this repository.
+
+In Firebase console enable:
+
+- **Authentication** → Email/Password
+- **Cloud Firestore**
+
+Cloud Storage is deliberately not used: since 2026-02-03 it requires the Blaze (pay-as-you-go)
+plan, so evidence photos are stored as base64 data URIs inside the Firestore document instead.
+Video evidence is currently not persisted — see `docs/` if that changes.
+
+Run the app with:
+
+```bash
+flutter run --dart-define=USE_FIREBASE=true
+```
+
+**Releases must pass the define.** Without `USE_FIREBASE=true` the app silently falls back
+to `MockRepository` and shows seeded demo data instead of live data, with no warning on
+screen. Build size is a quick tell: mock ≈ 66.7 MB, Firebase ≈ 67.5 MB.
+
+```bash
+flutter build apk --release --dart-define=USE_FIREBASE=true
+flutter build web --release --dart-define=USE_FIREBASE=true
+```
 
 ### Firestore schema
 

@@ -332,14 +332,14 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   Future<void> _loadData() async {
+    _complaints = await repository.getComplaints();
+    if (_user?.role == UserRole.citizen) return;
     final results = await Future.wait([
-      repository.getComplaints(),
       repository.getUsers(),
       repository.getLogs(),
     ]);
-    _complaints = results[0] as List<Complaint>;
-    _users = results[1] as List<AppUser>;
-    _logs = results[2] as List<SystemLog>;
+    _users = results[0] as List<AppUser>;
+    _logs = results[1] as List<SystemLog>;
   }
 
   Future<Complaint> submitComplaint({

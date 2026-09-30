@@ -3,12 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'app.dart';
+import 'core/app_config.dart';
 import 'firebase_options.dart';
 import 'services/citisense_nlp.dart';
 import 'services/firebase_repository.dart';
 import 'services/mock_repository.dart';
-
-const bool useFirebase = bool.fromEnvironment('USE_FIREBASE');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
