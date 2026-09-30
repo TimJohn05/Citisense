@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,20 +106,39 @@ class FirebaseRepository implements AppRepository {
 
   @override
   Future<String?> uploadMedia(File file, String folder) async {
-    final contentType = file.path.toLowerCase().endsWith('.mp4')
-        ? 'video/mp4'
-        : 'application/octet-stream';
-    final ref = _storage.ref().child('$folder/${_uuid.v4()}');
-    final meta = SettableMetadata(contentType: contentType);
-    await ref.putFile(file, meta);
-    return ref.getDownloadURL();
+    final isVideo = file.path.toLowerCase().endsWith('.mp4');
+    final contentType = isVideo ? 'video/mp4' : 'application/octet-stream';
+    try {
+      final ref = _storage.ref().child('$folder/${_uuid.v4()}');
+      final meta = SettableMetadata(contentType: contentType);
+      await ref.putFile(file, meta);
+      return ref.getDownloadURL();
+    } catch (_) {
+      // Cloud Storage needs a paid plan since 2026-02-03, so keep photos
+      // inside the Firestore document and skip videos rather than failing
+      // the whole submission.
+      if (isVideo) return null;
+      return _embedAsDataUri(file);
+    }
   }
 
   @override
   Future<String?> uploadImage(File file, String folder) async {
-    final ref = _storage.ref().child('$folder/${_uuid.v4()}');
-    await ref.putFile(file);
-    return ref.getDownloadURL();
+    try {
+      final ref = _storage.ref().child('$folder/${_uuid.v4()}');
+      await ref.putFile(file);
+      return ref.getDownloadURL();
+    } catch (_) {
+      return _embedAsDataUri(file);
+    }
+  }
+
+  Future<String> _embedAsDataUri(File file) async {
+    final bytes = await file.readAsBytes();
+    final mime = file.path.toLowerCase().endsWith('.png')
+        ? 'image/png'
+        : 'image/jpeg';
+    return 'data:$mime;base64,${base64Encode(bytes)}';
   }
 
   String newId() => _uuid.v4();

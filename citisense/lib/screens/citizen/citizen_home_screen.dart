@@ -158,11 +158,7 @@ class _ReportCta extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.primary, Color(0xFF1D7BB8)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: AppColors.primary,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
@@ -171,12 +167,12 @@ class _ReportCta extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Report an issue',
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: AppColors.onPrimary,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -184,7 +180,7 @@ class _ReportCta extends StatelessWidget {
                     'Take a photo and pin the location',
                     style: TextStyle(
                       fontSize: 13,
-                      color: Colors.white.withValues(alpha: 0.9),
+                      color: AppColors.onPrimary.withValues(alpha: 0.9),
                     ),
                   ),
                 ],
@@ -194,10 +190,10 @@ class _ReportCta extends StatelessWidget {
               width: 44,
               height: 44,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
+                color: AppColors.onPrimary.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.arrow_forward, color: Colors.white),
+              child: Icon(Icons.arrow_forward, color: AppColors.onPrimary),
             ),
           ],
         ),

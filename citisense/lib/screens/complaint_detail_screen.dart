@@ -12,6 +12,7 @@ import '../models/media_item.dart';
 import '../models/user_role.dart';
 import '../screens/officer/navigation_screen.dart';
 import '../state/app_state.dart';
+import '../utils/text_validators.dart';
 import '../widgets/app_image.dart';
 import '../widgets/chips.dart';
 import '../widgets/media_picker.dart';
@@ -110,7 +111,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                 );
               },
               icon: const Icon(Icons.directions_outlined),
-              label: const Text('Get directions — follow the route'),
+              label: const Text('Get directions, follow the route'),
             ),
           ],
           if (complaint.officerNotes != null &&
@@ -368,11 +369,18 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
             const SizedBox(height: 16),
             FilledButton(
               onPressed: () {
+                final notes = controller.text.trim();
+                if (notes.isNotEmpty && looksLikeGibberish(notes)) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                          'You cannot submit gibberish text. Please enter clear review notes.'),
+                    ),
+                  );
+                  return;
+                }
                 final appState = context.read<AppState>();
-                appState.acknowledgeComplaint(
-                  complaint,
-                  controller.text.trim(),
-                );
+                appState.acknowledgeComplaint(complaint, notes);
                 Navigator.pop(context);
               },
               child: const Text('Acknowledge'),
@@ -436,6 +444,15 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Please provide a rejection reason'),
+                    ),
+                  );
+                  return;
+                }
+                if (looksLikeGibberish(reason)) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                          'You cannot submit gibberish text. Please provide a clear rejection reason.'),
                     ),
                   );
                   return;
@@ -572,6 +589,15 @@ class _ResolveSheetState extends State<_ResolveSheet> {
     if (notes.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please add resolution notes')),
+      );
+      return;
+    }
+    if (looksLikeGibberish(notes)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'You cannot submit gibberish text. Please provide clear resolution notes.'),
+        ),
       );
       return;
     }

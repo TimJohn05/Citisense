@@ -20,11 +20,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('citizen can submit a report and see the result screen',
-      (WidgetTester tester) async {
-    await loginAsCitizen(tester);
-    expect(find.text('Welcome back'), findsOneWidget);
-
+  Future<void> fillValidReport(WidgetTester tester) async {
     await tester.tap(find.text('Report an issue'));
     await tester.pumpAndSettle();
 
@@ -32,13 +28,31 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.enterText(find.byType(TextField), 'Sobrang baho ng basura sa may kalsada, ang dami na!');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pumpAndSettle();
     await tester.dragUntilVisible(
       find.text('Analyze & Submit Report'),
       find.byType(ListView),
       const Offset(0, -400),
     );
     await tester.pumpAndSettle();
+  }
+
+  testWidgets('citizen can submit a report and see the result screen',
+      (WidgetTester tester) async {
+    await loginAsCitizen(tester);
+    expect(find.text('Welcome back'), findsOneWidget);
+
+    await fillValidReport(tester);
     await tester.tap(find.text('Analyze & Submit Report'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Submit Report?'), findsOneWidget);
+    expect(
+      find.textContaining('Once submitted, it cannot be changed'),
+      findsOneWidget,
+    );
+    await tester.tap(find.widgetWithText(FilledButton, 'Submit Report'));
     await tester.pumpAndSettle();
 
     expect(find.text('Report Submitted'), findsOneWidget);
@@ -48,6 +62,51 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Welcome back'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('cancelling the confirm dialog keeps the user on the form',
+      (WidgetTester tester) async {
+    await loginAsCitizen(tester);
+
+    await fillValidReport(tester);
+    await tester.tap(find.text('Analyze & Submit Report'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Report Submitted'), findsNothing);
+    expect(find.text('Analyze & Submit Report'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('gibberish description is rejected before the confirm dialog',
+      (WidgetTester tester) async {
+    await loginAsCitizen(tester);
+
+    await tester.tap(find.text('Report an issue'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(ChoiceChip).first);
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(TextField), 'asdfghjklasdfghjkl');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pumpAndSettle();
+    await tester.dragUntilVisible(
+      find.text('Analyze & Submit Report'),
+      find.byType(ListView),
+      const Offset(0, -400),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Analyze & Submit Report'));
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining('gibberish'), findsOneWidget);
+    expect(find.text('Submit Report?'), findsNothing);
+    expect(find.text('Report Submitted'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 }

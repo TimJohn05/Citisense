@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:video_compress/video_compress.dart';
@@ -13,11 +14,23 @@ class CameraService {
   final ImagePicker _picker = ImagePicker();
 
   static const int maxVideoSizeBytes = 50 * 1024 * 1024;
+  static const double maxVideoDimensionPx = 1280;
   static const Duration maxVideoDuration = Duration(minutes: 2);
 
+  /// permission_handler has no desktop implementation; on preview-only
+  /// desktop targets the permission request throws MissingPluginException,
+  /// so treat the camera as acceptable without asking (gallery is not
+  /// permission-gated anyway).
+  Future<bool> _hasCameraAccess() async {
+    try {
+      return await Permission.camera.request().isGranted;
+    } on MissingPluginException {
+      return true;
+    }
+  }
+
   Future<File?> capturePhoto() async {
-    final status = await Permission.camera.request();
-    if (!status.isGranted) {
+    if (!await _hasCameraAccess()) {
       return null;
     }
     return _pick(ImageSource.camera);
@@ -31,7 +44,8 @@ class CameraService {
     try {
       final XFile? file = await _picker.pickImage(
         source: source,
-        maxWidth: 1800,
+        maxWidth: maxVideoDimensionPx,
+        maxHeight: maxVideoDimensionPx,
         imageQuality: 85,
       );
       if (file == null) return null;
@@ -43,8 +57,7 @@ class CameraService {
   }
 
   Future<File?> captureVideo() async {
-    final status = await Permission.camera.request();
-    if (!status.isGranted) {
+    if (!await _hasCameraAccess()) {
       return null;
     }
     return _pickVideo(ImageSource.camera);
@@ -85,14 +98,21 @@ class CameraService {
         info.duration! > maxVideoDuration.inMilliseconds;
     if (durOver) throw VideoTooLongException();
 
-    if (file.lengthSync() > maxVideoSizeBytes) {
-      final processed = await _compress(file);
-      if (processed.lengthSync() > maxVideoSizeBytes) {
-        throw VideoTooLargeException();
-      }
-      return processed;
+    final processed = needsCompression(info, file.lengthSync())
+        ? await _compress(file)
+        : file;
+    if (processed.lengthSync() > maxVideoSizeBytes) {
+      throw VideoTooLargeException();
     }
-    return file;
+    return processed;
+  }
+
+  static bool needsCompression(MediaInfo info, int fileSizeBytes) {
+    final atOrBelow720p = info.width != null &&
+        info.height != null &&
+        info.width! <= maxVideoDimensionPx &&
+        info.height! <= maxVideoDimensionPx;
+    return !atOrBelow720p || fileSizeBytes > maxVideoSizeBytes;
   }
 
   Future<File> _compress(File file) async {

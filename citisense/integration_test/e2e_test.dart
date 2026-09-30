@@ -516,6 +516,15 @@ void main() {
       await tester.ensureVisible(find.text('Analyze & Submit Report'));
       await tester.pump(const Duration(milliseconds: 200));
       await tester.tap(find.text('Analyze & Submit Report'));
+      await _pumpUntilFound(
+        tester,
+        find.widgetWithText(FilledButton, 'Submit Report'),
+      );
+      expect(
+        find.textContaining('Once submitted, it cannot be changed'),
+        findsOneWidget,
+      );
+      await tester.tap(find.widgetWithText(FilledButton, 'Submit Report'));
       await _pumpUntilFound(tester, find.text('Report Submitted'));
       expect(find.text('Report received'), findsOneWidget);
 
@@ -669,6 +678,62 @@ void main() {
       expect(find.textContaining('Complaint Updated'), findsWidgets);
       expect(find.textContaining('E2E evidence consistency check'),
           findsNothing);
+    });
+
+    testWidgets('B5: account creation lands on sign-in, then new account logs in',
+        (tester) async {
+      const newEmail = 'new.citizen@citisense.com';
+      const newPassword = 'secret123';
+      await _bootApp(tester);
+
+      await tester.tap(find.text('Create an account'));
+      await _pumpUntilFound(tester, find.text('Join CitiSense'));
+
+      Future<void> fillField(Finder field, String value) async {
+        await tester.ensureVisible(field);
+        await tester.pump(const Duration(milliseconds: 200));
+        await tester.tap(field);
+        await tester.enterText(field, value);
+        await _dismissKeyboard(tester);
+      }
+
+      await fillField(
+        find.widgetWithText(TextFormField, 'Full name'),
+        'New Citizen',
+      );
+      await fillField(
+        find.widgetWithText(TextFormField, 'Email address'),
+        newEmail,
+      );
+      await fillField(
+        find.widgetWithText(TextFormField, 'Password'),
+        newPassword,
+      );
+      await fillField(
+        find.widgetWithText(TextFormField, 'Confirm password'),
+        newPassword,
+      );
+
+      final createButton =
+          find.widgetWithText(FilledButton, 'Create Account');
+      await tester.ensureVisible(createButton);
+      await tester.pump(const Duration(milliseconds: 200));
+      await tester.tap(createButton);
+
+      // Success indicator, back on the sign-in screen — not auto-logged-in.
+      await _pumpUntilFound(
+        tester,
+        find.text('Account created. Sign in to continue.'),
+      );
+      expect(find.text('Sign In'), findsOneWidget);
+      expect(find.text('Welcome back'), findsNothing);
+
+      // The freshly created account can sign in.
+      await tester.enterText(find.byType(TextFormField).at(0), newEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), newPassword);
+      await _tapSignIn(tester);
+      await _pumpUntilFound(tester, find.text('Welcome back'));
+      await _logout(tester);
     });
   });
 }

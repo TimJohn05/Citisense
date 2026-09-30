@@ -11,6 +11,7 @@ import '../models/enums.dart';
 import '../models/media_item.dart';
 import '../models/system_log.dart';
 import '../models/user_role.dart';
+import '../services/auth_error_messages.dart';
 import '../services/repository.dart';
 import '../services/sentiment_engine.dart';
 
@@ -32,6 +33,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   static const _kThemeStyle = 'settings.theme_style';
   static const _kHighContrast = 'settings.high_contrast';
   static const _kSession = 'session.user';
+  static const _kSessionSavedAt = 'session.saved_at';
 
   static const _backgroundSessionTimeout = Duration(hours: 2);
   Timer? _backgroundTimer;
@@ -189,7 +191,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       _setLoading(false);
       return true;
     } catch (e) {
-      _error = e.toString();
+      _error = friendlyAuthMessage(e);
       _setLoading(false);
       return false;
     }
@@ -208,14 +210,16 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
         email: email,
         password: password,
       );
-      _user = user;
-      await _persistSession(user);
-      await _loadData();
-      await _addLog('Signup', 'New citizen account created for ${user.fullName}.');
+      // Deliberately no auto-login: a new account must confirm through the
+      // sign-in flow. Creating the account is enough here.
+      await _addLog(
+        'Signup',
+        'New citizen account created for ${user.fullName}.',
+      );
       _setLoading(false);
       return true;
     } catch (e) {
-      _error = e.toString();
+      _error = friendlyAuthMessage(e, signingUp: true);
       _setLoading(false);
       return false;
     }
@@ -227,13 +231,17 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     _complaints = [];
     _users = [];
     _logs = [];
-    await _clearSession();
-    await repository.signOut();
     notifyListeners();
+    await _clearSession();
+    try {
+      await repository.signOut();
+    } catch (_) {
+      // Repository may be offline — logout must still complete.
+    }
     try {
       await _addLog('Logout', '$name signed out.');
     } catch (_) {
-      // Repository may be offline — logout must still complete.
+      // Best-effort logging only.
     }
   }
 
@@ -244,9 +252,17 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     _complaints = [];
     _users = [];
     _logs = [];
-    await _clearSession();
-    await repository.signOut();
     notifyListeners();
+    try {
+      await _clearSession();
+    } catch (_) {
+      // Best-effort persistence only.
+    }
+    try {
+      await repository.signOut();
+    } catch (_) {
+      // Repository may be offline — session end must still complete.
+    }
     try {
       await _addLog('Logout', '$name session ended by app closure.');
     } catch (_) {
@@ -260,6 +276,19 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       final raw = prefs.getString(_kSession);
       if (raw == null) return;
       final data = jsonDecode(raw) as Map<String, dynamic>;
+
+      final savedAt = prefs.getInt(_kSessionSavedAt);
+      final expired = savedAt == null ||
+          DateTime.now()
+                  .difference(DateTime.fromMillisecondsSinceEpoch(savedAt))
+                  .inMilliseconds >
+              _backgroundSessionTimeout.inMilliseconds;
+      if (expired) {
+        await prefs.remove(_kSession);
+        await prefs.remove(_kSessionSavedAt);
+        return;
+      }
+
       final sessionUser = AppUser.fromMap(data);
       try {
         await _loadData();
@@ -269,6 +298,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       final matches = _users.where((u) => u.id == sessionUser.id).toList();
       if (_users.isNotEmpty && matches.isEmpty) {
         await prefs.remove(_kSession);
+        await prefs.remove(_kSessionSavedAt);
         return;
       }
       _user = matches.isNotEmpty ? matches.first : sessionUser;
@@ -285,6 +315,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       final prefs = await SharedPreferences.getInstance();
       final data = user.toMap()..['password'] = '';
       await prefs.setString(_kSession, jsonEncode(data));
+      await prefs.setInt(_kSessionSavedAt, DateTime.now().millisecondsSinceEpoch);
     } catch (_) {
       // Best-effort persistence only.
     }
@@ -294,6 +325,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_kSession);
+      await prefs.remove(_kSessionSavedAt);
     } catch (_) {
       // Best-effort persistence only.
     }

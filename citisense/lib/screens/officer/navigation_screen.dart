@@ -343,7 +343,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         panelChildren.add(const SizedBox(height: 8));
         panelChildren.add(
           const Text(
-            'You are very close. Follow the blue path to the '
+            'You are close. Follow the blue path to the '
             'pinned location.',
             style: TextStyle(fontSize: 13),
           ),

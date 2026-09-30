@@ -35,8 +35,9 @@ class ComplaintCard extends StatelessWidget {
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 14,
-                  height: 1.4,
+                  fontSize: 15,
+                  height: 1.45,
+                  fontWeight: FontWeight.w500,
                   color: AppColors.textPrimary,
                 ),
               ),

@@ -36,7 +36,16 @@ class _SignupScreenState extends State<SignupScreen> {
       email: _emailController.text.trim(),
       password: _passwordController.text,
     );
-    if (!ok && mounted) {
+    if (!mounted) return;
+    if (ok) {
+      final messenger = ScaffoldMessenger.of(context);
+      Navigator.pop(context);
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('Account created. Sign in to continue.'),
+        ),
+      );
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(appState.error ?? 'Sign up failed')),
       );

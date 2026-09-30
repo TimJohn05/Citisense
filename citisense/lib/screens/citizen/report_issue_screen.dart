@@ -7,6 +7,7 @@ import '../../models/complaint.dart';
 import '../../models/enums.dart';
 import '../../models/media_item.dart';
 import '../../state/app_state.dart';
+import '../../utils/text_validators.dart';
 import '../../widgets/location_picker.dart';
 import '../../widgets/media_picker.dart';
 import '../../widgets/settings_button.dart';
@@ -32,21 +33,71 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
     super.dispose();
   }
 
-  Future<void> _submit() async {
+  Future<void> _onSubmitPressed() async {
+    if (!_validate()) return;
+    final confirmed = await _confirmSubmission();
+    if (!confirmed || !mounted) return;
+    await _submit();
+  }
+
+  bool _validate() {
     if (_category == null) {
       _showError('Please select a complaint category.');
-      return;
+      return false;
     }
     final description = _descriptionController.text.trim();
     if (description.length < 10) {
       _showError('Please describe the issue in at least 10 characters.');
-      return;
+      return false;
+    }
+    if (looksLikeGibberish(description)) {
+      _showError(
+          'You cannot submit gibberish text. Please describe the issue clearly.');
+      return false;
     }
     if (_location == null) {
       _showError('Set the pin location on the map before submitting.');
-      return;
+      return false;
     }
+    return true;
+  }
 
+  Future<bool> _confirmSubmission() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Submit Report?'),
+        content: const Text(
+          'Are you sure you want to submit this report? '
+          'Once submitted, it cannot be changed.',
+        ),
+        actionsPadding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
+        actions: [
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: const Text('Cancel'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: FilledButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: const Text('Submit Report'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+    return confirmed ?? false;
+  }
+
+  Future<void> _submit() async {
+    final description = _descriptionController.text.trim();
     setState(() => _submitting = true);
     try {
       final complaint = await context.read<AppState>().submitComplaint(
@@ -169,7 +220,7 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
           ),
           const SizedBox(height: 28),
           FilledButton(
-            onPressed: _submitting ? null : _submit,
+            onPressed: _submitting ? null : _onSubmitPressed,
             child: _submitting
                 ? SizedBox(
                     width: 22,

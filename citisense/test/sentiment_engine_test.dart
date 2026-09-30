@@ -30,6 +30,11 @@ void main() {
       expect(r.sentiment, Sentiment.negative);
     });
 
+    test('negative English: uncollected garbage', () {
+      final r = analyze('Uncollected garbage on the corner near the market.');
+      expect(r.sentiment, Sentiment.negative);
+    });
+
     test('negative Taglish: construction noise', () {
       final r = analyze(
           'Ang ingay ng construction dito, hindi na kami maka-tulog sa gabi.');

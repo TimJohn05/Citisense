@@ -53,7 +53,7 @@ class _MediaPickerState extends State<MediaPicker> {
         const SizedBox(height: 8),
         Text(
           'Photos and short video clips (max 2 min / 50 MB each). '
-          'Videos are compressed on-device before upload.',
+          'Media is compressed to 720p before upload.',
           style: TextStyle(fontSize: 12, color: AppColors.textMuted),
         ),
       ],

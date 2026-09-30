@@ -107,17 +107,17 @@ extension ComplaintCategoryX on ComplaintCategory {
       case ComplaintCategory.water:
         return const Color(0xFF0E7490);
       case ComplaintCategory.lighting:
-        return const Color(0xFFD97706);
+        return const Color(0xFF9A6B00);
       case ComplaintCategory.peaceOrder:
         return const Color(0xFF9B2C2C);
       case ComplaintCategory.trafficObstruction:
-        return const Color(0xFFE05D44);
+        return const Color(0xFFB3472C);
       case ComplaintCategory.floodDrainage:
         return const Color(0xFF2563EB);
       case ComplaintCategory.healthSanitation:
-        return const Color(0xFF059669);
+        return const Color(0xFF047857);
       case ComplaintCategory.electricalHazard:
-        return const Color(0xFFCA8A04);
+        return const Color(0xFF92610A);
       case ComplaintCategory.publicFacilities:
         return const Color(0xFF6D28D9);
       case ComplaintCategory.generalInquiry:

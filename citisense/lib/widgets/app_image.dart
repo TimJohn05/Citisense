@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -22,6 +23,16 @@ class AppImage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (path == null || path!.isEmpty) {
       return _placeholder();
+    }
+    if (path!.startsWith('data:image/')) {
+      final payload = path!.substring(path!.indexOf(',') + 1);
+      return Image.memory(
+        base64Decode(payload),
+        fit: fit,
+        height: height,
+        width: width,
+        errorBuilder: (_, _, _) => _placeholder(),
+      );
     }
     final isNetwork = path!.startsWith('http');
     if (isNetwork) {

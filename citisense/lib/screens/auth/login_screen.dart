@@ -227,7 +227,7 @@ class _DemoCredentialsState extends State<_DemoCredentials> {
                   children: [
                     Expanded(
                       child: Text(
-                        '$role — $email',
+                        '$role · $email',
                         style: TextStyle(
                           fontSize: 12,
                           color: AppColors.textSecondary,

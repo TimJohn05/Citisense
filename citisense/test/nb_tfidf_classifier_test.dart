@@ -70,5 +70,15 @@ void main() {
       expect(result.sentiment, Sentiment.negative);
       expect(result.recommendation, isNotEmpty);
     });
+
+  test('low-confidence NB defers to lexicon for OOV English complaints', () {
+      const text = 'uncollected garbage on the corner near the market';
+      final raw = NbTfidfClassifier.instance!.predict(text);
+      expect(raw.confidence, lessThan(0.60),
+          reason: 'precondition: the model is unsure on this text');
+      final result = SentimentEngine.analyze(text, ComplaintCategory.waste);
+      expect(result.sentiment, Sentiment.negative);
+      expect(result.recommendation, contains('cleanup'));
+    });
   });
 }

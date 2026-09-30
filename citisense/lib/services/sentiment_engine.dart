@@ -379,16 +379,28 @@ class SentimentEngine {
     'natutuwa',
   ];
 
+  static const double _minNbConfidence = 0.60;
+
   static SentimentResult analyze(String message, ComplaintCategory category) {
     final nb = NbTfidfClassifier.instance;
     if (nb != null && nb.available) {
       final prediction = nb.predict(message);
+      if (prediction.confidence < _minNbConfidence) {
+        final lexicon = _lexiconAnalyze(message, category);
+        if (lexicon.sentiment != Sentiment.neutral) {
+          return lexicon;
+        }
+      }
       return SentimentResult(
         sentiment: prediction.sentiment,
         recommendation: _recommendation(prediction.sentiment, category),
       );
     }
+    return _lexiconAnalyze(message, category);
+  }
 
+  static SentimentResult _lexiconAnalyze(
+      String message, ComplaintCategory category) {
     final msg = message.toLowerCase();
 
     var negative = 0;

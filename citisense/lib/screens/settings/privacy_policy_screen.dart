@@ -32,10 +32,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
           const _Section(
             title: '2. Permissions we request',
             body:
-                'Camera — used only to capture an evidence photo when you file a '
+                'Camera: used only to capture an evidence photo when you file a '
                 'report and a proof photo when an official resolves it. '
                 'Photos are captured only when you tap the capture button.\n\n'
-                'Location — used only to pin the exact location of the issue you '
+                'Location: used only to pin the exact location of the issue you '
                 'are reporting on the map. You can drag the map to choose the pin '
                 'manually, or press the crosshair button to use your device\'s '
                 'current GPS position. Your location is never tracked in the '

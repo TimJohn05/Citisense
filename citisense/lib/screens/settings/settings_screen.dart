@@ -97,7 +97,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'Barangay Feedback & Resolution Platform — Software Engineering 2 project.',
+                    'Barangay Feedback & Resolution Platform, a Software Engineering 2 project.',
                     style: TextStyle(
                       fontSize: 13,
                       color: AppColors.textSecondary,

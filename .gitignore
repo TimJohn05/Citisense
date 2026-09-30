@@ -37,6 +37,10 @@ backups/
 *.zip
 *.rar
 
+# Firebase config (local only — project identifiers stay out of git history)
+citisense/android/app/google-services.json
+citisense/lib/firebase_options.dart
+
 # Flutter/Dart
 **/doc/api/
 **/ios/Flutter/.last_build_id
