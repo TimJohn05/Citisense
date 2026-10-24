@@ -54,6 +54,7 @@ void main() {
     final officerState = AppState(repository: officerRepo);
     await officerState.login('officer@citisense.com', 'password');
     expect(officerRepo.getUsersCalls, greaterThanOrEqualTo(1));
-    expect(officerRepo.getLogsCalls, greaterThanOrEqualTo(1));
+    expect(officerRepo.getLogsCalls, 0);
+    expect(officerState.users, isNotEmpty);
   });
 }

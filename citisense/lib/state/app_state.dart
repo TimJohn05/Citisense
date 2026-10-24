@@ -183,7 +183,11 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       }
       _user = user;
       await _persistSession(user);
-      await _loadData();
+      try {
+        await _loadData();
+      } catch (_) {
+        _error = 'Signed in, but some data could not be loaded. Pull to retry.';
+      }
       await _addLog(
         'Login',
         '${user.fullName} signed in as ${user.role.label}.',
@@ -333,13 +337,12 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
 
   Future<void> _loadData() async {
     _complaints = await repository.getComplaints();
-    if (_user?.role == UserRole.citizen) return;
-    final results = await Future.wait([
-      repository.getUsers(),
-      repository.getLogs(),
-    ]);
-    _users = results[0] as List<AppUser>;
-    _logs = results[1] as List<SystemLog>;
+    final role = _user?.role;
+    if (role == null || role == UserRole.citizen) return;
+    _users = await repository.getUsers();
+    if (role == UserRole.admin) {
+      _logs = await repository.getLogs();
+    }
   }
 
   Future<Complaint> submitComplaint({

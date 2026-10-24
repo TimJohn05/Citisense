@@ -70,16 +70,18 @@ class FirebaseRepository implements AppRepository {
   Future<List<Complaint>> getComplaints() async {
     final uid = _auth.currentUser?.uid;
     if (uid == null) return [];
-    final query = _db.collection('complaints');
-    final snap = await (await _isStaff(uid)
-            ? query.orderBy('createdAt', descending: true)
-            : query
-                .where('citizenId', isEqualTo: uid)
-                .orderBy('createdAt', descending: true))
+    final isStaff = await _isStaff(uid);
+    final collection = _db.collection('complaints');
+    final snap = await (isStaff
+            ? collection.orderBy('createdAt', descending: true)
+            : collection.where('citizenId', isEqualTo: uid))
         .get();
-    return snap.docs
+    final complaints = snap.docs
         .map((d) => Complaint.fromMap({...d.data(), 'id': d.id}))
         .toList();
+    if (isStaff) return complaints;
+    complaints.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return complaints;
   }
 
   Future<bool> _isStaff(String uid) async {

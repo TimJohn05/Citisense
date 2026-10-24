@@ -144,29 +144,10 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
       );
     }
 
-    final sections = <_GroupSpec, List<SystemLog>>{};
-    for (final spec in _groupSpecs) {
-      final groupLogs = logs.where((l) => _groupFor(l.action) == spec.group);
-      if (groupLogs.isNotEmpty) sections[spec] = groupLogs.toList();
-    }
-    if (sections.isEmpty) {
-      return Center(
-        child: Text(
-          'No logs to display',
-          style: TextStyle(fontSize: 13, color: AppColors.textMuted),
-        ),
-      );
-    }
     return ListView(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
+      padding: const EdgeInsets.fromLTRB(16, 6, 16, 24),
       children: [
-        for (final spec in _groupSpecs)
-          if (sections.containsKey(spec)) ...[
-            _GroupHeader(spec: spec, count: sections[spec]!.length),
-            const SizedBox(height: 4),
-            for (final log in sections[spec]!) _LogTile(log: log),
-            const SizedBox(height: 8),
-          ],
+        for (final log in logs) _LogTile(log: log),
       ],
     );
   }

@@ -1,13 +1,4 @@
 {
-  "indexes": [
-    {
-      "collectionGroup": "complaints",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "citizenId", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
-      ]
-    }
-  ],
+  "indexes": [],
   "fieldOverrides": []
 }
