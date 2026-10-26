@@ -752,7 +752,7 @@ class _MediaTileRow extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         SizedBox(
-          height: 120,
+          height: 220,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: videos.length,
@@ -790,6 +790,16 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
 
   void _onStatus() {
     if (!mounted) return;
+    final c = _controller;
+    if (c != null && c.value.isInitialized) {
+      // When playback finishes, reset to start and show play button.
+      if (c.value.position >= c.value.duration && c.value.duration > Duration.zero) {
+        c.seekTo(Duration.zero);
+        c.pause();
+        if (mounted) setState(() => _playing = false);
+        return;
+      }
+    }
     setState(() {});
   }
 
@@ -802,61 +812,130 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
     controller.addListener(_onStatus);
     try {
       await controller.initialize();
-      await controller.setLooping(true);
       if (mounted) setState(() => _initialized = true);
     } catch (_) {
       if (mounted) setState(() => _initialized = true);
     }
   }
 
+  String _formatDuration(Duration d) {
+    final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final s = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$m:$s';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final controller = _controller;
+    final position = controller?.value.position ?? Duration.zero;
+    final duration = controller?.value.duration ?? Duration.zero;
+    final progress = (duration.inMilliseconds > 0)
+        ? (position.inMilliseconds / duration.inMilliseconds).clamp(0.0, 1.0)
+        : 0.0;
+
     return SizedBox(
-      width: 200,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Container(color: Colors.black),
-            if (_initialized && _controller != null)
-              Center(
-                child: AspectRatio(
-                  aspectRatio: _controller!.value.aspectRatio,
-                  child: VideoPlayer(_controller!),
-                ),
-              )
-            else
-              const Center(
-                child: Icon(Icons.videocam, color: Colors.white54, size: 40),
+      width: 260,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            child: AspectRatio(
+              aspectRatio: (controller != null && controller.value.isInitialized)
+                  ? controller.value.aspectRatio
+                  : 16 / 9,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Container(color: Colors.black),
+                  if (_initialized && controller != null)
+                    VideoPlayer(controller)
+                  else
+                    const Center(
+                      child: Icon(Icons.videocam, color: Colors.white54, size: 40),
+                    ),
+                  if (_initialized && controller != null && !_playing)
+                    Center(
+                      child: IconButton(
+                        onPressed: () async {
+                          await controller.play();
+                          if (mounted) setState(() => _playing = true);
+                        },
+                        icon: const Icon(
+                          Icons.play_circle_fill,
+                          color: Colors.white,
+                          size: 52,
+                        ),
+                      ),
+                    ),
+                ],
               ),
-            if (!_playing)
-              Center(
-                child: IconButton(
+            ),
+          ),
+          // Seek bar + time + play/pause
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black87,
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Row(
+              children: [
+                IconButton(
+                  iconSize: 24,
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                   onPressed: () async {
-                    await _init();
-                    await _controller?.play();
-                    if (mounted) setState(() => _playing = true);
+                    if (!_initialized) await _init();
+                    if (_playing) {
+                      await controller?.pause();
+                      if (mounted) setState(() => _playing = false);
+                    } else {
+                      // Replay from start if at end
+                      if (controller != null &&
+                          controller.value.position >= controller.value.duration) {
+                        await controller.seekTo(Duration.zero);
+                      }
+                      await controller?.play();
+                      if (mounted) setState(() => _playing = true);
+                    }
                   },
-                  icon: const Icon(
-                    Icons.play_circle_fill,
+                  icon: Icon(
+                    _playing ? Icons.pause : Icons.play_arrow,
                     color: Colors.white,
-                    size: 52,
                   ),
                 ),
-              )
-            else
-              Positioned(
-                bottom: 6,
-                right: 6,
-                child: IconButton(
-                  onPressed: () => _controller?.pause(),
-                  icon: const Icon(Icons.pause_circle,
-                      color: Colors.white, size: 34),
+                Expanded(
+                  child: SliderTheme(
+                    data: SliderThemeData(
+                      trackHeight: 2,
+                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 12),
+                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: Colors.white24,
+                      thumbColor: Colors.white,
+                    ),
+                    child: Slider(
+                      value: progress,
+                      onChanged: (v) {
+                        if (controller != null && controller.value.isInitialized) {
+                          final pos = Duration(
+                            milliseconds: (v * duration.inMilliseconds).round(),
+                          );
+                          controller.seekTo(pos);
+                        }
+                      },
+                    ),
+                  ),
                 ),
-              ),
-          ],
-        ),
+                Text(
+                  '${_formatDuration(position)} / ${_formatDuration(duration)}',
+                  style: const TextStyle(color: Colors.white, fontSize: 10),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
