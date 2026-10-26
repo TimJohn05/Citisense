@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
@@ -110,7 +111,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
                   ),
                 );
               },
-              icon: const Icon(Icons.directions_outlined),
+              icon: const Icon(Icons.directions_outlined, semanticLabel: 'Get directions'),
               label: const Text('Get directions, follow the route'),
             ),
           ],
@@ -142,7 +143,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
             Row(
               children: [
                 Icon(Icons.task_alt,
-                    size: 14, color: AppColors.success),
+                    size: 14, color: AppColors.success, semanticLabel: 'Resolved'),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -292,20 +293,29 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
       children: [
         if (complaint.status == ComplaintStatus.pending) ...[
           OutlinedButton.icon(
-            onPressed: () => _showAcknowledgeSheet(complaint),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              _showAcknowledgeSheet(complaint);
+            },
             icon: const Icon(Icons.visibility_outlined),
             label: const Text('Acknowledge & Under Review'),
           ),
           const SizedBox(height: 10),
         ],
         FilledButton.icon(
-          onPressed: () => _showResolveSheet(complaint),
+          onPressed: () {
+            HapticFeedback.lightImpact();
+            _showResolveSheet(complaint);
+          },
           icon: const Icon(Icons.check_circle_outline),
           label: const Text('Mark as Resolved with Proof'),
         ),
         const SizedBox(height: 10),
         OutlinedButton.icon(
-          onPressed: () => _showRejectSheet(complaint),
+          onPressed: () {
+            HapticFeedback.lightImpact();
+            _showRejectSheet(complaint);
+          },
           icon: const Icon(Icons.cancel_outlined),
           label: const Text('Reject Report'),
           style: OutlinedButton.styleFrom(
@@ -320,7 +330,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
   Widget _buildAdminActions(Complaint complaint) {
     return OutlinedButton.icon(
       onPressed: () => _confirmDelete(complaint),
-      icon: Icon(Icons.delete_outline, color: AppColors.danger),
+      icon: Icon(Icons.delete_outline, color: AppColors.danger, semanticLabel: 'Delete complaint'),
       label: Text('Remove Complaint'),
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.danger,

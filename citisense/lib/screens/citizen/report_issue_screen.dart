@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
@@ -35,6 +36,7 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
 
   Future<void> _onSubmitPressed() async {
     if (!_validate()) return;
+    HapticFeedback.lightImpact();
     final confirmed = await _confirmSubmission();
     if (!confirmed || !mounted) return;
     await _submit();
