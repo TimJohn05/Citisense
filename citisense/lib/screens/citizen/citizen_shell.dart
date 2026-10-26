@@ -15,8 +15,45 @@ class CitizenShell extends StatefulWidget {
 class _CitizenShellState extends State<CitizenShell> {
   int _index = 0;
 
+  static const _destinations = [
+    NavigationDestination(
+      icon: Icon(Icons.home_outlined),
+      selectedIcon: Icon(Icons.home),
+      label: 'Home',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.add_circle_outline),
+      selectedIcon: Icon(Icons.add_circle),
+      label: 'Report',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.article_outlined),
+      selectedIcon: Icon(Icons.article),
+      label: 'My Reports',
+    ),
+  ];
+
+  static const _railDestinations = [
+    NavigationRailDestination(
+      icon: Icon(Icons.home_outlined),
+      selectedIcon: Icon(Icons.home),
+      label: Text('Home'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.add_circle_outline),
+      selectedIcon: Icon(Icons.add_circle),
+      label: Text('Report'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.article_outlined),
+      selectedIcon: Icon(Icons.article),
+      label: Text('My Reports'),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.sizeOf(context).width >= 600;
     return ListenableProvider<ValueNotifier<int>>(
       create: (_) => ValueNotifier<int>(_index),
       child: Builder(
@@ -25,37 +62,44 @@ class _CitizenShellState extends State<CitizenShell> {
             valueListenable: context.watch<ValueNotifier<int>>(),
             builder: (context, index, _) {
               _index = index;
+              final body = IndexedStack(
+                index: index,
+                children: const [
+                  CitizenHomeScreen(),
+                  ReportIssueScreen(),
+                  MyReportsScreen(),
+                ],
+              );
               return Scaffold(
-                body: IndexedStack(
-                  index: index,
-                  children: const [
-                    CitizenHomeScreen(),
-                    ReportIssueScreen(),
-                    MyReportsScreen(),
-                  ],
+                body: Align(
+                  alignment: Alignment.topCenter,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1100),
+                    child: isWide
+                        ? Row(
+                            children: [
+                              NavigationRail(
+                                selectedIndex: index,
+                                onDestinationSelected: (value) =>
+                                    context.read<ValueNotifier<int>>().value = value,
+                                labelType: NavigationRailLabelType.all,
+                                destinations: _railDestinations,
+                              ),
+                              const VerticalDivider(thickness: 1, width: 1),
+                              Expanded(child: body),
+                            ],
+                          )
+                        : body,
+                  ),
                 ),
-                bottomNavigationBar: NavigationBar(
-                  selectedIndex: index,
-                  onDestinationSelected: (value) =>
-                      context.read<ValueNotifier<int>>().value = value,
-                  destinations: const [
-                    NavigationDestination(
-                      icon: Icon(Icons.home_outlined),
-                      selectedIcon: Icon(Icons.home),
-                      label: 'Home',
-                    ),
-                    NavigationDestination(
-                      icon: Icon(Icons.add_circle_outline),
-                      selectedIcon: Icon(Icons.add_circle),
-                      label: 'Report',
-                    ),
-                    NavigationDestination(
-                      icon: Icon(Icons.article_outlined),
-                      selectedIcon: Icon(Icons.article),
-                      label: 'My Reports',
-                    ),
-                  ],
-                ),
+                bottomNavigationBar: isWide
+                    ? null
+                    : NavigationBar(
+                        selectedIndex: index,
+                        onDestinationSelected: (value) =>
+                            context.read<ValueNotifier<int>>().value = value,
+                        destinations: _destinations,
+                      ),
               );
             },
           );
