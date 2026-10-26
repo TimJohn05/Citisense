@@ -38,6 +38,13 @@ class SentimentEngine {
     'wasnt', "wasn't", 'wont', "won't", 'neither', 'nor', "ain't", 'aint',
   };
 
+  // Filler words that can sit between a negation and the word it negates
+  // (e.g. "hindi talaga mabaho" → "mabaho" is still negated).
+  static const Set<String> _negationFillers = {
+    'talaga', 'masyado', 'sobra', 'lang', 'po', 'nga', 'pa', 'na', 'ba',
+    'naman', 'eh', 'ay', 'kasi', 'kase', 'din', 'rin', 'daw', 'raw',
+  };
+
   static const List<String> _negativePhrases = [
     'walang ilaw',
     'sira ang ilaw',
@@ -399,9 +406,36 @@ class SentimentEngine {
     return _lexiconAnalyze(message, category);
   }
 
+  /// Collapses repeated characters (3+ → 2) and normalises common
+  /// Taglish abbreviations so the lexicon matches despite typos.
+  static String _normalize(String text) {
+    return text
+        .replaceAll(RegExp(r'(.)\1{2,}'), r'$1$1')
+        .replaceAll(RegExp(r'\bwlang\b'), 'walang')
+        .replaceAll(RegExp(r'\bwla\b'), 'wala')
+        .replaceAll(RegExp(r'\bd2\b'), 'dito')
+        .replaceAll(RegExp(r'\bu\b'), 'you');
+  }
+
+  /// Returns true if the token at [i] is negated by a preceding negation word.
+  ///
+  /// Handles filler words sitting between the negation and the target
+  /// (e.g. "hindi talaga mabaho" → "mabaho" is negated).
+  static bool _isNegated(List<String> tokens, int i) {
+    if (i == 0) return false;
+    if (_negations.contains(tokens[i - 1])) return true;
+    if (i >= 2 &&
+        _negationFillers.contains(tokens[i - 1]) &&
+        _negations.contains(tokens[i - 2])) {
+      return true;
+    }
+    return false;
+  }
+
   static SentimentResult _lexiconAnalyze(
       String message, ComplaintCategory category) {
-    final msg = message.toLowerCase();
+    // Normalise common Taglish quirks before scoring.
+    final msg = _normalize(message.toLowerCase());
 
     var negative = 0;
     var positive = 0;
@@ -428,7 +462,7 @@ class SentimentEngine {
 
     for (var i = 0; i < tokens.length; i++) {
       final token = tokens[i];
-      final negated = i > 0 && _negations.contains(tokens[i - 1]);
+      final negated = _isNegated(tokens, i);
       if (_negativeWords.contains(token)) {
         if (negated) {
           positive++;

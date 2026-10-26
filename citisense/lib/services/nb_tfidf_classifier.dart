@@ -33,6 +33,10 @@ class NbTfidfClassifier {
 
   bool get available => loaded;
 
+  /// Model version — bump when retraining so logs/telemetry can distinguish
+  /// which model produced a prediction.
+  static const String modelVersion = '1.0.0';
+
   static final RegExp _tokenRe = RegExp(r'[^a-z0-9]+');
 
   static Future<void> loadFromString(String jsonString) async {
@@ -79,8 +83,21 @@ class NbTfidfClassifier {
       sentiment: SentimentX.fromString(label),
       label: label,
       logProbas: logP,
-      confidence: math.exp(logP[best]),
+      confidence: _softmax(logP)[best],
     );
+  }
+
+  /// Numerically stable softmax.  The log-probabilities returned by
+  /// [_logProbas] are already normalised, but routing through the max-
+  /// subtraction trick guards against underflow on very negative values.
+  static List<double> _softmax(List<double> logP) {
+    final maxLogP = logP.reduce(math.max);
+    var sumExp = 0.0;
+    for (final v in logP) {
+      sumExp += math.exp(v - maxLogP);
+    }
+    if (sumExp == 0.0) return List<double>.filled(logP.length, 0.0);
+    return [for (final v in logP) math.exp(v - maxLogP) / sumExp];
   }
 
   List<double> _logProbas(String text) {
