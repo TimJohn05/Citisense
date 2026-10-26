@@ -17,7 +17,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmController = TextEditingController();
-  bool _obscure = true;
+  bool _obscurePassword = true;
+  bool _obscureConfirm = true;
 
   @override
   void dispose() {
@@ -112,15 +113,16 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: _obscure,
+                      obscureText: _obscurePassword,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: IconButton(
-                          onPressed: () => setState(() => _obscure = !_obscure),
+                          onPressed: () =>
+                              setState(() => _obscurePassword = !_obscurePassword),
                           icon: Icon(
-                            _obscure
+                            _obscurePassword
                                 ? Icons.visibility_outlined
                                 : Icons.visibility_off_outlined,
                           ),
@@ -132,12 +134,21 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(height: 14),
                     TextFormField(
                       controller: _confirmController,
-                      obscureText: _obscure,
+                      obscureText: _obscureConfirm,
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (_) => _submit(),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Confirm password',
-                        prefixIcon: Icon(Icons.lock_outline),
+                        prefixIcon: const Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                          onPressed: () =>
+                              setState(() => _obscureConfirm = !_obscureConfirm),
+                          icon: Icon(
+                            _obscureConfirm
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                          ),
+                        ),
                       ),
                       validator: (v) => v != _passwordController.text
                           ? 'Passwords do not match'
