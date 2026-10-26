@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../core/theme/app_colors.dart';
@@ -51,10 +52,31 @@ class _LocationPickerState extends State<LocationPicker> {
 
   Future<void> _useMyLocation() async {
     setState(() => _locating = true);
+    final permission = await _locationService.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Location permission is permanently denied. '
+              'Enable it in device settings.',
+            ),
+          ),
+        );
+      }
+      if (mounted) setState(() => _locating = false);
+      return;
+    }
     final position = await _locationService.getCurrentPosition();
     if (position != null) {
       _mapController.move(position, _zoom);
       _updateSelection(position);
+    } else if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Location unavailable. Check permission and try again.'),
+        ),
+      );
     }
     if (mounted) setState(() => _locating = false);
   }

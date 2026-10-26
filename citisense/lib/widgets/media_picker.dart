@@ -250,7 +250,11 @@ class _MediaPickerState extends State<MediaPicker> {
           ? await _cameraService.capturePhoto()
           : await _cameraService.pickFromGallery();
       if (file == null) {
-        if (source == 'photoCamera' && mounted) _showCameraDenied();
+        if (mounted) {
+          _showPermissionDenied(
+            source == 'photoCamera' ? 'Camera' : 'Gallery',
+          );
+        }
         return;
       }
       if (mounted) _add(MediaItem(file: file, isVideo: false));
@@ -261,11 +265,15 @@ class _MediaPickerState extends State<MediaPicker> {
     if (source == 'videoCamera') {
       file = await _cameraService.captureVideo();
       if (file == null && mounted) {
-        _showCameraDenied();
+        _showPermissionDenied('Camera');
         return;
       }
     } else {
       file = await _cameraService.pickVideoFromGallery();
+      if (file == null && mounted) {
+        _showPermissionDenied('Gallery');
+        return;
+      }
     }
     if (file == null || !mounted) return;
 
@@ -315,14 +323,14 @@ class _MediaPickerState extends State<MediaPicker> {
     widget.onChanged(List.unmodifiable(_items));
   }
 
-  void _showCameraDenied() {
+  void _showPermissionDenied(String type) {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Camera permission required'),
-        content: const Text(
-          'CitiSense needs camera access to capture evidence photos and videos. '
-          'Please enable camera permission in your device settings.',
+        title: Text('$type permission required'),
+        content: Text(
+          'CitiSense needs $type access to capture or select evidence. '
+          'Please enable $type permission in your device settings.',
         ),
         actions: [
           TextButton(

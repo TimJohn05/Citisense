@@ -36,7 +36,27 @@ class CameraService {
     return _pick(ImageSource.camera);
   }
 
+  Future<bool> _hasGalleryAccess() async {
+    try {
+      if (await Permission.photos.isGranted ||
+          await Permission.videos.isGranted ||
+          await Permission.storage.isGranted) {
+        return true;
+      }
+      // Request the appropriate permission based on Android version.
+      if (await Permission.photos.request().isGranted ||
+          await Permission.videos.request().isGranted ||
+          await Permission.storage.request().isGranted) {
+        return true;
+      }
+      return false;
+    } on MissingPluginException {
+      return true;
+    }
+  }
+
   Future<File?> pickFromGallery() async {
+    if (!await _hasGalleryAccess()) return null;
     return _pick(ImageSource.gallery);
   }
 
@@ -64,6 +84,7 @@ class CameraService {
   }
 
   Future<File?> pickVideoFromGallery() async {
+    if (!await _hasGalleryAccess()) return null;
     return _pickVideo(ImageSource.gallery);
   }
 
