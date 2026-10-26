@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +70,12 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
               children: [
                 _buildFilterBar(allLogs),
                 const Divider(height: 1),
-                Expanded(child: _buildLogList(allLogs)),
+                Expanded(
+          child: RefreshIndicator(
+            onRefresh: () => appState.refresh(),
+            child: _buildLogList(allLogs),
+          ),
+        ),
               ],
             ),
     );
@@ -82,7 +88,10 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
         child: ChoiceChip(
           label: const Text('All'),
           selected: _filter == null,
-          onSelected: (_) => setState(() => _filter = null),
+          onSelected: (_) {
+            HapticFeedback.selectionClick();
+            setState(() => _filter = null);
+          },
         ),
       ),
       for (final spec in _groupSpecs)
@@ -106,7 +115,10 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
           if (logs.isNotEmpty)
             IconButton(
               tooltip: _ascending ? 'Oldest first' : 'Newest first',
-              onPressed: () => setState(() => _ascending = !_ascending),
+              onPressed: () {
+                HapticFeedback.selectionClick();
+                setState(() => _ascending = !_ascending);
+              },
               icon: Icon(
                 _ascending
                     ? Icons.arrow_upward
@@ -127,11 +139,16 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
       final groupLogs =
           logs.where((l) => _groupFor(l.action) == _filter).toList();
       if (groupLogs.isEmpty) {
-        return Center(
-          child: Text(
-            'No ${spec.label.toLowerCase()} recorded yet',
-            style: TextStyle(fontSize: 13, color: AppColors.textMuted),
-          ),
+        return ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Center(
+              child: Text(
+                'No ${spec.label.toLowerCase()} recorded yet',
+                style: TextStyle(fontSize: 13, color: AppColors.textMuted),
+              ),
+            ),
+          ],
         );
       }
       return ListView(

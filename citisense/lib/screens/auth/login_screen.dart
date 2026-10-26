@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/app_config.dart';
@@ -31,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
+    HapticFeedback.lightImpact();
     final appState = context.read<AppState>();
     final ok = await appState.login(
       _emailController.text.trim(),

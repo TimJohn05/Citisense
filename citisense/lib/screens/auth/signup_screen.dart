@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -31,6 +32,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
+    HapticFeedback.lightImpact();
     final appState = context.read<AppState>();
     final ok = await appState.signup(
       fullName: _nameController.text.trim(),

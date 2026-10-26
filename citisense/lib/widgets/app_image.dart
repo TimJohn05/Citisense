@@ -92,7 +92,11 @@ class TapToZoomImage extends StatelessWidget {
             child: Stack(
               children: [
                 Center(
-                  child: AppImage(path: path, fit: BoxFit.contain),
+                  child: InteractiveViewer(
+                    minScale: 0.5,
+                    maxScale: 4.0,
+                    child: AppImage(path: path, fit: BoxFit.contain),
+                  ),
                 ),
                 Positioned(
                   top: 8,
