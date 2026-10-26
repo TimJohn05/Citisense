@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_colors.dart';
@@ -128,7 +129,24 @@ class _MediaPickerState extends State<MediaPicker> {
       );
     }
     if (path != null && path.startsWith('http')) {
-      return Image.network(path, fit: BoxFit.cover);
+      return CachedNetworkImage(
+        imageUrl: path,
+        fit: BoxFit.cover,
+        placeholder: (_, _) => Container(
+          color: AppColors.surfaceMuted,
+          child: const Center(
+            child: SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          ),
+        ),
+        errorWidget: (_, _, _) => Container(
+          color: AppColors.surfaceMuted,
+          child: const Icon(Icons.broken_image_outlined, size: 24),
+        ),
+      );
     }
     if (path != null && File(path).existsSync()) {
       return Image.file(File(path), fit: BoxFit.cover);

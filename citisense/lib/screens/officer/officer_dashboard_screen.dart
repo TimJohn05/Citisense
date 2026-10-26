@@ -105,7 +105,7 @@ class OfficerDashboardScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            _CategoryChart(complaints: appState.complaints),
+            RepaintBoundary(child: _CategoryChart(complaints: appState.complaints)),
             const SizedBox(height: 24),
             Text(
               'Recent Complaints',

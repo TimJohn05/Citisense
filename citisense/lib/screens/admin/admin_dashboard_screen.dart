@@ -113,7 +113,7 @@ class AdminDashboardScreen extends StatelessWidget {
             const SizedBox(height: 20),
             _StatusChart(appState: appState),
             const SizedBox(height: 16),
-            _CategoryChart(complaints: appState.complaints),
+            RepaintBoundary(child: _CategoryChart(complaints: appState.complaints)),
             const SizedBox(height: 16),
             _SentimentChart(appState: appState),
             const SizedBox(height: 24),

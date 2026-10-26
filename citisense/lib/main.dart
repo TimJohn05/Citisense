@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,12 @@ Future<void> main() async {
     } else {
       await Firebase.initializeApp();
     }
+    // Enable offline persistence so the app works without internet
+    // and loads cached data instantly on startup.
+    FirebaseFirestore.instance.settings = const Settings(
+      persistenceEnabled: true,
+      cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+    );
     runApp(App(repository: FirebaseRepository()));
   } else {
     runApp(App(repository: MockRepository()));

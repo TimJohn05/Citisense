@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_colors.dart';
@@ -36,12 +37,13 @@ class AppImage extends StatelessWidget {
     }
     final isNetwork = path!.startsWith('http');
     if (isNetwork) {
-      return Image.network(
-        path!,
+      return CachedNetworkImage(
+        imageUrl: path!,
         fit: fit,
         height: height,
         width: width,
-        errorBuilder: (_, _, _) => _placeholder(),
+        placeholder: (_, _) => _placeholder(),
+        errorWidget: (_, _, _) => _placeholder(),
       );
     }
     final file = File(path!);

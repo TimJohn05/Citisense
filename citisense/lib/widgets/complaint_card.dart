@@ -60,7 +60,7 @@ class ComplaintCard extends StatelessWidget {
                 Row(
                   children: [
                     Icon(Icons.place_outlined,
-                        size: 14, color: AppColors.textMuted),
+                        size: 14, color: AppColors.textMuted, semanticLabel: 'Location'),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
@@ -70,6 +70,23 @@ class ComplaintCard extends StatelessWidget {
                           fontSize: 12,
                           color: AppColors.textMuted,
                         ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+              if (complaint.evidenceVideos.isNotEmpty) ...[
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    Icon(Icons.videocam_outlined,
+                        size: 14, color: AppColors.textMuted, semanticLabel: 'Video evidence'),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${complaint.evidenceVideos.length} video${complaint.evidenceVideos.length == 1 ? '' : 's'}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textMuted,
                       ),
                     ),
                   ],
