@@ -77,14 +77,17 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                     title: 'No users found',
                     message: 'Try a different search.',
                   )
-                : ListView.separated(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: users.length,
-                    separatorBuilder: (_, _) => const SizedBox(height: 10),
-                    itemBuilder: (context, index) {
-                      final user = users[index];
-                      return _UserTile(user: user);
-                    },
+                : RefreshIndicator(
+                    onRefresh: () => appState.refresh(),
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: users.length,
+                      separatorBuilder: (_, _) => const SizedBox(height: 10),
+                      itemBuilder: (context, index) {
+                        final user = users[index];
+                        return _UserTile(user: user);
+                      },
+                    ),
                   ),
           ),
         ],

@@ -58,10 +58,12 @@ class _AdminComplaintsScreenState extends State<AdminComplaintsScreen> {
                     title: 'No complaints found',
                     message: 'Try adjusting your filters.',
                   )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: complaints.length,
-                    itemBuilder: (context, index) {
+                : RefreshIndicator(
+                    onRefresh: () => appState.refresh(),
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: complaints.length,
+                      itemBuilder: (context, index) {
                       final Complaint complaint = complaints[index];
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12),
@@ -79,6 +81,7 @@ class _AdminComplaintsScreenState extends State<AdminComplaintsScreen> {
                       );
                     },
                   ),
+                ),
           ),
         ],
       ),
