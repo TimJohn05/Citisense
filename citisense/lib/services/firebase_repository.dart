@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 
 import '../models/app_user.dart';
@@ -29,6 +30,11 @@ class FirebaseRepository implements AppRepository {
 
   @override
   Future<void> signOut() => _auth.signOut();
+
+  @override
+  Future<void> sendPasswordResetEmail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email.trim());
+  }
 
   Future<AppUser?> _userFromUid(String uid) async {
     final doc = await _db.collection('users').doc(uid).get();
@@ -117,22 +123,63 @@ class FirebaseRepository implements AppRepository {
     await _db.collection('logs').doc(log.id).set(log.toMap());
   }
 
+  // Cloudinary config — set via --dart-define or replace the defaults.
+  // Free tier: 25 GB storage, 25 GB bandwidth/month, no credit card needed.
+  // Create an account at cloudinary.com, then set:
+  //   --dart-define=CLOUDINARY_CLOUD_NAME=your_cloud_name
+  //   --dart-define=CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
+  static const _cloudinaryCloudName =
+      String.fromEnvironment('CLOUDINARY_CLOUD_NAME', defaultValue: '');
+  static const _cloudinaryUploadPreset =
+      String.fromEnvironment('CLOUDINARY_UPLOAD_PRESET', defaultValue: '');
+
   @override
   Future<String?> uploadMedia(File file, String folder) async {
     final isVideo = file.path.toLowerCase().endsWith('.mp4');
-    final contentType = isVideo ? 'video/mp4' : 'application/octet-stream';
+    if (isVideo) {
+      // Try Cloudinary first (free tier, supports video).
+      if (_cloudinaryCloudName.isNotEmpty &&
+          _cloudinaryUploadPreset.isNotEmpty) {
+        try {
+          final url = await _uploadToCloudinary(file);
+          if (url != null) return url;
+        } catch (_) {}
+      }
+      // Fall back to Firebase Storage (Blaze plan only).
+      try {
+        final ref = _storage.ref().child('$folder/${_uuid.v4()}');
+        final meta = SettableMetadata(contentType: 'video/mp4');
+        await ref.putFile(file, meta);
+        return ref.getDownloadURL();
+      } catch (_) {
+        // No storage available — skip video rather than failing the submit.
+        return null;
+      }
+    }
+    // Photos: try Firebase Storage, then base64 fallback.
     try {
       final ref = _storage.ref().child('$folder/${_uuid.v4()}');
-      final meta = SettableMetadata(contentType: contentType);
-      await ref.putFile(file, meta);
+      await ref.putFile(file);
       return ref.getDownloadURL();
     } catch (_) {
-      // Cloud Storage needs a paid plan since 2026-02-03, so keep photos
-      // inside the Firestore document and skip videos rather than failing
-      // the whole submission.
-      if (isVideo) return null;
       return _embedAsDataUri(file);
     }
+  }
+
+  Future<String?> _uploadToCloudinary(File file) async {
+    final uri = Uri.parse(
+      'https://api.cloudinary.com/v1_1/$_cloudinaryCloudName/video/upload',
+    );
+    final request = http.MultipartRequest('POST', uri)
+      ..fields['upload_preset'] = _cloudinaryUploadPreset
+      ..files.add(await http.MultipartFile.fromPath('file', file.path));
+    final response = await request.send();
+    if (response.statusCode == 200) {
+      final body = await response.stream.bytesToString();
+      final json = jsonDecode(body) as Map<String, dynamic>;
+      return json['secure_url'] as String?;
+    }
+    return null;
   }
 
   @override

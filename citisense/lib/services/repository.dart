@@ -7,6 +7,8 @@ import '../models/system_log.dart';
 abstract class AppRepository {
   Future<AppUser?> login(String email, String password);
 
+  Future<void> sendPasswordResetEmail(String email);
+
   Future<void> signOut();
 
   Future<AppUser> signup({

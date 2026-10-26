@@ -11,6 +11,8 @@ import '../models/enums.dart';
 import '../models/media_item.dart';
 import '../models/system_log.dart';
 import '../models/user_role.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../services/auth_error_messages.dart';
 import '../services/repository.dart';
 import '../services/sentiment_engine.dart';
@@ -196,6 +198,33 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       return true;
     } catch (e) {
       _error = friendlyAuthMessage(e);
+      _setLoading(false);
+      return false;
+    }
+  }
+
+  /// Sends a password-reset link to [email] via Firebase Auth.
+  ///
+  /// Returns true on success. On failure, [error] is set and false is returned.
+  Future<bool> sendPasswordResetEmail(String email) async {
+    _setLoading(true);
+    _error = null;
+    try {
+      await repository.sendPasswordResetEmail(email);
+      _setLoading(false);
+      return true;
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        _error = switch (e.code) {
+          'invalid-email' => 'That email address is not valid.',
+          'user-not-found' => 'No account found for that email.',
+          'too-many-requests' => 'Too many attempts. Wait a moment and try again.',
+          'network-request-failed' => 'No internet connection. Check your network.',
+          _ => 'Could not send the reset link. Try again.',
+        };
+      } else {
+        _error = 'Could not send the reset link. Try again.';
+      }
       _setLoading(false);
       return false;
     }

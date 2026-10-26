@@ -147,10 +147,21 @@ In Firebase console enable:
 - **Authentication** → Email/Password
 - **Cloud Firestore**
 
-Cloud Storage is deliberately not used: since 2026-02-03 it requires the Blaze (pay-as-you-go)
-plan, so evidence photos are stored as base64 data URIs inside the Firestore document instead.
-Video evidence is currently not persisted — see `docs/` if that changes.
+Cloud Storage is deliberately not used for photos: since 2026-02-03 it requires the Blaze
+(pay-as-you-go) plan, so evidence photos are stored as base64 data URIs inside the
+Firestore document instead.
 
+Video evidence is persisted via **Cloudinary** (free tier, no credit card needed):
+1. Create a free account at [cloudinary.com](https://cloudinary.com).
+2. In the dashboard, note your **Cloud Name**.
+3. Go to Settings → Upload → Upload presets → create an **unsigned** preset.
+4. Run the app with:
+   ```bash
+   flutter run --dart-define=USE_FIREBASE=true \
+     --dart-define=CLOUDINARY_CLOUD_NAME=your_cloud_name \
+     --dart-define=CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
+   ```
+   Without these defines, videos are silently skipped (photos still work).
 Run the app with:
 
 ```bash
@@ -162,8 +173,15 @@ to `MockRepository` and shows seeded demo data instead of live data, with no war
 screen. Build size is a quick tell: mock ≈ 66.7 MB, Firebase ≈ 67.5 MB.
 
 ```bash
-flutter build apk --release --dart-define=USE_FIREBASE=true
-flutter build web --release --dart-define=USE_FIREBASE=true
+flutter build apk --release \
+  --dart-define=USE_FIREBASE=true \
+  --dart-define=DEMO_ACCOUNTS=true \
+  --dart-define=CLOUDINARY_CLOUD_NAME=your_cloud_name \
+  --dart-define=CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
+flutter build web --release \
+  --dart-define=USE_FIREBASE=true \
+  --dart-define=CLOUDINARY_CLOUD_NAME=your_cloud_name \
+  --dart-define=CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
 ```
 
 ### Firestore schema

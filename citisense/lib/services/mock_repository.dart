@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../models/app_user.dart';
 import '../models/complaint.dart';
 import '../models/enums.dart';
@@ -266,6 +268,21 @@ class MockRepository implements AppRepository {
 
   @override
   Future<void> signOut() async {}
+
+  @override
+  Future<void> sendPasswordResetEmail(String email) async {
+    // Simulate a network delay, then succeed for any seeded email.
+    await Future.delayed(const Duration(milliseconds: 300));
+    final exists = _users.any(
+      (u) => u.email.toLowerCase() == email.trim().toLowerCase(),
+    );
+    if (!exists) {
+      throw FirebaseAuthException(
+        code: 'user-not-found',
+        message: 'No user record for that email.',
+      );
+    }
+  }
 
   @override
   Future<AppUser> signup({

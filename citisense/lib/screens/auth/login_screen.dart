@@ -43,6 +43,65 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _forgotPassword() async {
+    final emailController = TextEditingController(
+      text: _emailController.text.trim(),
+    );
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Reset Password'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Enter your email address and we will send you a link to reset '
+              'your password.',
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              autofocus: true,
+              decoration: const InputDecoration(
+                labelText: 'Email address',
+                prefixIcon: Icon(Icons.mail_outline),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Send Link'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !mounted) return;
+    final email = emailController.text.trim();
+    if (email.isEmpty) return;
+
+    final appState = context.read<AppState>();
+    final success = await appState.sendPasswordResetEmail(email);
+    if (!mounted) return;
+    if (success) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password reset link sent. Check your email.'),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(appState.error ?? 'Failed to send reset link')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
@@ -110,7 +169,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (v) =>
                           (v == null || v.isEmpty) ? 'Password is required' : null,
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: appState.isLoading ? null : _forgotPassword,
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          minimumSize: const Size(0, 30),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        child: const Text(
+                          'Forgot password?',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     FilledButton(
                       onPressed: appState.isLoading ? null : _submit,
                       child: appState.isLoading

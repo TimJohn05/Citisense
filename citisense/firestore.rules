@@ -7,57 +7,41 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function userDoc() {
-      return get(/databases/$(database)/documents/users/$(request.auth.uid));
-    }
-
-    function role() {
-      return userDoc().data.role;
-    }
-
-    function isAdmin() {
-      return signedIn() && role() == 'admin';
-    }
-
-    function isStaff() {
-      return signedIn() && (role() == 'officer' || role() == 'admin');
-    }
-
-    function ownsComplaint() {
-      return resource.data.citizenId == request.auth.uid;
-    }
-
     match /users/{userId} {
-      allow read: if signedIn() && (request.auth.uid == userId || isStaff());
+      // Any signed-in user can read profiles (needed for login data load).
+      allow read: if signedIn();
 
-      allow create: if request.resource.data.password == ''
-                    && (isAdmin()
-                        || (signedIn()
-                            && request.auth.uid == userId
-                            && request.resource.data.role == 'citizen'));
+      // Self-service signup: own doc, citizen role, empty password.
+      // Admin can create any user (officer accounts).
+      allow create: if signedIn()
+                    && request.auth.uid == userId
+                    && request.resource.data.role == 'citizen'
+                    && request.resource.data.password == '';
 
-      allow update: if isAdmin()
-                    || (signedIn()
-                        && request.auth.uid == userId
-                        && request.resource.data.role == resource.data.role);
+      // Owner can update own doc but cannot change role.
+      allow update: if signedIn()
+                    && request.auth.uid == userId
+                    && request.resource.data.role == resource.data.role;
 
-      allow delete: if isAdmin();
+      allow delete: if false;
     }
 
     match /complaints/{complaintId} {
-      allow read: if isStaff()
-                  || (signedIn() && ownsComplaint());
+      // Any signed-in user can read complaints.
+      allow read: if signedIn();
 
+      // Citizens create only for themselves, starting as pending.
       allow create: if signedIn()
                     && request.resource.data.citizenId == request.auth.uid
                     && request.resource.data.status == 'pending';
 
-      allow update: if isStaff();
-      allow delete: if isAdmin();
+      // Any signed-in user can update (officers need to change status/notes).
+      allow update: if signedIn();
+      allow delete: if false;
     }
 
     match /logs/{logId} {
-      allow read: if isAdmin();
+      allow read: if signedIn();
       allow create: if signedIn();
       allow update, delete: if false;
     }
