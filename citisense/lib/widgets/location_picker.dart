@@ -97,6 +97,8 @@ class _LocationPickerState extends State<LocationPicker> {
                   options: MapOptions(
                     initialCenter: _selected,
                     initialZoom: _zoom,
+                    minZoom: 12.0,
+                    maxZoom: 18.5,
                     interactionOptions: const InteractionOptions(
                       flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
                     ),

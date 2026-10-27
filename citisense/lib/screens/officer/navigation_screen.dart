@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -39,6 +41,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   LatLng? _position;
   LatLng? _routeOrigin;
   OSRMRoute? _route;
+  double _heading = 0.0;
   bool _loading = true;
   bool _mapReady = false;
   bool _arrived = false;
@@ -73,12 +76,23 @@ class _NavigationScreenState extends State<NavigationScreen> {
       _posSub = Geolocator.getPositionStream(
         locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.high,
-          distanceFilter: 5,
+          distanceFilter: 3,
         ),
       ).listen(
         (p) {
           if (!mounted) return;
-          setState(() => _position = LatLng(p.latitude, p.longitude));
+          final newPos = LatLng(p.latitude, p.longitude);
+          double newHeading = _heading;
+          if (p.heading > 0 && p.headingAccuracy > 0) {
+            newHeading = p.heading;
+          } else if (_position != null &&
+              CompassMath.distanceMeters(_position!, newPos) > 1.5) {
+            newHeading = CompassMath.bearing(_position!, newPos);
+          }
+          setState(() {
+            _position = newPos;
+            _heading = newHeading;
+          });
           _maybeReroute();
         },
         onError: (_) {},
@@ -97,6 +111,17 @@ class _NavigationScreenState extends State<NavigationScreen> {
     }
     _rerouteTimer?.cancel();
     _rerouteTimer = Timer(const Duration(milliseconds: 900), _fetchRoute);
+  }
+
+  double _calculateHeadingFromRoute(LatLng from, List<LatLng> geometry) {
+    for (final pt in geometry) {
+      if (CompassMath.distanceMeters(from, pt) > 8.0) {
+        return CompassMath.bearing(from, pt);
+      }
+    }
+    return geometry.length > 1
+        ? CompassMath.bearing(geometry.first, geometry[1])
+        : CompassMath.bearing(from, _dest);
   }
 
   Future<void> _fetchRoute() async {
@@ -126,6 +151,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
       _routeOrigin = from;
       _arrived =
           CompassMath.distanceMeters(from, _dest) < _arrivalMeters;
+      if (_heading == 0.0 && route.geometry.isNotEmpty) {
+        _heading = _calculateHeadingFromRoute(from, route.geometry);
+      }
     });
     _fitRoute();
   }
@@ -190,8 +218,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
             options: MapOptions(
               initialCenter: _dest,
               initialZoom: 13,
-              minZoom: 3,
-              maxZoom: 19,
+              minZoom: 12.0,
+              maxZoom: 18.5,
               onMapReady: () {
                 _mapReady = true;
                 _fitRoute();
@@ -224,22 +252,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
                   markers: [
                     Marker(
                       point: _position!,
-                      width: 26,
-                      height: 26,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 3),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 6,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                      ),
+                      width: 80,
+                      height: 80,
+                      alignment: Alignment.center,
+                      child: _OfficerLocationMarker(heading: _heading),
                     ),
                   ],
                 ),
@@ -495,4 +511,100 @@ class _NavigationScreenState extends State<NavigationScreen> {
     if (type == 'arrive') return Icons.flag_rounded;
     return Icons.arrow_forward;
   }
+}
+
+class _OfficerLocationMarker extends StatelessWidget {
+  final double heading;
+
+  const _OfficerLocationMarker({required this.heading});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: 80,
+        height: 80,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Transform.rotate(
+              angle: heading * math.pi / 180.0,
+              child: CustomPaint(
+                size: const Size(80, 80),
+                painter: _DirectionConePainter(
+                  color: AppColors.primary,
+                ),
+              ),
+            ),
+            Container(
+              width: 28,
+              height: 28,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 6,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.all(2.5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.shield,
+                  size: 13,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DirectionConePainter extends CustomPainter {
+  final Color color;
+
+  const _DirectionConePainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    const radius = 38.0;
+    const sweepAngle = 55.0 * math.pi / 180.0;
+    const startAngle = -math.pi / 2 - (sweepAngle / 2);
+
+    final rect = Rect.fromCircle(center: center, radius: radius);
+    final paint = Paint()
+      ..shader = ui.Gradient.radial(
+        center,
+        radius,
+        [
+          color.withValues(alpha: 0.50),
+          color.withValues(alpha: 0.25),
+          color.withValues(alpha: 0.0),
+        ],
+        [0.0, 0.65, 1.0],
+      )
+      ..style = PaintingStyle.fill;
+
+    final path = ui.Path()
+      ..moveTo(center.dx, center.dy)
+      ..arcTo(rect, startAngle, sweepAngle, false)
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _DirectionConePainter oldDelegate) =>
+      oldDelegate.color != color;
 }

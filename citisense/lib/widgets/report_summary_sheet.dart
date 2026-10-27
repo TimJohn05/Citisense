@@ -26,10 +26,12 @@ class _ReportSummarySheet extends StatefulWidget {
 }
 
 class _ReportSummarySheetState extends State<_ReportSummarySheet> {
-  DatePreset _preset = DatePreset.last30Days;
+  DatePreset _preset = DatePreset.allTime;
 
   List<Complaint> get _complaints => widget.appState.complaints
-      .where((c) => _preset.matches(c.createdAt))
+      .where((c) =>
+          _preset.matches(c.createdAt) ||
+          (c.resolvedAt != null && _preset.matches(c.resolvedAt!)))
       .toList();
 
   int _statusCount(ComplaintStatus status) =>

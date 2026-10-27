@@ -9,9 +9,17 @@ class MediaItem {
 
   String? get displayPath => url ?? file?.path;
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         'url': url,
         'path': file?.path,
         'isVideo': isVideo,
       };
+
+  static MediaItem fromMap(Map<String, dynamic> map) {
+    return MediaItem(
+      url: map['url'] as String?,
+      file: map['path'] != null ? File(map['path'] as String) : null,
+      isVideo: map['isVideo'] as bool? ?? false,
+    );
+  }
 }

@@ -6,9 +6,12 @@ import '../../core/theme/app_colors.dart';
 import '../../models/complaint.dart';
 import '../../models/enums.dart';
 import '../../state/app_state.dart';
+import '../../widgets/citizen_notification_button.dart';
 import '../../widgets/complaint_card.dart';
 import '../../widgets/logout_button.dart';
+import '../../widgets/officer_action_banner.dart';
 import '../../widgets/settings_button.dart';
+import '../../widgets/skeleton.dart';
 import '../complaint_detail_screen.dart';
 import 'report_issue_screen.dart';
 
@@ -25,7 +28,11 @@ class CitizenHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
-    final user = appState.user!;
+    if (appState.isRestoringSession) {
+      return const CitizenDashboardSkeleton();
+    }
+    final user = appState.user;
+    if (user == null) return const SizedBox.shrink();
     final myComplaints = appState.myComplaints;
     final recent = myComplaints.take(3).toList();
 
@@ -60,11 +67,17 @@ class CitizenHomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                const CitizenNotificationButton(),
                 const SettingsButton(),
                 const LogoutButton(),
               ],
             ),
             const SizedBox(height: 16),
+            if (appState.activeOfficerBanners.isNotEmpty)
+              OfficerActionBanner(
+                notifications: appState.activeOfficerBanners,
+                onDismiss: appState.dismissOfficerBanner,
+              ),
             _ReportCta(
               onTap: () => Navigator.push(
                 context,
@@ -100,6 +113,16 @@ class CitizenHomeScreen extends StatelessWidget {
                   icon: Icons.check_circle_outline,
                   onTap: () => _openReports(context, const {
                     ComplaintStatus.resolved,
+                  }),
+                ),
+                const SizedBox(width: 12),
+                _MiniStat(
+                  label: 'Rejected',
+                  value: '${myComplaints.where((c) => c.status == ComplaintStatus.rejected).length}',
+                  color: AppColors.danger,
+                  icon: Icons.cancel_outlined,
+                  onTap: () => _openReports(context, const {
+                    ComplaintStatus.rejected,
                   }),
                 ),
               ],

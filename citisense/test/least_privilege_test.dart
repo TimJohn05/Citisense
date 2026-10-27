@@ -7,19 +7,19 @@ import 'package:citisense/services/mock_repository.dart';
 import 'package:citisense/state/app_state.dart';
 
 class _TrackingRepository extends MockRepository {
-  int getUsersCalls = 0;
-  int getLogsCalls = 0;
+  int watchUsersCalls = 0;
+  int watchLogsCalls = 0;
 
   @override
-  Future<List<AppUser>> getUsers() {
-    getUsersCalls++;
-    return super.getUsers();
+  Stream<List<AppUser>> watchUsers() {
+    watchUsersCalls++;
+    return super.watchUsers();
   }
 
   @override
-  Future<List<SystemLog>> getLogs() {
-    getLogsCalls++;
-    return super.getLogs();
+  Stream<List<SystemLog>> watchLogs() {
+    watchLogsCalls++;
+    return super.watchLogs();
   }
 }
 
@@ -35,8 +35,8 @@ void main() {
 
     expect(appState.isLoggedIn, isTrue);
     expect(appState.complaints, isNotEmpty);
-    expect(repository.getUsersCalls, 0);
-    expect(repository.getLogsCalls, 0);
+    expect(repository.watchUsersCalls, 0);
+    expect(repository.watchLogsCalls, 0);
     expect(appState.users, isEmpty);
   });
 
@@ -46,15 +46,15 @@ void main() {
     final adminRepo = _TrackingRepository();
     final adminState = AppState(repository: adminRepo);
     await adminState.login('admin@citisense.com', 'password');
-    expect(adminRepo.getUsersCalls, greaterThanOrEqualTo(1));
-    expect(adminRepo.getLogsCalls, greaterThanOrEqualTo(1));
+    expect(adminRepo.watchUsersCalls, greaterThanOrEqualTo(1));
+    expect(adminRepo.watchLogsCalls, greaterThanOrEqualTo(1));
     expect(adminState.users, isNotEmpty);
 
     final officerRepo = _TrackingRepository();
     final officerState = AppState(repository: officerRepo);
     await officerState.login('officer@citisense.com', 'password');
-    expect(officerRepo.getUsersCalls, greaterThanOrEqualTo(1));
-    expect(officerRepo.getLogsCalls, 0);
+    expect(officerRepo.watchUsersCalls, greaterThanOrEqualTo(1));
+    expect(officerRepo.watchLogsCalls, 0);
     expect(officerState.users, isNotEmpty);
   });
 }

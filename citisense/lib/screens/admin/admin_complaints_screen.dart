@@ -9,6 +9,7 @@ import '../../state/app_state.dart';
 import '../../widgets/complaint_card.dart';
 import '../../widgets/date_filter_button.dart';
 import '../../widgets/empty_state.dart';
+import '../../widgets/location_filter_button.dart';
 import '../../widgets/logout_button.dart';
 import '../../widgets/settings_button.dart';
 import '../complaint_detail_screen.dart';
@@ -26,6 +27,7 @@ class _AdminComplaintsScreenState extends State<AdminComplaintsScreen> {
   ComplaintStatus? _filter;
   ComplaintCategory? _category;
   DatePreset _date = DatePreset.allTime;
+  String? _location;
 
   @override
   void initState() {
@@ -58,6 +60,10 @@ class _AdminComplaintsScreenState extends State<AdminComplaintsScreen> {
         : appState.complaints.where((c) => c.status == _filter).toList();
     if (_category != null) {
       complaints = complaints.where((c) => c.category == _category).toList();
+    }
+    if (_location != null) {
+      complaints =
+          complaints.where((c) => c.matchesLocation(_location)).toList();
     }
     complaints = complaints.where((c) => _date.matches(c.createdAt)).toList();
 
@@ -104,6 +110,10 @@ class _AdminComplaintsScreenState extends State<AdminComplaintsScreen> {
                   style: TextStyle(fontSize: 12, color: AppColors.textMuted),
                 ),
                 const Spacer(),
+                LocationFilterButton(
+                  value: _location,
+                  onChanged: (loc) => setState(() => _location = loc),
+                ),
                 DateFilterButton(
                   value: _date,
                   onChanged: (preset) => setState(() => _date = preset),

@@ -12,6 +12,7 @@ import '../models/enums.dart';
 import '../models/media_item.dart';
 import '../models/user_role.dart';
 import '../screens/officer/navigation_screen.dart';
+import '../services/firebase_repository.dart';
 import '../state/app_state.dart';
 import '../utils/text_validators.dart';
 import '../widgets/app_image.dart';
@@ -54,9 +55,11 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
         title: const Text('Complaint Details'),
         actions: [const SettingsButton()],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
+      body: RefreshIndicator(
+        onRefresh: () => context.read<AppState>().refresh(),
+        child: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
           _buildTimeline(complaint),
           const SizedBox(height: 20),
           Text(
@@ -99,20 +102,27 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
             const SizedBox(height: 20),
             const _SectionLabel(label: 'Navigation'),
             const SizedBox(height: 8),
-            FilledButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => NavigationScreen(
-                      latitude: complaint.latitude!,
-                      longitude: complaint.longitude!,
-                      title: complaint.description,
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.tonalIcon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => NavigationScreen(
+                        latitude: complaint.latitude!,
+                        longitude: complaint.longitude!,
+                        title: complaint.description,
+                      ),
                     ),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.directions_outlined, semanticLabel: 'Get directions'),
-              label: const Text('Get directions, follow the route'),
+                  );
+                },
+                icon: const Icon(Icons.directions_outlined, semanticLabel: 'Get directions'),
+                label: const Text('Get directions, follow the route'),
+                style: FilledButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  minimumSize: const Size(double.infinity, 48),
+                ),
+              ),
             ),
           ],
           if (complaint.officerNotes != null &&
@@ -162,9 +172,10 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
           if (_role == UserRole.officer) _buildOfficerActions(complaint),
           if (_role == UserRole.admin) _buildAdminActions(complaint),
           const SizedBox(height: 24),
-        ],
+],
       ),
-    );
+    ),
+  );
   }
 
   Widget _buildMetaSection(Complaint complaint) {
@@ -199,7 +210,7 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
     );
   }
 
-  Widget _buildTimeline(Complaint complaint) {
+Widget _buildTimeline(Complaint complaint) {
     final steps = [
       (label: 'Submitted', done: true, icon: Icons.file_upload_outlined),
       (
@@ -222,59 +233,62 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
       );
     }
 
+    final children = <Widget>[];
+    for (var i = 0; i < steps.length; i++) {
+      children.add(
+        Row(
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: steps[i].done
+                    ? (complaint.status == ComplaintStatus.rejected && i == 2
+                        ? AppColors.danger
+                        : AppColors.success)
+                    : AppColors.surfaceMuted,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                steps[i].icon,
+                size: 16,
+                color: steps[i].done ? Colors.white : AppColors.textMuted,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              steps[i].label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: steps[i].done
+                    ? AppColors.textPrimary
+                    : AppColors.textMuted,
+              ),
+            ),
+          ],
+        ),
+      );
+      if (i < steps.length - 1) {
+        children.add(
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Container(
+              width: 2,
+              height: 20,
+              color: steps[i + 1].done
+                  ? AppColors.success
+                  : AppColors.border,
+            ),
+          ),
+        );
+      }
+    }
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            for (var i = 0; i < steps.length; i++) ...[
-              Row(
-                children: [
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: steps[i].done
-                          ? (complaint.status == ComplaintStatus.rejected &&
-                                  i == 2
-                              ? AppColors.danger
-                              : AppColors.success)
-                          : AppColors.surfaceMuted,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      steps[i].icon,
-                      size: 16,
-                      color: steps[i].done ? Colors.white : AppColors.textMuted,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    steps[i].label,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: steps[i].done
-                          ? AppColors.textPrimary
-                          : AppColors.textMuted,
-                    ),
-                  ),
-                ],
-              ),
-              if (i < steps.length - 1)
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Container(
-                    width: 2,
-                    height: 20,
-                    color: steps[i + 1].done
-                        ? AppColors.success
-                        : AppColors.border,
-                  ),
-                ),
-            ],
-          ],
-        ),
+        child: Column(children: children),
       ),
     );
   }
@@ -411,72 +425,105 @@ class _ComplaintDetailScreenState extends State<ComplaintDetailScreen> {
 
   void _showRejectSheet(Complaint complaint) {
     final controller = TextEditingController();
+    String? errorText;
+    bool isSubmitting = false;
+
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          top: 20,
-          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Reject Report',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setSheetState) => Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Reject Report',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Provide a reason why this report is being rejected.',
-              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: controller,
-              maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: 'Reason for rejection',
+              const SizedBox(height: 8),
+              Text(
+                'Provide a reason why this report is being rejected.',
+                style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
               ),
-            ),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () {
-                final reason = controller.text.trim();
-                if (reason.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please provide a rejection reason'),
-                    ),
-                  );
-                  return;
-                }
-                if (looksLikeGibberish(reason)) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                          'You cannot submit gibberish text. Please provide a clear rejection reason.'),
-                    ),
-                  );
-                  return;
-                }
-                final appState = context.read<AppState>();
-                appState.rejectComplaint(complaint, reason);
-                Navigator.pop(context);
-              },
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.danger,
+              const SizedBox(height: 16),
+              TextField(
+                controller: controller,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  labelText: 'Reason for rejection',
+                  errorText: errorText,
+                ),
+                onChanged: (_) {
+                  if (errorText != null) {
+                    setSheetState(() => errorText = null);
+                  }
+                },
               ),
-              child: const Text('Reject Report'),
-            ),
-          ],
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: isSubmitting
+                    ? null
+                    : () {
+                        final reason = controller.text.trim();
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        if (reason.isEmpty) {
+                          setSheetState(() {
+                            errorText = 'Please provide a rejection reason';
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please provide a rejection reason'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                          return;
+                        }
+                        if (looksLikeGibberish(reason)) {
+                          setSheetState(() {
+                            errorText =
+                                'You cannot submit gibberish text. Please provide a clear rejection reason.';
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'You cannot submit gibberish text. Please provide a clear rejection reason.'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                          return;
+                        }
+                        setSheetState(() => isSubmitting = true);
+                        final appState = context.read<AppState>();
+                        appState.rejectComplaint(complaint, reason);
+                        Navigator.pop(context);
+                      },
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.danger,
+                ),
+                child: isSubmitting
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text('Reject Report'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -779,6 +826,7 @@ class _ComplaintVideoPlayer extends StatefulWidget {
 class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
   VideoPlayerController? _controller;
   bool _initialized = false;
+  bool _hasError = false;
   bool _playing = false;
 
   @override
@@ -799,22 +847,34 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
         if (mounted) setState(() => _playing = false);
         return;
       }
+      // Handle error state
+      if (c.value.hasError && !_hasError) {
+        if (mounted) setState(() => _hasError = true);
+      }
     }
     setState(() {});
   }
 
   Future<void> _init() async {
     if (_controller != null) return;
-    final controller = widget.path.startsWith('http')
-        ? VideoPlayerController.networkUrl(Uri.parse(widget.path))
-        : VideoPlayerController.file(File(widget.path));
+    String videoPath = widget.path;
+    // Convert Cloudinary URLs to signed URLs for security
+    if (videoPath.startsWith('https://res.cloudinary.com/')) {
+      videoPath = FirebaseRepository.getSignedVideoUrl(videoPath) ?? videoPath;
+    }
+    final controller = videoPath.startsWith('http')
+        ? VideoPlayerController.networkUrl(Uri.parse(videoPath))
+        : VideoPlayerController.file(File(videoPath));
     _controller = controller;
     controller.addListener(_onStatus);
     try {
       await controller.initialize();
       if (mounted) setState(() => _initialized = true);
     } catch (_) {
-      if (mounted) setState(() => _initialized = true);
+      if (mounted) setState(() {
+        _initialized = true;
+        _hasError = true;
+      });
     }
   }
 
@@ -832,6 +892,62 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
     final progress = (duration.inMilliseconds > 0)
         ? (position.inMilliseconds / duration.inMilliseconds).clamp(0.0, 1.0)
         : 0.0;
+
+    // Show error state if video failed to load
+    if (_hasError) {
+      return SizedBox(
+        width: 260,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 260 * 9 / 16,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.error_outline, color: Colors.white54, size: 48),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Failed to load video',
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton.icon(
+                      onPressed: () async {
+                        if (mounted) setState(() {
+                          _hasError = false;
+                          _initialized = false;
+                        });
+                        await _init();
+                      },
+                      icon: const Icon(Icons.refresh, color: Colors.white),
+                      label: const Text('Retry', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black87,
+                borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: const Text(
+                'The video could not be loaded. Check your connection or try again.',
+                style: TextStyle(color: Colors.white60, fontSize: 11),
+                textAlign: TextAlign.center,
+              ),
+            ),
+],
+      ),
+  );
+    }
 
     return SizedBox(
       width: 260,

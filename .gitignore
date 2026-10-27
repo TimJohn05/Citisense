@@ -62,7 +62,10 @@ android/app/profile/
 android/app/release/
 linux/flutter/ephemeral/
 windows/flutter/ephemeral/
+build-release.sh
 
 # App symbols & maps
 app.*.symbols
 app.*.map.json
+deploy.sh
+integration_test/test_config.dart

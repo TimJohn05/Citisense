@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/date_preset.dart';
@@ -9,8 +10,10 @@ import '../../state/app_state.dart';
 import '../../widgets/complaint_card.dart';
 import '../../widgets/date_filter_button.dart';
 import '../../widgets/empty_state.dart';
+import '../../widgets/location_filter_button.dart';
 import '../../widgets/logout_button.dart';
 import '../../widgets/settings_button.dart';
+import '../../widgets/skeleton.dart';
 import '../complaint_detail_screen.dart';
 
 class OfficerComplaintsScreen extends StatefulWidget {
@@ -26,6 +29,7 @@ class _OfficerComplaintsScreenState extends State<OfficerComplaintsScreen> {
   ComplaintStatus? _filter;
   ComplaintCategory? _category;
   DatePreset _date = DatePreset.allTime;
+  String? _location;
 
   @override
   void initState() {
@@ -60,6 +64,10 @@ class _OfficerComplaintsScreenState extends State<OfficerComplaintsScreen> {
     }
     if (_category != null) {
       complaints = complaints.where((c) => c.category == _category).toList();
+    }
+    if (_location != null) {
+      complaints =
+          complaints.where((c) => c.matchesLocation(_location)).toList();
     }
     complaints = complaints.where((c) => _date.matches(c.createdAt)).toList();
 
@@ -106,6 +114,10 @@ class _OfficerComplaintsScreenState extends State<OfficerComplaintsScreen> {
                   style: TextStyle(fontSize: 12, color: AppColors.textMuted),
                 ),
                 const Spacer(),
+                LocationFilterButton(
+                  value: _location,
+                  onChanged: (loc) => setState(() => _location = loc),
+                ),
                 DateFilterButton(
                   value: _date,
                   onChanged: (preset) => setState(() => _date = preset),
@@ -159,6 +171,7 @@ class _OfficerComplaintsScreenState extends State<OfficerComplaintsScreen> {
         label: Text(label),
         selected: selected,
         onSelected: (_) {
+          HapticFeedback.lightImpact();
           setState(() => _filter = status);
           widget.filterNotifier?.value = status;
         },
@@ -179,7 +192,10 @@ class _OfficerComplaintsScreenState extends State<OfficerComplaintsScreen> {
             ? Icon(category.icon, size: 14, color: category.color)
             : null,
         selected: selected,
-        onSelected: (_) => setState(() => _category = category),
+        onSelected: (_) {
+          HapticFeedback.lightImpact();
+          setState(() => _category = category);
+        },
         backgroundColor: AppColors.surfaceMuted,
         selectedColor: AppColors.primaryContainer,
         showCheckmark: false,

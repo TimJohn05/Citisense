@@ -23,6 +23,12 @@ abstract class AppRepository {
 
   Future<List<SystemLog>> getLogs();
 
+  Stream<List<AppUser>> watchUsers();
+
+  Stream<List<Complaint>> watchComplaints();
+
+  Stream<List<SystemLog>> watchLogs();
+
   Future<void> saveUser(AppUser user);
 
   Future<void> saveComplaint(Complaint complaint);

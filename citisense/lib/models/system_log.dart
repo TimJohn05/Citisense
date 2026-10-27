@@ -4,6 +4,12 @@ class SystemLog {
   final String action;
   final String detail;
   final bool isSuccess;
+  final String? userId;
+  final String? userEmail;
+  final String? userRole;
+  final String? ipAddress;
+  final String? deviceInfo;
+  final Map<String, dynamic>? metadata;
 
   const SystemLog({
     required this.id,
@@ -11,6 +17,12 @@ class SystemLog {
     required this.action,
     required this.detail,
     this.isSuccess = true,
+    this.userId,
+    this.userEmail,
+    this.userRole,
+    this.ipAddress,
+    this.deviceInfo,
+    this.metadata,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +32,12 @@ class SystemLog {
       'action': action,
       'detail': detail,
       'isSuccess': isSuccess,
+      'userId': userId,
+      'userEmail': userEmail,
+      'userRole': userRole,
+      'ipAddress': ipAddress,
+      'deviceInfo': deviceInfo,
+      'metadata': metadata,
     };
   }
 
@@ -31,6 +49,12 @@ class SystemLog {
       action: map['action'] as String,
       detail: map['detail'] as String,
       isSuccess: map['isSuccess'] as bool? ?? true,
+      userId: map['userId'] as String?,
+      userEmail: map['userEmail'] as String?,
+      userRole: map['userRole'] as String?,
+      ipAddress: map['ipAddress'] as String?,
+      deviceInfo: map['deviceInfo'] as String?,
+      metadata: map['metadata'] as Map<String, dynamic>?,
     );
   }
 }

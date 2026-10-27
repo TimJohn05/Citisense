@@ -11,6 +11,7 @@ import '../../widgets/report_summary_sheet.dart';
 import '../../widgets/stat_card.dart';
 import '../../widgets/logout_button.dart';
 import '../../widgets/settings_button.dart';
+import '../../widgets/status_chart.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   final ValueNotifier<ComplaintStatus?>? complaintFilter;
@@ -127,6 +128,21 @@ class AdminDashboardScreen extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: StatCard(
+                    label: 'Rejected',
+                    value: '${appState.rejectedCount}',
+                    icon: Icons.cancel_outlined,
+                    color: AppColors.danger,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.rejected),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 20),
             if (attention.isNotEmpty) ...[
               AttentionPanel(complaints: attention),
@@ -141,118 +157,15 @@ class AdminDashboardScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            _StatusChart(appState: appState),
+            StatusChart(
+              appState: appState,
+              onStatusTap: (status) => _openComplaints(context, status),
+            ),
             const SizedBox(height: 16),
             RepaintBoundary(child: _CategoryChart(complaints: appState.complaints)),
             const SizedBox(height: 16),
             _SentimentChart(appState: appState),
             const SizedBox(height: 24),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _StatusChart extends StatelessWidget {
-  final AppState appState;
-
-  const _StatusChart({required this.appState});
-
-  @override
-  Widget build(BuildContext context) {
-    final statuses = ComplaintStatus.values;
-    final counts = [
-      for (final status in statuses) appState.complaintsByStatus(status).length,
-    ];
-    final maxCount = counts.fold(1, (a, b) => a > b ? a : b);
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  'Complaints by status',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  '${appState.resolutionRate.toStringAsFixed(0)}% resolved',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textMuted,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 140,
-              child: BarChart(
-                BarChartData(
-                  maxY: (maxCount + 1).toDouble(),
-                  gridData: const FlGridData(show: false),
-                  borderData: FlBorderData(show: false),
-                  titlesData: FlTitlesData(
-                    leftTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    topTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    rightTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        interval: 1,
-                        getTitlesWidget: (value, meta) {
-                          final index = value.toInt();
-                          if (index < 0 || index >= statuses.length) {
-                            return const SizedBox.shrink();
-                          }
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Text(
-                              statuses[index].label,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.textMuted,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  barGroups: [
-                    for (var i = 0; i < counts.length; i++)
-                      BarChartGroupData(
-                        x: i,
-                        barRods: [
-                          BarChartRodData(
-                            toY: counts[i].toDouble(),
-                            color: statuses[i].color,
-                            width: 26,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
-              ),
-            ),
           ],
         ),
       ),

@@ -11,6 +11,8 @@ import 'screens/officer/officer_shell.dart';
 import 'services/repository.dart';
 import 'state/app_state.dart';
 import 'widgets/cs_logo.dart';
+import 'widgets/offline_indicator.dart';
+import 'widgets/update_prompt.dart';
 
 class App extends StatelessWidget {
   final AppRepository repository;
@@ -33,13 +35,15 @@ class App extends StatelessWidget {
           AppColors.apply(
             AppPalette.paletteFor(isDark: isDark, highContrast: highContrast),
           );
-          return MaterialApp(
-            title: 'CitiSense',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.themeFor(dark: false, highContrast: highContrast),
-            darkTheme: AppTheme.themeFor(dark: true, highContrast: highContrast),
-            themeMode: themeMode,
-            home: const AuthGate(),
+          return UpdatePromptWrapper(
+            child: MaterialApp(
+              title: 'CitiSense',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.themeFor(dark: false, highContrast: highContrast),
+              darkTheme: AppTheme.themeFor(dark: true, highContrast: highContrast),
+              themeMode: themeMode,
+              home: const _OfflineIndicatorWrapper(),
+            ),
           );
         },
       ),
@@ -93,6 +97,20 @@ class _SessionRestoreSplash extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _OfflineIndicatorWrapper extends StatelessWidget {
+  const _OfflineIndicatorWrapper();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        const AuthGate(),
+        const OfflineIndicator(),
+      ],
     );
   }
 }

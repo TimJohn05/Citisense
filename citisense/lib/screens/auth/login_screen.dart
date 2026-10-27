@@ -6,6 +6,7 @@ import '../../core/app_config.dart';
 import '../../core/theme/app_colors.dart';
 import '../../screens/settings/privacy_policy_screen.dart';
 import '../../state/app_state.dart';
+import '../../utils/text_validators.dart';
 import '../../widgets/cs_logo.dart';
 import '../../widgets/settings_button.dart';
 import 'signup_screen.dart';
@@ -49,37 +50,67 @@ class _LoginScreenState extends State<LoginScreen> {
     final emailController = TextEditingController(
       text: _emailController.text.trim(),
     );
+    final formKey = GlobalKey<FormState>();
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Reset Password'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Enter your email address and we will send you a link to reset '
-              'your password.',
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              autofocus: true,
-              decoration: const InputDecoration(
-                labelText: 'Email address',
-                prefixIcon: Icon(Icons.mail_outline),
+        content: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Enter your email address and we will send you a link to reset '
+                'your password.',
               ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel'),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  labelText: 'Email address',
+                  prefixIcon: Icon(Icons.mail_outline),
+                ),
+                validator: (value) {
+                  final v = value?.trim() ?? '';
+                  if (v.isEmpty) return 'Email is required';
+                  if (!isValidEmail(v)) return 'Enter a valid email address';
+                  return null;
+                },
+              ),
+            ],
           ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Send Link'),
+        ),
+        actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        actions: [
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => Navigator.pop(ctx, false),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 44),
+                  ),
+                  child: const Text('Cancel'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: FilledButton(
+                  onPressed: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      Navigator.pop(ctx, true);
+                    }
+                  },
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 44),
+                  ),
+                  child: const Text('Send Link'),
+                ),
+              ),
+            ],
           ),
         ],
       ),

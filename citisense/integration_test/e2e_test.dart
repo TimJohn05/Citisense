@@ -15,16 +15,7 @@ import 'package:citisense/models/media_item.dart';
 import 'package:citisense/services/mock_repository.dart';
 import 'package:citisense/state/app_state.dart';
 import 'package:citisense/widgets/app_image.dart';
-
-const _kCitizen = 'citizen@citisense.com';
-const _kOfficer = 'officer@citisense.com';
-const _kAdmin = 'admin@citisense.com';
-const _kPassword = 'password';
-
-const _kDefaultCoords = '14.195600, 121.146900';
-
-const _kOnePxPng = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAA'
-    'ADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+import 'test_config.dart';
 
 final MockRepository _repo = MockRepository();
 
@@ -115,7 +106,7 @@ class _FakeHttpClient implements HttpClient {
 class _FakeHttpClientRequest implements HttpClientRequest {
   _FakeHttpClientRequest();
 
-  final Uint8List _body = base64Decode(_kOnePxPng);
+  final Uint8List _body = base64Decode(TestConfig.onePxPng);
 
   @override
   HttpHeaders get headers => _FakeHttpHeaders();
@@ -227,9 +218,9 @@ Future<void> _prepareEvidenceFiles() async {
   if (_tempDir != null) return;
   _tempDir = await Directory.systemTemp.createTemp('citisense_e2e');
   _evidencePng = File('${_tempDir!.path}/evidence.png')
-    ..writeAsBytesSync(base64Decode(_kOnePxPng));
+    ..writeAsBytesSync(base64Decode(TestConfig.onePxPng));
   _proofPng = File('${_tempDir!.path}/proof.png')
-    ..writeAsBytesSync(base64Decode(_kOnePxPng));
+    ..writeAsBytesSync(base64Decode(TestConfig.onePxPng));
 }
 
 Future<void> _pumpUntilFound(
@@ -314,7 +305,7 @@ Future<AppState> _appStateOf(WidgetTester tester) async {
 
 Future<void> _login(WidgetTester tester, String email) async {
   await tester.enterText(find.byType(TextFormField).at(0), email);
-  await tester.enterText(find.byType(TextFormField).at(1), _kPassword);
+  await tester.enterText(find.byType(TextFormField).at(1), TestConfig.password);
   await _tapSignIn(tester);
 }
 
@@ -332,12 +323,23 @@ Future<void> _logout(WidgetTester tester) async {
 }
 
 Future<void> _tapNav(WidgetTester tester, String label) async {
-  await tester.tap(
-    find.descendant(
-      of: find.byType(NavigationBar),
-      matching: find.text(label),
-    ),
+  // Try NavigationBar first (narrow screens), then NavigationRail (wide screens)
+  final navBarFinder = find.descendant(
+    of: find.byType(NavigationBar),
+    matching: find.text(label),
   );
+  final railFinder = find.descendant(
+    of: find.byType(NavigationRail),
+    matching: find.text(label),
+  );
+
+  if (navBarFinder.evaluate().isNotEmpty) {
+    await tester.tap(navBarFinder);
+  } else if (railFinder.evaluate().isNotEmpty) {
+    await tester.tap(railFinder);
+  } else {
+    throw Exception('Could not find navigation item: $label');
+  }
   await tester.pump(const Duration(milliseconds: 400));
 }
 
@@ -361,7 +363,7 @@ void main() {
     testWidgets('A2: wrong password shows invalid-credentials error',
         (tester) async {
       await _bootApp(tester);
-      await tester.enterText(find.byType(TextFormField).at(0), _kCitizen);
+      await tester.enterText(find.byType(TextFormField).at(0), TestConfig.citizen);
       await tester.enterText(find.byType(TextFormField).at(1), 'wrongpass');
       await _tapSignIn(tester);
       await _pumpUntilFound(
@@ -373,7 +375,7 @@ void main() {
 
     testWidgets('A3: report without category shows error', (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kCitizen);
+      await _login(tester, TestConfig.citizen);
       await _pumpUntilFound(tester, find.text('Welcome back'));
       await _tapNav(tester, 'Report');
       await _pumpUntilFound(tester, find.text('Report an Issue'));
@@ -387,7 +389,7 @@ void main() {
 
     testWidgets('A4: short description shows error', (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kCitizen);
+      await _login(tester, TestConfig.citizen);
       await _pumpUntilFound(tester, find.text('Welcome back'));
       await _tapNav(tester, 'Report');
       await _pumpUntilFound(tester, find.text('Report an Issue'));
@@ -415,7 +417,7 @@ void main() {
         'A5-A7: officer resolve/reject guards (notes, proof, reject reason)',
         (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kOfficer);
+      await _login(tester, TestConfig.officer);
       await _pumpUntilFound(tester, find.text('Dashboard'));
       await _tapNav(tester, 'Complaints');
       await _scrollTo(tester, find.textContaining('Garbage pile'));
@@ -476,7 +478,7 @@ void main() {
 
     testWidgets('A8: admin add-official requires all fields', (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kAdmin);
+      await _login(tester, TestConfig.admin);
       await _pumpUntilFound(tester, find.text('Dashboard'));
       await _tapNav(tester, 'Users');
       await _pumpUntilFound(tester, find.text('User Management'));
@@ -493,7 +495,7 @@ void main() {
     testWidgets('B1: citizen files a report via UI and coords are accurate',
         (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kCitizen);
+      await _login(tester, TestConfig.citizen);
       await _pumpUntilFound(tester, find.text('Welcome back'));
       await _tapNav(tester, 'Report');
       await _pumpUntilFound(tester, find.text('Report an Issue'));
@@ -510,8 +512,8 @@ void main() {
         'Water supply has been interrupted for several hours in our street.',
       );
       await _dismissKeyboard(tester);
-      await _scrollTo(tester, find.text(_kDefaultCoords));
-      expect(find.text(_kDefaultCoords), findsOneWidget);
+      await _scrollTo(tester, find.text(TestConfig.defaultCoords));
+      expect(find.text(TestConfig.defaultCoords), findsOneWidget);
       await _scrollTo(tester, find.text('Analyze & Submit Report'));
       await tester.ensureVisible(find.text('Analyze & Submit Report'));
       await tester.pump(const Duration(milliseconds: 200));
@@ -540,8 +542,8 @@ void main() {
       );
       await _pumpUntilFound(tester, find.text('Complaint Details'));
       expect(find.text('By Juan Dela Cruz'), findsOneWidget);
-      await _scrollTo(tester, find.text(_kDefaultCoords));
-      expect(find.text(_kDefaultCoords), findsOneWidget);
+      await _scrollTo(tester, find.text(TestConfig.defaultCoords));
+      expect(find.text(TestConfig.defaultCoords), findsOneWidget);
     });
 
     testWidgets(
@@ -549,7 +551,7 @@ void main() {
         '— the SAME complaint must be identical for officer and admin',
         (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kCitizen);
+      await _login(tester, TestConfig.citizen);
       await _pumpUntilFound(tester, find.text('Welcome back'));
 
       final appState = await _appStateOf(tester);
@@ -571,8 +573,8 @@ void main() {
       await tester.tap(find.textContaining('E2E evidence consistency check'));
       await _pumpUntilFound(tester, find.text('Complaint Details'));
       expect(find.text('By Juan Dela Cruz'), findsOneWidget);
-      await _scrollTo(tester, find.text(_kDefaultCoords));
-      expect(find.text(_kDefaultCoords), findsOneWidget);
+      await _scrollTo(tester, find.text(TestConfig.defaultCoords));
+      expect(find.text(TestConfig.defaultCoords), findsOneWidget);
       expect(find.text('Evidence'), findsOneWidget);
       expect(find.byType(TapToZoomImage), findsWidgets);
       expect(complaint.evidencePhotos.single, _evidencePng!.path);
@@ -581,7 +583,7 @@ void main() {
     testWidgets('B3: officer sees identical data, ack + resolves with proof',
         (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kOfficer);
+      await _login(tester, TestConfig.officer);
       await _pumpUntilFound(tester, find.text('Dashboard'));
       await _tapNav(tester, 'Complaints');
       await _pumpUntilFound(
@@ -593,7 +595,7 @@ void main() {
       await _scrollToTop(tester);
 
       expect(find.text('By Juan Dela Cruz'), findsOneWidget);
-      expect(find.text(_kDefaultCoords), findsOneWidget);
+      expect(find.text(TestConfig.defaultCoords), findsOneWidget);
       expect(find.text('Evidence'), findsOneWidget);
       expect(find.byType(TapToZoomImage), findsOneWidget);
 
@@ -623,7 +625,7 @@ void main() {
         tester,
         find.textContaining('E2E evidence consistency check'),
       );
-      await tester.tap(find.textContaining('E2E evidence consistency check'));
+      await tester.tap(find.textContaining('E2E evidence consistency check').first);
       await _pumpUntilFound(tester, find.text('Complaint Details'));
       await _scrollDownUntilFound(tester, find.text('Resolution proof'));
       expect(find.text('Resolution proof'), findsOneWidget);
@@ -637,7 +639,7 @@ void main() {
     testWidgets('B4: admin sees the identical complaint, users and logs',
         (tester) async {
       await _bootApp(tester);
-      await _login(tester, _kAdmin);
+      await _login(tester, TestConfig.admin);
       await _pumpUntilFound(tester, find.text('Dashboard'));
 
       await _tapNav(tester, 'Complaints');
@@ -652,8 +654,8 @@ void main() {
       await _scrollTo(tester, find.text('Evidence'));
       expect(find.text('Evidence'), findsOneWidget);
       expect(find.byType(TapToZoomImage), findsWidgets);
-      await _scrollTo(tester, find.text(_kDefaultCoords));
-      expect(find.text(_kDefaultCoords), findsOneWidget);
+      await _scrollTo(tester, find.text(TestConfig.defaultCoords));
+      expect(find.text(TestConfig.defaultCoords), findsOneWidget);
       await _scrollDownUntilFound(tester, find.text('Resolution proof'));
       expect(find.text('Resolution proof'), findsOneWidget);
       expect(find.byType(TapToZoomImage), findsWidgets);

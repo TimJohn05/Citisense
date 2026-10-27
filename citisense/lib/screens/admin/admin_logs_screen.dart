@@ -43,6 +43,14 @@ class AdminLogsScreen extends StatefulWidget {
 class _AdminLogsScreenState extends State<AdminLogsScreen> {
   _LogGroup? _filter;
   bool _ascending = false;
+  final _searchController = TextEditingController();
+  String _searchQuery = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +60,17 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
         return _ascending ? diff : -diff;
       });
 
+    final filteredLogs = _searchQuery.isEmpty
+        ? allLogs
+        : allLogs.where((log) {
+            final q = _searchQuery.toLowerCase();
+            return log.action.toLowerCase().contains(q) ||
+                log.detail.toLowerCase().contains(q) ||
+                log.userEmail?.toLowerCase().contains(q) == true ||
+                log.userId?.toLowerCase().contains(q) == true ||
+                log.metadata?.toString().toLowerCase().contains(q) == true;
+          }).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Audit Logs'),
@@ -60,7 +79,7 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
           const LogoutButton(),
         ],
       ),
-      body: allLogs.isEmpty
+      body: filteredLogs.isEmpty
           ? const EmptyState(
               icon: Icons.receipt_long_outlined,
               title: 'No logs yet',
@@ -68,14 +87,16 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
             )
           : Column(
               children: [
-                _buildFilterBar(allLogs),
+                _buildFilterBar(filteredLogs),
+                const Divider(height: 1),
+                _buildSearchBar(),
                 const Divider(height: 1),
                 Expanded(
-          child: RefreshIndicator(
-            onRefresh: () => appState.refresh(),
-            child: _buildLogList(allLogs),
-          ),
-        ),
+                  child: RefreshIndicator(
+                    onRefresh: () => appState.refresh(),
+                    child: _buildLogList(filteredLogs),
+                  ),
+                ),
               ],
             ),
     );
@@ -112,7 +133,7 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
               children: chips,
             ),
           ),
-          if (logs.isNotEmpty)
+if (logs.isNotEmpty)
             IconButton(
               tooltip: _ascending ? 'Oldest first' : 'Newest first',
               onPressed: () {
@@ -128,6 +149,37 @@ class _AdminLogsScreenState extends State<AdminLogsScreen> {
             ),
           const SizedBox(width: 4),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      child: TextField(
+        controller: _searchController,
+        onChanged: (val) => setState(() => _searchQuery = val.trim()),
+        decoration: InputDecoration(
+          hintText: 'Search logs...',
+          prefixIcon: const Icon(Icons.search, size: 20),
+          suffixIcon: _searchQuery.isNotEmpty
+              ? IconButton(
+                  icon: const Icon(Icons.clear, size: 18),
+                  onPressed: () {
+                    _searchController.clear();
+                    setState(() => _searchQuery = '');
+                  },
+                )
+              : null,
+          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: AppColors.surfaceMuted,
+        ),
       ),
     );
   }
@@ -241,50 +293,95 @@ class _LogTile extends StatelessWidget {
 
   const _LogTile({required this.log});
 
-  @override
-  Widget build(BuildContext context) {
-    final spec = _groupSpecs.firstWhere((s) => s.group == _groupFor(log.action));
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: log.isSuccess
-                    ? spec.color.withValues(alpha: 0.14)
-                    : AppColors.dangerContainer,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                log.isSuccess ? spec.icon : Icons.error_outline,
-                size: 19,
-                color: log.isSuccess ? spec.color : AppColors.danger,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
+  void _showLogDetail(BuildContext context, _GroupSpec spec) {
+    showDialog<void>(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 500,
+            maxHeight: MediaQuery.sizeOf(context).height * 0.8,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(
                     children: [
+                      Container(
+                        width: 38,
+                        height: 38,
+                        decoration: BoxDecoration(
+                          color: log.isSuccess
+                              ? spec.color.withValues(alpha: 0.14)
+                              : AppColors.dangerContainer,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          log.isSuccess ? spec.icon : Icons.error_outline,
+                          size: 20,
+                          color: log.isSuccess ? spec.color : AppColors.danger,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
                       Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              log.action,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                            Text(
+                              DateFormat('EEEE, MMM d, yyyy • h:mm a')
+                                  .format(log.timestamp),
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: AppColors.textMuted,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        tooltip: 'Close',
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: spec.color.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
                         child: Text(
-                          log.action,
+                          spec.label,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 11,
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textPrimary,
+                            color: spec.color,
                           ),
                         ),
                       ),
+                      const Spacer(),
                       Text(
-                        DateFormat('MMM d, h:mm a').format(log.timestamp),
+                        'Log ID: ${log.id}',
                         style: TextStyle(
                           fontSize: 11,
                           color: AppColors.textMuted,
@@ -292,20 +389,199 @@ class _LogTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 2),
-                  Text(
-                    log.detail,
-                    style: TextStyle(
-                      fontSize: 13,
-                      height: 1.3,
-                      color: AppColors.textSecondary,
-                    ),
+                  const SizedBox(height: 12),
+                  const Divider(height: 1),
+                  const SizedBox(height: 12),
+                  _buildLogDetailFields(),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton.icon(
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: _buildLogFullText()));
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Log details copied to clipboard'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.copy, size: 16),
+                        label: const Text('Copy All'),
+                      ),
+                      const SizedBox(width: 8),
+                      FilledButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Close'),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-          ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLogDetailFields() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _DetailRow(label: 'Action', value: log.action),
+        _DetailRow(label: 'Timestamp', value: DateFormat('yyyy-MM-dd HH:mm:ss').format(log.timestamp)),
+        _DetailRow(label: 'Status', value: log.isSuccess ? 'Success' : 'Failed'),
+        if (log.userEmail != null) _DetailRow(label: 'User Email', value: log.userEmail!),
+        if (log.userId != null) _DetailRow(label: 'User ID', value: log.userId!),
+        if (log.userRole != null) _DetailRow(label: 'User Role', value: log.userRole!),
+        if (log.ipAddress != null) _DetailRow(label: 'IP Address', value: log.ipAddress!),
+        if (log.deviceInfo != null) _DetailRow(label: 'Device', value: log.deviceInfo!),
+        _DetailRow(label: 'Detail', value: log.detail, isMultiline: true),
+        if (log.metadata != null && log.metadata!.isNotEmpty)
+          _DetailRow(label: 'Metadata', value: log.metadata.toString(), isMultiline: true),
+      ],
+    );
+  }
+
+  String _buildLogFullText() {
+    final buffer = StringBuffer();
+    buffer.writeln('Action: ${log.action}');
+    buffer.writeln('Timestamp: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(log.timestamp)}');
+    buffer.writeln('Status: ${log.isSuccess ? 'Success' : 'Failed'}');
+    if (log.userEmail != null) buffer.writeln('User Email: ${log.userEmail}');
+    if (log.userId != null) buffer.writeln('User ID: ${log.userId}');
+    if (log.userRole != null) buffer.writeln('User Role: ${log.userRole}');
+    if (log.ipAddress != null) buffer.writeln('IP Address: ${log.ipAddress}');
+    if (log.deviceInfo != null) buffer.writeln('Device: ${log.deviceInfo}');
+    buffer.writeln('Detail: ${log.detail}');
+    if (log.metadata != null && log.metadata!.isNotEmpty) {
+      buffer.writeln('Metadata: ${log.metadata}');
+    }
+    return buffer.toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final spec = _groupSpecs.firstWhere((s) => s.group == _groupFor(log.action));
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => _showLogDetail(context, spec),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: log.isSuccess
+                      ? spec.color.withValues(alpha: 0.14)
+                      : AppColors.dangerContainer,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  log.isSuccess ? spec.icon : Icons.error_outline,
+                  size: 19,
+                  color: log.isSuccess ? spec.color : AppColors.danger,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            log.action,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          DateFormat('MMM d, h:mm a').format(log.timestamp),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: AppColors.textMuted,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      log.detail,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13,
+                        height: 1.3,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 4),
+              Icon(
+                Icons.chevron_right,
+                size: 18,
+                color: AppColors.textMuted,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class _DetailRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final bool isMultiline;
+
+  const _DetailRow({
+    required this.label,
+    required this.value,
+    this.isMultiline = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textMuted,
+              letterSpacing: 0.3,
+            ),
+          ),
+          const SizedBox(height: 2),
+          SelectableText(
+            value,
+            maxLines: isMultiline ? 5 : 1,
+            style: TextStyle(
+              fontSize: 13,
+              color: AppColors.textPrimary,
+              height: 1.4,
+            ),
+          ),
+        ],
       ),
     );
   }

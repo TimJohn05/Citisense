@@ -10,8 +10,10 @@ import '../../widgets/attention_panel.dart';
 import '../../widgets/complaint_card.dart';
 import '../../widgets/report_summary_sheet.dart';
 import '../../widgets/stat_card.dart';
+import '../../widgets/status_chart.dart';
 import '../../widgets/logout_button.dart';
 import '../../widgets/settings_button.dart';
+import '../../widgets/skeleton.dart';
 import '../complaint_detail_screen.dart';
 
 class OfficerDashboardScreen extends StatelessWidget {
@@ -27,6 +29,9 @@ class OfficerDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
+    if (appState.isRestoringSession) {
+      return const OfficerDashboardSkeleton();
+    }
     final attention = appState.needsAttention;
     final recent = appState.complaints.take(3).toList();
 
@@ -119,6 +124,14 @@ class OfficerDashboardScreen extends StatelessWidget {
                   onTap: () =>
                       _openComplaints(context, ComplaintStatus.resolved),
                 ),
+                StatCard(
+                  label: 'Rejected',
+                  value: '${appState.rejectedCount}',
+                  icon: Icons.cancel_outlined,
+                  color: AppColors.danger,
+                  onTap: () =>
+                      _openComplaints(context, ComplaintStatus.rejected),
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -133,6 +146,11 @@ class OfficerDashboardScreen extends StatelessWidget {
                 icon: const Icon(Icons.summarize_outlined, size: 18),
                 label: const Text('Generate report summary'),
               ),
+            ),
+            const SizedBox(height: 16),
+            StatusChart(
+              appState: appState,
+              onStatusTap: (status) => _openComplaints(context, status),
             ),
             const SizedBox(height: 16),
             RepaintBoundary(child: _CategoryChart(complaints: appState.complaints)),
@@ -207,7 +225,7 @@ class _CategoryChart extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             SizedBox(
-              height: 160,
+              height: 200,
               child: BarChart(
                 BarChartData(
                   maxY: (maxCount + 1).toDouble(),
@@ -226,6 +244,7 @@ class _CategoryChart extends StatelessWidget {
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
+                        reservedSize: 48,
                         getTitlesWidget: (value, meta) {
                           final index = value.toInt();
                           if (index < 0 || index >= ComplaintCategory.values.length) {
@@ -234,10 +253,27 @@ class _CategoryChart extends StatelessWidget {
                           final category = ComplaintCategory.values[index];
                           return Padding(
                             padding: const EdgeInsets.only(top: 8),
-                            child: Icon(
-                              category.icon,
-                              size: 18,
-                              color: category.color,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  category.icon,
+                                  size: 18,
+                                  color: category.color,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  category.shortLabel,
+                                  style: TextStyle(
+                                    fontSize: 9,
+                                    color: AppColors.textSecondary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                           );
                         },
@@ -252,7 +288,7 @@ class _CategoryChart extends StatelessWidget {
                           BarChartRodData(
                             toY: counts[i].toDouble(),
                             color: ComplaintCategory.values[i].color,
-                            width: 18,
+                            width: 16,
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ],

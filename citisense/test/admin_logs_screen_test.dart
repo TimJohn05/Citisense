@@ -95,4 +95,30 @@ void main() {
 
     expect(find.byIcon(Icons.arrow_upward), findsOneWidget);
   });
+
+  testWidgets('tapping a log expands details dialog and X button closes it',
+      (WidgetTester tester) async {
+    final appState = await seed(tester);
+    await tester.pumpWidget(wrap(appState));
+    await tester.pumpAndSettle();
+
+    final firstLog = appState.logs.first;
+    expect(find.text(firstLog.action), findsWidgets);
+
+    // Tap the first log tile
+    await tester.tap(find.text(firstLog.action).first);
+    await tester.pumpAndSettle();
+
+    // Verify dialog opened with X close button and details
+    expect(find.byIcon(Icons.close), findsOneWidget);
+    expect(find.text('Copy All'), findsOneWidget);
+    expect(find.textContaining('Log ID:'), findsOneWidget);
+
+    // Tap X in upper right
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pumpAndSettle();
+
+    // Dialog is dismissed
+    expect(find.byIcon(Icons.close), findsNothing);
+  });
 }

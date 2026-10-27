@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/theme/app_theme.dart';
 import '../models/app_user.dart';
+import '../models/citizen_notification.dart';
 import '../models/complaint.dart';
 import '../models/enums.dart';
 import '../models/media_item.dart';
@@ -16,6 +18,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_error_messages.dart';
 import '../services/repository.dart';
 import '../services/sentiment_engine.dart';
+
+/// Exception thrown when a complaint is saved as an offline draft.
+class OfflineDraftException implements Exception {
+  final String message;
+  const OfflineDraftException(this.message);
+
+  @override
+  String toString() => 'OfflineDraftException: $message';
+}
 
 class AppState extends ChangeNotifier with WidgetsBindingObserver {
   final AppRepository repository;
@@ -37,21 +48,68 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   static const _kSession = 'session.user';
   static const _kSessionSavedAt = 'session.saved_at';
   static const _kClearOnLaunch = 'session.clear_on_launch';
+  static const _kReadNotifications = 'notifications.citizen_read';
+  static const _kDismissedBanners = 'notifications.citizen_dismissed';
+  static const _kPendingDrafts = 'drafts.pending';
+  static const _kSavedSearchQuery = 'search.saved_query';
+
+  Set<String> _readNotificationIds = {};
+  Set<String> _dismissedBannerIds = {};
+  List<Map<String, dynamic>> _pendingDrafts = [];
+  String _savedSearchQuery = '';
 
   static const _backgroundSessionTimeout = Duration(hours: 2);
   Timer? _backgroundTimer;
+  Timer? _retryDraftsTimer;
+
+  StreamSubscription? _complaintsSub;
+  StreamSubscription? _usersSub;
+  StreamSubscription? _logsSub;
+  StreamSubscription? _connectivitySub;
+
+  bool _isOnline = true;
 
   AppState({required this.repository}) {
     WidgetsBinding.instance.addObserver(this);
     _loadSettings();
     _restoreSession();
+    _initConnectivity();
   }
 
   @override
   void dispose() {
     _backgroundTimer?.cancel();
+    _retryDraftsTimer?.cancel();
+    _complaintsSub?.cancel();
+    _usersSub?.cancel();
+    _logsSub?.cancel();
+    _connectivitySub?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  bool get isOnline => _isOnline;
+  bool get isOffline => !_isOnline;
+
+  Future<void> _initConnectivity() async {
+    try {
+      final connectivity = Connectivity();
+      final results = await connectivity.checkConnectivity();
+      _isOnline = results.any((r) => r != ConnectivityResult.none);
+      _connectivitySub = connectivity.onConnectivityChanged.listen((results) {
+        final wasOnline = _isOnline;
+        _isOnline = results.any((r) => r != ConnectivityResult.none);
+        if (wasOnline != _isOnline) {
+          notifyListeners();
+          if (_isOnline && _pendingDrafts.isNotEmpty) {
+            _scheduleDraftRetry();
+          }
+        }
+      });
+    } catch (_) {
+      // Platform implementation not available (e.g., in tests) — assume online.
+      _isOnline = true;
+    }
   }
 
   @override
@@ -108,6 +166,11 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       final savedStyle = prefs.getString(_kThemeStyle);
       _themeStyle = ThemeStyle.values.asNameMap()[savedStyle] ?? ThemeStyle.system;
       _highContrast = prefs.getBool(_kHighContrast) ?? false;
+      _readNotificationIds =
+          (prefs.getStringList(_kReadNotifications) ?? []).toSet();
+      _dismissedBannerIds =
+          (prefs.getStringList(_kDismissedBanners) ?? []).toSet();
+      _savedSearchQuery = prefs.getString(_kSavedSearchQuery) ?? '';
     } catch (_) {
       // SharedPreferences unavailable (e.g. tests) — use defaults.
     }
@@ -124,6 +187,23 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     }
   }
 
+  Future<void> _persistSearchQuery() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_kSavedSearchQuery, _savedSearchQuery);
+    } catch (_) {
+      // Best-effort persistence only.
+    }
+  }
+
+  String get savedSearchQuery => _savedSearchQuery;
+
+  void setSavedSearchQuery(String query) {
+    _savedSearchQuery = query;
+    _persistSearchQuery();
+    notifyListeners();
+  }
+
   AppUser? get user => _user;
   List<Complaint> get complaints => _complaints;
   List<AppUser> get users => _users;
@@ -138,6 +218,70 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       : _complaints
           .where((c) => c.citizenId == _user!.id)
           .toList();
+
+  List<CitizenNotification> get citizenNotifications {
+    if (_user == null || _user!.role != UserRole.citizen) return [];
+    final notifs = <CitizenNotification>[];
+    for (final c in myComplaints) {
+      final n = CitizenNotification.fromComplaint(
+        c,
+        isRead: _readNotificationIds.contains('${c.id}_${c.status.name}'),
+      );
+      if (n != null) {
+        notifs.add(n);
+      }
+    }
+    notifs.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return notifs;
+  }
+
+  int get unreadCitizenNotificationsCount =>
+      citizenNotifications.where((n) => !n.isRead).length;
+
+  List<CitizenNotification> get activeOfficerBanners {
+    return citizenNotifications
+        .where((n) => !_dismissedBannerIds.contains(n.id))
+        .toList();
+  }
+
+  List<Map<String, dynamic>> get pendingDrafts => _pendingDrafts;
+
+  bool get hasPendingDrafts => _pendingDrafts.isNotEmpty;
+
+  Future<void> markNotificationRead(String id) async {
+    _readNotificationIds.add(id);
+    notifyListeners();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList(
+          _kReadNotifications, _readNotificationIds.toList());
+    } catch (_) {}
+  }
+
+  Future<void> markAllNotificationsRead() async {
+    for (final n in citizenNotifications) {
+      _readNotificationIds.add(n.id);
+    }
+    notifyListeners();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList(
+          _kReadNotifications, _readNotificationIds.toList());
+    } catch (_) {}
+  }
+
+  Future<void> dismissOfficerBanner(String id) async {
+    _dismissedBannerIds.add(id);
+    _readNotificationIds.add(id);
+    notifyListeners();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList(
+          _kDismissedBanners, _dismissedBannerIds.toList());
+      await prefs.setStringList(
+          _kReadNotifications, _readNotificationIds.toList());
+    } catch (_) {}
+  }
 
   List<Complaint> complaintsByCategory(ComplaintCategory category) =>
       _complaints.where((c) => c.category == category).toList();
@@ -194,6 +338,10 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
         await _loadData();
       } catch (_) {
         _error = 'Signed in, but some data could not be loaded. Pull to retry.';
+      }
+      await _loadPendingDrafts();
+      if (_pendingDrafts.isNotEmpty) {
+        _scheduleDraftRetry();
       }
       await _addLog(
         'Login',
@@ -268,7 +416,8 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     _user = null;
     _complaints = [];
     _users = [];
-    _logs = [];
+    _pendingDrafts = [];
+    await _persistPendingDrafts();
     notifyListeners();
     await _clearSession();
     try {
@@ -276,11 +425,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     } catch (_) {
       // Repository may be offline — logout must still complete.
     }
-    try {
-      await _addLog('Logout', '$name signed out.');
-    } catch (_) {
-      // Best-effort logging only.
-    }
+    await _addLog('Logout', '$name signed out.');
   }
 
   Future<void> _secureSessionEnd() async {
@@ -290,6 +435,8 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     _complaints = [];
     _users = [];
     _logs = [];
+    _pendingDrafts = [];
+    await _persistPendingDrafts();
     notifyListeners();
     try {
       await _clearSession();
@@ -301,11 +448,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     } catch (_) {
       // Repository may be offline — session end must still complete.
     }
-    try {
-      await _addLog('Logout', '$name session ended by app closure.');
-    } catch (_) {
-      // Best-effort logging only.
-    }
+    await _addLog('Logout', '$name session ended by app closure.');
   }
 
   Future<void> _restoreSession() async {
@@ -346,6 +489,10 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
         return;
       }
       _user = matches.isNotEmpty ? matches.first : sessionUser;
+      await _loadPendingDrafts();
+      if (_pendingDrafts.isNotEmpty) {
+        _scheduleDraftRetry();
+      }
     } catch (_) {
       // Best-effort restore — fall back to the login screen.
     } finally {
@@ -375,14 +522,99 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     }
   }
 
-  Future<void> _loadData() async {
-    _complaints = await repository.getComplaints();
-    final role = _user?.role;
-    if (role == null || role == UserRole.citizen) return;
-    _users = await repository.getUsers();
-    if (role == UserRole.admin) {
-      _logs = await repository.getLogs();
+  Future<void> _loadPendingDrafts() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final raw = prefs.getStringList(_kPendingDrafts);
+      if (raw != null) {
+        _pendingDrafts = raw.map((s) => jsonDecode(s) as Map<String, dynamic>).toList();
+      }
+    } catch (_) {
+      _pendingDrafts = [];
     }
+  }
+
+  Future<void> _persistPendingDrafts() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final encoded = _pendingDrafts.map(jsonEncode).toList();
+      await prefs.setStringList(_kPendingDrafts, encoded);
+    } catch (_) {
+      // Best-effort persistence only.
+    }
+  }
+
+  void _scheduleDraftRetry() {
+    _retryDraftsTimer?.cancel();
+    _retryDraftsTimer = Timer(const Duration(seconds: 30), _retryPendingDrafts);
+  }
+
+  Future<void> _retryPendingDrafts() async {
+    if (_pendingDrafts.isEmpty || _user == null) return;
+    final draftsToRetry = List<Map<String, dynamic>>.from(_pendingDrafts);
+    for (final draft in draftsToRetry) {
+      try {
+        final evidence = (draft['evidence'] as List<dynamic>)
+            .map((e) => MediaItem.fromMap(e as Map<String, dynamic>))
+            .toList();
+        await submitComplaint(
+          category: ComplaintCategory.values.byName(draft['category'] as String),
+          description: draft['description'] as String,
+          latitude: draft['latitude'] as double?,
+          longitude: draft['longitude'] as double?,
+          evidence: evidence,
+        );
+        _pendingDrafts.remove(draft);
+      } catch (e) {
+        if (e is! OfflineDraftException) {
+          // If it's not an offline exception, something else went wrong
+          // Keep the draft for next retry
+        }
+      }
+    }
+    await _persistPendingDrafts();
+    if (_pendingDrafts.isNotEmpty) {
+      _scheduleDraftRetry();
+    }
+    notifyListeners();
+  }
+
+  Future<void> _loadData() async {
+    _complaintsSub?.cancel();
+    _usersSub?.cancel();
+    _logsSub?.cancel();
+
+    final role = _user?.role;
+    if (role == null || role == UserRole.citizen) {
+      _complaintsSub = repository.watchComplaints().listen((complaints) {
+        _complaints = complaints;
+        notifyListeners();
+      });
+      return;
+    }
+    if (role == UserRole.officer) {
+      _complaintsSub = repository.watchComplaints().listen((complaints) {
+        _complaints = complaints;
+        notifyListeners();
+      });
+      _usersSub = repository.watchUsers().listen((users) {
+        _users = users;
+        notifyListeners();
+      });
+      return;
+    }
+    _complaintsSub = repository.watchComplaints().listen((complaints) {
+      _complaints = complaints;
+      notifyListeners();
+    });
+    _usersSub = repository.watchUsers().listen((users) {
+      _users = users;
+      notifyListeners();
+    });
+    _logsSub = repository.watchLogs().listen((logs) {
+      _logs = logs;
+      notifyListeners();
+    });
   }
 
   Future<Complaint> submitComplaint({
@@ -437,8 +669,20 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       _setLoading(false);
       return saved;
     } catch (e) {
+      // Offline: save as draft for later retry
+      final draft = {
+        'category': category.name,
+        'description': description,
+        'latitude': latitude,
+        'longitude': longitude,
+        'evidence': evidence.map((e) => e.toMap()).toList(),
+        'createdAt': DateTime.now().toIso8601String(),
+      };
+      _pendingDrafts.add(draft);
+      await _persistPendingDrafts();
+      _scheduleDraftRetry();
       _setLoading(false);
-      rethrow;
+      throw OfflineDraftException('Saved as draft. Will retry when online.');
     }
   }
 
@@ -565,12 +809,18 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     await _addLog('Complaint Updated', logDetail);
   }
 
-  Future<void> _addLog(String action, String detail) async {
+  Future<void> _addLog(String action, String detail,
+      {Map<String, dynamic>? metadata}) async {
+    final user = _user;
     final log = SystemLog(
       id: 'l${DateTime.now().millisecondsSinceEpoch}',
       timestamp: DateTime.now(),
       action: action,
       detail: detail,
+      userId: user?.id,
+      userEmail: user?.email,
+      userRole: user?.role?.name,
+      metadata: metadata,
     );
     _logs.insert(0, log);
     notifyListeners();

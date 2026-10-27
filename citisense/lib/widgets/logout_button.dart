@@ -4,10 +4,15 @@ import 'package:provider/provider.dart';
 import '../core/theme/app_colors.dart';
 import '../state/app_state.dart';
 
-class LogoutButton extends StatelessWidget {
+class LogoutButton extends StatefulWidget {
   const LogoutButton({super.key});
 
-  Future<void> _confirmSignOut(BuildContext context) async {
+  @override
+  State<LogoutButton> createState() => _LogoutButtonState();
+}
+
+class _LogoutButtonState extends State<LogoutButton> {
+  Future<void> _confirmSignOut() async {
     final appState = context.read<AppState>();
     final confirmed = await showDialog<bool>(
       context: context,
@@ -40,7 +45,7 @@ class LogoutButton extends StatelessWidget {
           ],
       ),
     );
-    if (confirmed == true) {
+    if (confirmed == true && mounted) {
       await appState.logout();
     }
   }
@@ -48,7 +53,7 @@ class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => _confirmSignOut(context),
+      onPressed: () => _confirmSignOut(),
       icon: Icon(Icons.logout, color: AppColors.textMuted),
       tooltip: 'Sign out',
     );

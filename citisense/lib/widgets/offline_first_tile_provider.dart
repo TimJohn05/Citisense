@@ -82,8 +82,11 @@ class _OfflineOrNetworkImage
 
   Future<Uint8List> _fetchNetwork() async {
     final client = HttpClient();
+    client.connectionTimeout = const Duration(seconds: 6);
     try {
-      final request = await client.getUrl(Uri.parse(networkUrl));
+      final request = await client.getUrl(Uri.parse(networkUrl)).timeout(
+            const Duration(seconds: 8),
+          );
       headers.forEach(request.headers.set);
       final response = await request.close();
       if (response.statusCode != HttpStatus.ok) {

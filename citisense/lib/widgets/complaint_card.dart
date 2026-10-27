@@ -68,8 +68,9 @@ class ComplaintCard extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        '${complaint.latitude!.toStringAsFixed(5)}, '
-                        '${complaint.longitude!.toStringAsFixed(5)}',
+                        complaint.locationName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 12,
                           color: AppColors.textMuted,
@@ -79,26 +80,44 @@ class ComplaintCard extends StatelessWidget {
                   ],
                 ),
               ],
-              if (complaint.evidenceVideos.isNotEmpty) ...[
-                const SizedBox(height: 6),
-                Row(
-                  children: [
-                    Icon(Icons.videocam_outlined,
-                        size: 14, color: AppColors.textMuted, semanticLabel: 'Video evidence'),
-                    const SizedBox(width: 4),
-                    Text(
-                      '${complaint.evidenceVideos.length} video${complaint.evidenceVideos.length == 1 ? '' : 's'}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: AppColors.textMuted,
-                      ),
-                    ),
-                  ],
+              if (complaint.evidenceVideos.isNotEmpty)
+                const Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: _VideoBadge(),
                 ),
-              ],
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _VideoBadge extends StatelessWidget {
+  const _VideoBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        color: AppColors.primaryContainer,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.videocam_outlined, size: 12, color: AppColors.primary),
+          const SizedBox(width: 4),
+          Text(
+            'Video',
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: AppColors.primary,
+            ),
+          ),
+        ],
       ),
     );
   }

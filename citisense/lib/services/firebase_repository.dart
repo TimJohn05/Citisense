@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
@@ -109,6 +110,57 @@ class FirebaseRepository implements AppRepository {
   }
 
   @override
+  Stream<List<AppUser>> watchUsers() {
+    return _db.collection('users').snapshots().map((snap) {
+      return snap.docs
+          .map((d) => AppUser.fromMap({...d.data(), 'id': d.id}))
+          .toList();
+    });
+  }
+
+  @override
+  Stream<List<Complaint>> watchComplaints() {
+    final uid = _auth.currentUser?.uid;
+    if (uid == null) return const Stream.empty();
+    return _isStaffStream(uid).asyncMap((isStaff) {
+      final collection = _db.collection('complaints');
+      final query = isStaff
+          ? collection.orderBy('createdAt', descending: true)
+          : collection.where('citizenId', isEqualTo: uid);
+      return query.snapshots().map((snap) {
+        final complaints = snap.docs
+            .map((d) => Complaint.fromMap({...d.data(), 'id': d.id}))
+            .toList();
+        if (isStaff) return complaints;
+        complaints.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        return complaints;
+      });
+    }).asyncExpand((stream) => stream);
+  }
+
+  @override
+  Stream<List<SystemLog>> watchLogs() {
+    return _db
+        .collection('logs')
+        .orderBy('timestamp', descending: true)
+        .limit(100)
+        .snapshots()
+        .map((snap) {
+      return snap.docs
+          .map((d) => SystemLog.fromMap({...d.data(), 'id': d.id}))
+          .toList();
+    });
+  }
+
+  Stream<bool> _isStaffStream(String uid) async* {
+    final docStream = _db.collection('users').doc(uid).snapshots();
+    await for (final doc in docStream) {
+      final role = doc.data()?['role'];
+      yield role == 'officer' || role == 'admin';
+    }
+  }
+
+  @override
   Future<void> saveUser(AppUser user) async {
     await _db.collection('users').doc(user.id).set(user.toMap());
   }
@@ -128,10 +180,16 @@ class FirebaseRepository implements AppRepository {
   // Create an account at cloudinary.com, then set:
   //   --dart-define=CLOUDINARY_CLOUD_NAME=your_cloud_name
   //   --dart-define=CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
+  //   --dart-define=CLOUDINARY_API_KEY=your_api_key
+  //   --dart-define=CLOUDINARY_API_SECRET=your_api_secret
   static const _cloudinaryCloudName =
       String.fromEnvironment('CLOUDINARY_CLOUD_NAME', defaultValue: '');
   static const _cloudinaryUploadPreset =
       String.fromEnvironment('CLOUDINARY_UPLOAD_PRESET', defaultValue: '');
+  static const _cloudinaryApiKey =
+      String.fromEnvironment('CLOUDINARY_API_KEY', defaultValue: '');
+  static const _cloudinaryApiSecret =
+      String.fromEnvironment('CLOUDINARY_API_SECRET', defaultValue: '');
 
   @override
   Future<String?> uploadMedia(File file, String folder) async {
@@ -180,6 +238,44 @@ class FirebaseRepository implements AppRepository {
       return json['secure_url'] as String?;
     }
     return null;
+  }
+
+  /// Generates a signed Cloudinary delivery URL for a video.
+  /// Requires CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET to be set.
+  /// If signing config is missing, returns the original URL unchanged.
+  static String? getSignedVideoUrl(String? cloudinaryUrl) {
+    if (cloudinaryUrl == null || cloudinaryUrl.isEmpty) return null;
+    if (_cloudinaryApiKey.isEmpty || _cloudinaryApiSecret.isEmpty) {
+      return cloudinaryUrl; // Fall back to public URL if no signing config
+    }
+    try {
+      final uri = Uri.parse(cloudinaryUrl);
+      final pathSegments = uri.pathSegments;
+      // Expected format: /video/upload/v123456/public_id.mp4
+      final uploadIndex = pathSegments.indexOf('upload');
+      if (uploadIndex == -1 || uploadIndex + 2 >= pathSegments.length) {
+        return cloudinaryUrl; // Unexpected format
+      }
+      final version = pathSegments[uploadIndex + 1];
+      final publicIdWithExt = pathSegments.sublist(uploadIndex + 2).join('/');
+      final publicId = publicIdWithExt.contains('.')
+          ? publicIdWithExt.substring(0, publicIdWithExt.lastIndexOf('.'))
+          : publicIdWithExt;
+
+      // Build the string to sign: "public_id=xxx&version=yyy" + api_secret
+      final stringToSign = 'public_id=$publicId&version=$version$_cloudinaryApiSecret';
+      final signature = _sha1Hex(stringToSign);
+      final signedPath = '/video/upload/s--$signature--/$version/$publicIdWithExt';
+      return uri.replace(path: signedPath).toString();
+    } catch (_) {
+      return cloudinaryUrl;
+    }
+  }
+
+  static String _sha1Hex(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha1.convert(bytes);
+    return digest.toString();
   }
 
   @override

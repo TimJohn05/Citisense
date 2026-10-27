@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,10 +15,25 @@ class MockRepository implements AppRepository {
   final List<Complaint> _complaints = [];
   final List<SystemLog> _logs = [];
 
+  final _usersController = StreamController<List<AppUser>>.broadcast();
+  final _complaintsController = StreamController<List<Complaint>>.broadcast();
+  final _logsController = StreamController<List<SystemLog>>.broadcast();
+
   MockRepository() {
     _seedUsers();
     _seedComplaints();
     _seedLogs();
+    _notifyAll();
+  }
+
+  void _notifyAll() {
+    _usersController.add(List.of(_users));
+    final sortedComplaints = List.of(_complaints)
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    _complaintsController.add(sortedComplaints);
+    final sortedLogs = List.of(_logs)
+      ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    _logsController.add(sortedLogs);
   }
 
   void _seedUsers() {
@@ -70,6 +86,7 @@ class MockRepository implements AppRepository {
   }
 
   void _seedComplaints() {
+    final now = DateTime.now();
     _complaints.addAll([
       Complaint(
         id: 'c1',
@@ -84,11 +101,12 @@ class MockRepository implements AppRepository {
         status: ComplaintStatus.pending,
         latitude: 14.1956,
         longitude: 121.1469,
+        barangay: 'Barangay 1',
         evidencePhotos: const ['https://placehold.co/600x400?text=Garbage+Pile'],
         evidenceVideos: const [
           'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
         ],
-        createdAt: DateTime(2026, 7, 28, 9, 30),
+        createdAt: now.subtract(const Duration(hours: 3)),
       ),
       Complaint(
         id: 'c2',
@@ -104,7 +122,8 @@ class MockRepository implements AppRepository {
         officerNotes: 'Crew scheduled to inspect the intersection on Friday.',
         latitude: 14.2042,
         longitude: 121.1547,
-        createdAt: DateTime(2026, 7, 29, 14, 10),
+        barangay: 'Parian',
+        createdAt: now.subtract(const Duration(days: 1, hours: 2)),
       ),
       Complaint(
         id: 'c3',
@@ -119,10 +138,11 @@ class MockRepository implements AppRepository {
         officerNotes: 'Filter unit replaced and pressure restored to normal.',
         proofPhotos: ['https://placehold.co/600x400?text=Water+Restored'],
         resolvedBy: 'Hon. Jose Santos',
-        resolvedAt: DateTime(2026, 7, 30, 11, 45),
+        resolvedAt: now.subtract(const Duration(days: 1, hours: 6)),
         latitude: 14.1865,
         longitude: 121.1390,
-        createdAt: DateTime(2026, 7, 26, 8, 0),
+        barangay: 'Halang',
+        createdAt: now.subtract(const Duration(days: 2, hours: 4)),
       ),
       Complaint(
         id: 'c4',
@@ -136,7 +156,8 @@ class MockRepository implements AppRepository {
         status: ComplaintStatus.pending,
         latitude: 14.2110,
         longitude: 121.1300,
-        createdAt: DateTime(2026, 7, 31, 19, 20),
+        barangay: 'Barangay 1',
+        createdAt: now.subtract(const Duration(days: 3, hours: 1)),
       ),
       Complaint(
         id: 'c5',
@@ -150,7 +171,8 @@ class MockRepository implements AppRepository {
         status: ComplaintStatus.pending,
         latitude: 14.1980,
         longitude: 121.1510,
-        createdAt: DateTime(2026, 8, 1, 0, 45),
+        barangay: 'Canlubang',
+        createdAt: now.subtract(const Duration(days: 4, hours: 6)),
       ),
       Complaint(
         id: 'c6',
@@ -165,7 +187,8 @@ class MockRepository implements AppRepository {
         officerNotes: 'Tanod dispatched to locate the vehicle owner.',
         latitude: 14.2015,
         longitude: 121.1485,
-        createdAt: DateTime(2026, 8, 1, 7, 30),
+        barangay: 'Parian',
+        createdAt: now.subtract(const Duration(days: 5, hours: 2)),
       ),
       Complaint(
         id: 'c7',
@@ -180,7 +203,8 @@ class MockRepository implements AppRepository {
         status: ComplaintStatus.pending,
         latitude: 14.1890,
         longitude: 121.1420,
-        createdAt: DateTime(2026, 8, 2, 16, 10),
+        barangay: 'Pansol',
+        createdAt: now.subtract(const Duration(days: 6, hours: 5)),
       ),
       Complaint(
         id: 'c8',
@@ -196,7 +220,8 @@ class MockRepository implements AppRepository {
         officerNotes: 'CENRO notified; inspection scheduled.',
         latitude: 14.2060,
         longitude: 121.1350,
-        createdAt: DateTime(2026, 8, 3, 10, 0),
+        barangay: 'Canlubang',
+        createdAt: now.subtract(const Duration(days: 8, hours: 1)),
       ),
       Complaint(
         id: 'c9',
@@ -210,7 +235,8 @@ class MockRepository implements AppRepository {
         status: ComplaintStatus.pending,
         latitude: 14.2095,
         longitude: 121.1525,
-        createdAt: DateTime(2026, 8, 3, 21, 15),
+        barangay: 'Real',
+        createdAt: now.subtract(const Duration(days: 12, hours: 3)),
       ),
       Complaint(
         id: 'c10',
@@ -225,10 +251,11 @@ class MockRepository implements AppRepository {
         officerNotes: 'Ring replaced and floor patched by maintenance crew.',
         proofPhotos: ['https://placehold.co/600x400?text=Court+Repaired'],
         resolvedBy: 'Hon. Jose Santos',
-        resolvedAt: DateTime(2026, 8, 5, 14, 30),
+        resolvedAt: now.subtract(const Duration(days: 10, hours: 2)),
         latitude: 14.1920,
         longitude: 121.1380,
-        createdAt: DateTime(2026, 8, 4, 8, 45),
+        barangay: 'Halang',
+        createdAt: now.subtract(const Duration(days: 15, hours: 7)),
       ),
     ]);
   }
@@ -334,6 +361,7 @@ class MockRepository implements AppRepository {
     } else {
       _users.add(user);
     }
+    _notifyAll();
   }
 
   @override
@@ -344,11 +372,13 @@ class MockRepository implements AppRepository {
     } else {
       _complaints.add(complaint);
     }
+    _notifyAll();
   }
 
   @override
   Future<void> saveLog(SystemLog log) async {
     _logs.insert(0, log);
+    _notifyAll();
   }
 
   @override
@@ -362,4 +392,13 @@ class MockRepository implements AppRepository {
     await Future.delayed(const Duration(milliseconds: 300));
     return file.path;
   }
+
+  @override
+  Stream<List<AppUser>> watchUsers() => _usersController.stream;
+
+  @override
+  Stream<List<Complaint>> watchComplaints() => _complaintsController.stream;
+
+  @override
+  Stream<List<SystemLog>> watchLogs() => _logsController.stream;
 }

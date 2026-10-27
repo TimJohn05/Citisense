@@ -97,4 +97,25 @@ void main() {
     expect(find.text('Any category'), findsOneWidget);
     expect(find.text('${appState.pendingCount} shown'), findsOneWidget);
   });
+
+  test('complaint matchesLocation handles barangays and fallbacks accurately', () {
+    final c1 = _complaint().copyWith(barangay: 'Halang');
+    expect(c1.matchesLocation(null), isTrue);
+    expect(c1.matchesLocation('All locations'), isTrue);
+    expect(c1.matchesLocation('Halang'), isTrue);
+    expect(c1.matchesLocation('Pansol'), isFalse);
+
+    final c2 = _complaint().copyWith(
+      description: 'Flooding in Pansol area along national highway',
+    );
+    expect(c2.locationName, equals('Pansol'));
+    expect(c2.matchesLocation('Pansol'), isTrue);
+    expect(c2.matchesLocation('Real'), isFalse);
+
+    // City-level matching
+    expect(c1.matchesLocation('Calamba City'), isTrue);
+    expect(c2.matchesLocation('Calamba City'), isTrue);
+    expect(c1.matchesLocation('Cabuyao City'), isFalse);
+    expect(c1.matchesLocation('All Cities'), isTrue);
+  });
 }

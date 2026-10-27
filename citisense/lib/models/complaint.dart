@@ -1,3 +1,4 @@
+import '../core/location_data.dart';
 import 'enums.dart';
 
 class Complaint {
@@ -13,6 +14,7 @@ class Complaint {
   final String? rejectReason;
   final double? latitude;
   final double? longitude;
+  final String? barangay;
   final List<String> evidencePhotos;
   final List<String> evidenceVideos;
   final List<String> proofPhotos;
@@ -34,6 +36,7 @@ class Complaint {
     this.rejectReason,
     this.latitude,
     this.longitude,
+    this.barangay,
     this.evidencePhotos = const [],
     this.evidenceVideos = const [],
     this.proofPhotos = const [],
@@ -44,6 +47,64 @@ class Complaint {
   });
 
   bool get hasLocation => latitude != null && longitude != null;
+
+  String get locationName {
+    if (barangay != null && barangay!.trim().isNotEmpty) return barangay!.trim();
+    final desc = description.toLowerCase();
+    if (desc.contains('pansol')) return 'Pansol';
+    if (desc.contains('halang')) return 'Halang';
+    if (desc.contains('real')) return 'Real';
+    if (desc.contains('canlubang')) return 'Canlubang';
+    if (desc.contains('parian') || desc.contains('crossing')) return 'Parian';
+    if (desc.contains('mabini') || desc.contains('block 5') || desc.contains('poblacion')) {
+      return 'Barangay 1';
+    }
+    if (latitude != null && longitude != null) {
+      if (latitude! > 14.208) return 'Real';
+      if (latitude! > 14.203) return 'Parian';
+      if (latitude! > 14.197) return 'Canlubang';
+      if (latitude! > 14.193) return 'Barangay 1';
+      if (latitude! > 14.188) return 'Halang';
+      return 'Pansol';
+    }
+    return 'Calamba City';
+  }
+
+  bool matchesLocation(String? filterLocation) {
+    if (filterLocation == null ||
+        filterLocation.isEmpty ||
+        filterLocation == 'All locations' ||
+        filterLocation == 'All cities' ||
+        filterLocation == 'All Cities') {
+      return true;
+    }
+    final target = filterLocation.toLowerCase();
+
+    // If filtering by city:
+    final cityBarangays = LocationData.citiesAndBarangays[filterLocation];
+    if (cityBarangays != null) {
+      final loc = locationName.toLowerCase();
+      if (loc.contains(target) ||
+          target.contains(loc) ||
+          description.toLowerCase().contains(target)) {
+        return true;
+      }
+      for (final b in cityBarangays) {
+        final bLower = b.toLowerCase();
+        if (loc.contains(bLower) ||
+            (barangay != null && barangay!.toLowerCase().contains(bLower)) ||
+            description.toLowerCase().contains(bLower)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    final loc = locationName.toLowerCase();
+    return loc.contains(target) ||
+        target.contains(loc) ||
+        description.toLowerCase().contains(target);
+  }
 
   bool get isOpen =>
       status == ComplaintStatus.pending || status == ComplaintStatus.inReview;
@@ -80,6 +141,7 @@ class Complaint {
     String? rejectReason,
     double? latitude,
     double? longitude,
+    String? barangay,
     List<String>? evidencePhotos,
     List<String>? evidenceVideos,
     List<String>? proofPhotos,
@@ -101,6 +163,7 @@ class Complaint {
       rejectReason: rejectReason ?? this.rejectReason,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      barangay: barangay ?? this.barangay,
       evidencePhotos: evidencePhotos ?? this.evidencePhotos,
       evidenceVideos: evidenceVideos ?? this.evidenceVideos,
       proofPhotos: proofPhotos ?? this.proofPhotos,
@@ -125,6 +188,7 @@ class Complaint {
       'rejectReason': rejectReason,
       'latitude': latitude,
       'longitude': longitude,
+      'barangay': barangay,
       'evidencePhotos': evidencePhotos,
       'evidenceVideos': evidenceVideos,
       'proofPhotos': proofPhotos,
@@ -149,6 +213,7 @@ class Complaint {
       rejectReason: map['rejectReason'] as String?,
       latitude: (map['latitude'] as num?)?.toDouble(),
       longitude: (map['longitude'] as num?)?.toDouble(),
+      barangay: map['barangay'] as String?,
       evidencePhotos: _stringList(map['evidencePhotos'])
           .ifEmpty(_legacySingle(map['evidenceImage'])),
       evidenceVideos: _stringList(map['evidenceVideos']),
