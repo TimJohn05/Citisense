@@ -9,7 +9,7 @@ Legend: **Pass** = implemented and demonstrable, **Partial** = present with a kn
 | Indicator | Status | Where to show it |
 | --- | --- | --- |
 | The system classifies feedback records into positive, negative or neutral sentiment categories. | Pass | Submit a report with clearly negative, neutral, or positive wording. The result appears on the complaint detail screen and in the admin/officer sentiment chart. |
-| The system allow users to filter feedback records by date, location, and data type. | Partial | Status, category (data type), and date filters exist on Admin Complaints, Officer Complaints, and Citizen My Reports. Location is stored per complaint (map pin + map preview) but no area/zone filter exists yet. |
+| The system allow users to filter feedback records by date, location, and data type. | Pass | Status chips, 11 Category chips (data type), Date presets (All time, Today, 7 days, 30 days), and Location (Barangay popup filter) exist on Admin Complaints, Officer Complaints, and Citizen My Reports. |
 | The dashboard displays accurate counts, sentiment summaries, and urgent alerts. | Pass | Admin and Officer dashboards: live counts, status/category/sentiment charts, and the "Urgent alerts" panel (high-risk category or open more than 3 days, oldest first, tap to open). |
 | The system displays counts, sentiment summaries, and urgent alerts on dashboard. | Pass | Same dashboard; counts update from Firestore after pull-to-refresh and stay consistent across roles. |
 
@@ -54,9 +54,9 @@ Legend: **Pass** = implemented and demonstrable, **Partial** = present with a kn
 1. Sign in as `officer@citisense.com` / `password`.
 2. Tap any of the four stat cards: Complaints opens already filtered, with the matching chip selected.
 3. Show the "Urgent alerts" panel and tap a row to open that complaint.
-4. In Complaints, set the date filter to "Last 30 days" and pick a category.
+4. In Complaints, set the date filter to "Last 30 days", pick a category, and use the location filter to select a barangay (e.g. "Halang" or "Pansol").
 5. Tap "Generate report summary", change the period, then "Copy summary".
-6. Repeat steps 2 and 5 as `admin@citisense.com`; repeat the date/category filters in Citizen My Reports as `citizen@citisense.com`.
+6. Repeat steps 2 and 5 as `admin@citisense.com`; repeat the date/category/location filters in Citizen My Reports as `citizen@citisense.com`.
 
 ## Supplementary (named in the study's introduction, not scored in this instrument)
 
