@@ -45,6 +45,23 @@ class Complaint {
 
   bool get hasLocation => latitude != null && longitude != null;
 
+  bool get isOpen =>
+      status == ComplaintStatus.pending || status == ComplaintStatus.inReview;
+
+  static const Set<ComplaintCategory> highRiskCategories = {
+    ComplaintCategory.electricalHazard,
+    ComplaintCategory.peaceOrder,
+    ComplaintCategory.floodDrainage,
+    ComplaintCategory.healthSanitation,
+  };
+
+  static const Duration attentionThreshold = Duration(days: 3);
+
+  bool get needsAttention =>
+      isOpen &&
+      (highRiskCategories.contains(category) ||
+          DateTime.now().difference(createdAt) > attentionThreshold);
+
   String? get evidenceImage =>
       evidencePhotos.isEmpty ? null : evidencePhotos.first;
 

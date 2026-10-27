@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -12,7 +13,14 @@ import '../complaint_detail_screen.dart';
 import 'report_issue_screen.dart';
 
 class CitizenHomeScreen extends StatelessWidget {
-  const CitizenHomeScreen({super.key});
+  final ValueNotifier<Set<ComplaintStatus>?>? reportFilter;
+
+  const CitizenHomeScreen({super.key, this.reportFilter});
+
+  void _openReports(BuildContext context, Set<ComplaintStatus>? statuses) {
+    reportFilter?.value = statuses;
+    context.read<ValueNotifier<int>>().value = 2;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +79,18 @@ class CitizenHomeScreen extends StatelessWidget {
                   value: '${myComplaints.length}',
                   color: AppColors.primary,
                   icon: Icons.article_outlined,
+                  onTap: () => _openReports(context, null),
                 ),
                 const SizedBox(width: 12),
                 _MiniStat(
-                  label: 'Pending',
+                  label: 'In progress',
                   value: '${myComplaints.where((c) => c.status == ComplaintStatus.pending || c.status == ComplaintStatus.inReview).length}',
                   color: AppColors.warning,
                   icon: Icons.schedule,
+                  onTap: () => _openReports(context, const {
+                    ComplaintStatus.pending,
+                    ComplaintStatus.inReview,
+                  }),
                 ),
                 const SizedBox(width: 12),
                 _MiniStat(
@@ -85,6 +98,9 @@ class CitizenHomeScreen extends StatelessWidget {
                   value: '${myComplaints.where((c) => c.status == ComplaintStatus.resolved).length}',
                   color: AppColors.success,
                   icon: Icons.check_circle_outline,
+                  onTap: () => _openReports(context, const {
+                    ComplaintStatus.resolved,
+                  }),
                 ),
               ],
             ),
@@ -207,41 +223,52 @@ class _MiniStat extends StatelessWidget {
   final String value;
   final Color color;
   final IconData icon;
+  final VoidCallback? onTap;
 
   const _MiniStat({
     required this.label,
     required this.value,
     required this.color,
     required this.icon,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
-          child: Column(
-            children: [
-              Icon(icon, size: 20, color: color),
-              const SizedBox(height: 6),
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textPrimary,
+        child: InkWell(
+          onTap: onTap == null
+              ? null
+              : () {
+                  HapticFeedback.lightImpact();
+                  onTap!();
+                },
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+            child: Column(
+              children: [
+                Icon(icon, size: 20, color: color),
+                const SizedBox(height: 6),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: AppColors.textMuted,
+                const SizedBox(height: 2),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: AppColors.textMuted,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/enums.dart';
 import 'citizen_home_screen.dart';
 import 'my_reports_screen.dart';
 import 'report_issue_screen.dart';
@@ -14,6 +15,8 @@ class CitizenShell extends StatefulWidget {
 
 class _CitizenShellState extends State<CitizenShell> {
   int _index = 0;
+  final ValueNotifier<Set<ComplaintStatus>?> _reportFilter =
+      ValueNotifier<Set<ComplaintStatus>?>(null);
 
   static const _destinations = [
     NavigationDestination(
@@ -64,10 +67,10 @@ class _CitizenShellState extends State<CitizenShell> {
               _index = index;
               final body = IndexedStack(
                 index: index,
-                children: const [
-                  CitizenHomeScreen(),
-                  ReportIssueScreen(),
-                  MyReportsScreen(),
+                children: [
+                  CitizenHomeScreen(reportFilter: _reportFilter),
+                  const ReportIssueScreen(),
+                  MyReportsScreen(filterNotifier: _reportFilter),
                 ],
               );
               return Scaffold(

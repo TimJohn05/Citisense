@@ -62,4 +62,39 @@ void main() {
 
     expect(find.text('Sign In'), findsOneWidget);
   });
+
+  testWidgets('clearing the task from recents drops the saved session',
+      (WidgetTester tester) async {
+    final user = _citizen();
+    final data = user.toMap()..['password'] = '';
+    SharedPreferences.setMockInitialValues({
+      'session.user': jsonEncode(data),
+      'session.saved_at': DateTime.now().millisecondsSinceEpoch,
+      'session.clear_on_launch': true,
+    });
+    await tester.pumpWidget(App(repository: MockRepository()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Sign In'), findsOneWidget);
+    expect(find.byType(NavigationBar), findsNothing);
+
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getBool('session.clear_on_launch'), isNull);
+    expect(prefs.getString('session.user'), isNull);
+  });
+
+  testWidgets('session survives a normal relaunch when the task was kept',
+      (WidgetTester tester) async {
+    final user = _citizen();
+    final data = user.toMap()..['password'] = '';
+    SharedPreferences.setMockInitialValues({
+      'session.user': jsonEncode(data),
+      'session.saved_at': DateTime.now().millisecondsSinceEpoch,
+      'session.clear_on_launch': false,
+    });
+    await tester.pumpWidget(App(repository: MockRepository()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Welcome back'), findsOneWidget);
+  });
 }

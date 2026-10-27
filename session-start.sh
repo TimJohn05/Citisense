@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-VAULT="$HOME/Documents/MindMap/MindMap"
+VAULT="$HOME/Documents/MindMap/MindMap/SE-Mindmap"
 
 echo "=============================================================="
 echo " CitiSense — session bootstrap"
@@ -39,8 +39,8 @@ fi
 
 echo ""
 echo "--- GIT / CODE STATE -------------------------------------------"
-if [[ -d "$HOME/SE2-Project/citisense/.git" ]]; then
-  (cd "$HOME/SE2-Project/citisense" && git log --oneline -5 2>/dev/null || true)
+if [[ -d "$HOME/SE2-Project/.git" ]]; then
+  (cd "$HOME/SE2-Project" && git log --oneline -5 2>/dev/null || true)
 fi
 
 echo ""

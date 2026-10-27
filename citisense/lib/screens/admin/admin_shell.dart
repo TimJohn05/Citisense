@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/enums.dart';
 import 'admin_complaints_screen.dart';
 import 'admin_dashboard_screen.dart';
 import 'admin_logs_screen.dart';
@@ -15,6 +16,8 @@ class AdminShell extends StatefulWidget {
 
 class _AdminShellState extends State<AdminShell> {
   int _index = 0;
+  final ValueNotifier<ComplaintStatus?> _complaintFilter =
+      ValueNotifier<ComplaintStatus?>(null);
 
   static const _destinations = [
     NavigationDestination(
@@ -75,10 +78,10 @@ class _AdminShellState extends State<AdminShell> {
               _index = index;
               final body = IndexedStack(
                 index: index,
-                children: const [
-                  AdminDashboardScreen(),
+                children: [
+                  AdminDashboardScreen(complaintFilter: _complaintFilter),
                   AdminUsersScreen(),
-                  AdminComplaintsScreen(),
+                  AdminComplaintsScreen(filterNotifier: _complaintFilter),
                   AdminLogsScreen(),
                 ],
               );

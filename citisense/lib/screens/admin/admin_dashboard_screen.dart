@@ -6,16 +6,26 @@ import '../../core/theme/app_colors.dart';
 import '../../models/complaint.dart';
 import '../../models/enums.dart';
 import '../../state/app_state.dart';
+import '../../widgets/attention_panel.dart';
+import '../../widgets/report_summary_sheet.dart';
 import '../../widgets/stat_card.dart';
 import '../../widgets/logout_button.dart';
 import '../../widgets/settings_button.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
-  const AdminDashboardScreen({super.key});
+  final ValueNotifier<ComplaintStatus?>? complaintFilter;
+
+  const AdminDashboardScreen({super.key, this.complaintFilter});
+
+  void _openComplaints(BuildContext context, ComplaintStatus? status) {
+    complaintFilter?.value = status;
+    context.read<ValueNotifier<int>>().value = 2;
+  }
 
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
+    final attention = appState.needsAttention;
 
     return Scaffold(
       appBar: AppBar(
@@ -75,15 +85,18 @@ class AdminDashboardScreen extends StatelessWidget {
                     value: '${appState.totalComplaints}',
                     icon: Icons.inbox_outlined,
                     color: AppColors.primary,
+                    onTap: () => _openComplaints(context, null),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: StatCard(
-                    label: 'Resolution rate',
-                    value: '${appState.resolutionRate.toStringAsFixed(0)}%',
-                    icon: Icons.verified_outlined,
-                    color: AppColors.success,
+                    label: 'Pending',
+                    value: '${appState.pendingCount}',
+                    icon: Icons.schedule,
+                    color: AppColors.warning,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.pending),
                   ),
                 ),
               ],
@@ -93,24 +106,41 @@ class AdminDashboardScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: StatCard(
-                    label: 'Resolved',
-                    value: '${appState.resolvedCount}',
-                    icon: Icons.check_circle_outline,
-                    color: AppColors.success,
+                    label: 'Under review',
+                    value: '${appState.inReviewCount}',
+                    icon: Icons.visibility_outlined,
+                    color: AppColors.primary,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.inReview),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: StatCard(
-                    label: 'Pending / Review',
-                    value: '${appState.pendingCount + appState.inReviewCount}',
-                    icon: Icons.schedule,
-                    color: AppColors.warning,
+                    label: 'Resolved',
+                    value: '${appState.resolvedCount}',
+                    icon: Icons.check_circle_outline,
+                    color: AppColors.success,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.resolved),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 20),
+            if (attention.isNotEmpty) ...[
+              AttentionPanel(complaints: attention),
+              const SizedBox(height: 16),
+            ],
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () => showReportSummary(context, appState),
+                icon: const Icon(Icons.summarize_outlined, size: 18),
+                label: const Text('Generate report summary'),
+              ),
+            ),
+            const SizedBox(height: 16),
             _StatusChart(appState: appState),
             const SizedBox(height: 16),
             RepaintBoundary(child: _CategoryChart(complaints: appState.complaints)),
@@ -143,13 +173,26 @@ class _StatusChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Complaints by status',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-              ),
+            Row(
+              children: [
+                Text(
+                  'Complaints by status',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  '${appState.resolutionRate.toStringAsFixed(0)}% resolved',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textMuted,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../core/theme/app_colors.dart';
 
@@ -8,6 +9,7 @@ class StatCard extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String? sub;
+  final VoidCallback? onTap;
 
   const StatCard({
     super.key,
@@ -16,14 +18,23 @@ class StatCard extends StatelessWidget {
     required this.icon,
     required this.color,
     this.sub,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
+      child: InkWell(
+        onTap: onTap == null
+            ? null
+            : () {
+                HapticFeedback.lightImpact();
+                onTap!();
+              },
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
           children: [
             Container(
               width: 44,
@@ -69,6 +80,7 @@ class StatCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+  );
   }
 }

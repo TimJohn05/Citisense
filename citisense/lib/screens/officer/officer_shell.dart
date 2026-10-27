@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/enums.dart';
 import 'officer_complaints_screen.dart';
 import 'officer_dashboard_screen.dart';
 
@@ -13,6 +14,8 @@ class OfficerShell extends StatefulWidget {
 
 class _OfficerShellState extends State<OfficerShell> {
   int _index = 0;
+  final ValueNotifier<ComplaintStatus?> _complaintFilter =
+      ValueNotifier<ComplaintStatus?>(null);
 
   static const _destinations = [
     NavigationDestination(
@@ -53,9 +56,9 @@ class _OfficerShellState extends State<OfficerShell> {
               _index = index;
               final body = IndexedStack(
                 index: index,
-                children: const [
-                  OfficerDashboardScreen(),
-                  OfficerComplaintsScreen(),
+                children: [
+                  OfficerDashboardScreen(complaintFilter: _complaintFilter),
+                  OfficerComplaintsScreen(filterNotifier: _complaintFilter),
                 ],
               );
               return Scaffold(

@@ -36,6 +36,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   static const _kHighContrast = 'settings.high_contrast';
   static const _kSession = 'session.user';
   static const _kSessionSavedAt = 'session.saved_at';
+  static const _kClearOnLaunch = 'session.clear_on_launch';
 
   static const _backgroundSessionTimeout = Duration(hours: 2);
   Timer? _backgroundTimer;
@@ -140,6 +141,10 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
 
   List<Complaint> complaintsByCategory(ComplaintCategory category) =>
       _complaints.where((c) => c.category == category).toList();
+
+  List<Complaint> get needsAttention =>
+      _complaints.where((c) => c.needsAttention).toList()
+        ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
   List<Complaint> complaintsByStatus(ComplaintStatus status) =>
       _complaints.where((c) => c.status == status).toList();
@@ -306,6 +311,12 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   Future<void> _restoreSession() async {
     try {
       final prefs = await SharedPreferences.getInstance();
+      if (prefs.getBool(_kClearOnLaunch) ?? false) {
+        await prefs.remove(_kClearOnLaunch);
+        await prefs.remove(_kSession);
+        await prefs.remove(_kSessionSavedAt);
+        return;
+      }
       final raw = prefs.getString(_kSession);
       if (raw == null) return;
       final data = jsonDecode(raw) as Map<String, dynamic>;
