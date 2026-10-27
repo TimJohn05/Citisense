@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -828,6 +829,8 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
   bool _initialized = false;
   bool _hasError = false;
   bool _playing = false;
+  int _retryCount = 0;
+  static const _maxRetries = 3;
 
   @override
   void dispose() {
@@ -868,10 +871,37 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
     _controller = controller;
     controller.addListener(_onStatus);
     try {
-      await controller.initialize();
-      if (mounted) setState(() => _initialized = true);
+      await controller.initialize().timeout(const Duration(seconds: 15));
+      if (mounted) {
+        setState(() {
+          _initialized = true;
+          _hasError = false;
+          _retryCount = 0;
+        });
+      }
+    } on TimeoutException {
+      if (mounted) {
+        _handleInitError('Video load timeout');
+      }
     } catch (_) {
-      if (mounted) setState(() {
+      if (mounted) {
+        _handleInitError('Failed to load video');
+      }
+    }
+  }
+
+  Future<void> _handleInitError(String message) async {
+    if (_retryCount < _maxRetries) {
+      _retryCount++;
+      _controller?.dispose();
+      _controller = null;
+      // Exponential backoff: 2s, 4s, 8s
+      await Future.delayed(Duration(seconds: 1 << _retryCount));
+      if (mounted) {
+        _init();
+      }
+    } else {
+      setState(() {
         _initialized = true;
         _hasError = true;
       });
@@ -919,10 +949,12 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
                     const SizedBox(height: 8),
                     TextButton.icon(
                       onPressed: () async {
-                        if (mounted) setState(() {
-                          _hasError = false;
-                          _initialized = false;
-                        });
+                        if (mounted) {
+                          setState(() {
+                            _hasError = false;
+                            _initialized = false;
+                          });
+                        }
                         await _init();
                       },
                       icon: const Icon(Icons.refresh, color: Colors.white),

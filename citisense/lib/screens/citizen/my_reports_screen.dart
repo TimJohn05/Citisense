@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +32,7 @@ class _MyReportsScreenState extends State<MyReportsScreen> {
   String? _location;
   String _searchQuery = '';
   final _searchController = TextEditingController();
+  Timer? _searchDebounce;
 
   static const List<(String, Set<ComplaintStatus>?)> _filters = [
     ('All', null),
@@ -53,17 +56,18 @@ class _MyReportsScreenState extends State<MyReportsScreen> {
     });
   }
 
-  void _onExternalFilter() {
-    if (mounted) {
-      setState(() => _filter = widget.filterNotifier?.value);
-    }
-  }
-
   @override
   void dispose() {
     widget.filterNotifier?.removeListener(_onExternalFilter);
     _searchController.dispose();
+    _searchDebounce?.cancel();
     super.dispose();
+  }
+
+  void _onExternalFilter() {
+    if (mounted) {
+      setState(() => _filter = widget.filterNotifier?.value);
+    }
   }
 
   @override
@@ -115,9 +119,12 @@ class _MyReportsScreenState extends State<MyReportsScreen> {
             child: TextField(
               controller: _searchController,
               onChanged: (val) {
-                final trimmed = val.trim();
-                setState(() => _searchQuery = trimmed);
-                context.read<AppState>().setSavedSearchQuery(trimmed);
+                _searchDebounce?.cancel();
+                _searchDebounce = Timer(const Duration(milliseconds: 300), () {
+                  final trimmed = val.trim();
+                  setState(() => _searchQuery = trimmed);
+                  context.read<AppState>().setSavedSearchQuery(trimmed);
+                });
               },
               decoration: InputDecoration(
                 hintText: 'Search reports...',

@@ -59,8 +59,11 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   String _savedSearchQuery = '';
 
   static const _backgroundSessionTimeout = Duration(hours: 2);
+  static const _initialRetryDelay = Duration(seconds: 30);
+  static const _maxRetryDelay = Duration(minutes: 5);
   Timer? _backgroundTimer;
   Timer? _retryDraftsTimer;
+  int _draftRetryCount = 0;
 
   StreamSubscription? _complaintsSub;
   StreamSubscription? _usersSub;
@@ -546,12 +549,15 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
 
   void _scheduleDraftRetry() {
     _retryDraftsTimer?.cancel();
-    _retryDraftsTimer = Timer(const Duration(seconds: 30), _retryPendingDrafts);
+    final delay = _initialRetryDelay * (1 << _draftRetryCount.clamp(0, 5));
+    final cappedDelay = delay > _maxRetryDelay ? _maxRetryDelay : delay;
+    _retryDraftsTimer = Timer(cappedDelay, _retryPendingDrafts);
   }
 
   Future<void> _retryPendingDrafts() async {
     if (_pendingDrafts.isEmpty || _user == null) return;
     final draftsToRetry = List<Map<String, dynamic>>.from(_pendingDrafts);
+    bool anySucceeded = false;
     for (final draft in draftsToRetry) {
       try {
         final evidence = (draft['evidence'] as List<dynamic>)
@@ -565,6 +571,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
           evidence: evidence,
         );
         _pendingDrafts.remove(draft);
+        anySucceeded = true;
       } catch (e) {
         if (e is! OfflineDraftException) {
           // If it's not an offline exception, something else went wrong
@@ -574,7 +581,14 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     }
     await _persistPendingDrafts();
     if (_pendingDrafts.isNotEmpty) {
+      if (anySucceeded) {
+        _draftRetryCount = 0; // Reset on success
+      } else {
+        _draftRetryCount = (_draftRetryCount + 1).clamp(0, 10);
+      }
       _scheduleDraftRetry();
+    } else {
+      _draftRetryCount = 0; // All cleared
     }
     notifyListeners();
   }
@@ -819,7 +833,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       detail: detail,
       userId: user?.id,
       userEmail: user?.email,
-      userRole: user?.role?.name,
+      userRole: user?.role.name,
       metadata: metadata,
     );
     _logs.insert(0, log);

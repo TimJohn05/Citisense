@@ -13,7 +13,6 @@ import '../../widgets/empty_state.dart';
 import '../../widgets/location_filter_button.dart';
 import '../../widgets/logout_button.dart';
 import '../../widgets/settings_button.dart';
-import '../../widgets/skeleton.dart';
 import '../complaint_detail_screen.dart';
 
 class OfficerComplaintsScreen extends StatefulWidget {

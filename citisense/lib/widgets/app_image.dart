@@ -11,6 +11,7 @@ class AppImage extends StatelessWidget {
   final BoxFit fit;
   final double? height;
   final double? width;
+  final Duration loadTimeout;
 
   const AppImage({
     super.key,
@@ -18,6 +19,7 @@ class AppImage extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.height,
     this.width,
+    this.loadTimeout = const Duration(seconds: 10),
   });
 
   @override
@@ -26,26 +28,43 @@ class AppImage extends StatelessWidget {
       return _placeholder();
     }
     if (path!.startsWith('data:image/')) {
-      final payload = path!.substring(path!.indexOf(',') + 1);
-      return Image.memory(
-        base64Decode(payload),
-        fit: fit,
-        height: height,
-        width: width,
-        errorBuilder: (_, _, _) => _placeholder(),
-      );
+      return _buildDataImage();
     }
     final isNetwork = path!.startsWith('http');
     if (isNetwork) {
-      return CachedNetworkImage(
-        imageUrl: path!,
-        fit: fit,
-        height: height,
-        width: width,
-        placeholder: (_, _) => _placeholder(),
-        errorWidget: (_, _, _) => _placeholder(),
-      );
+      return _buildNetworkImage();
     }
+    return _buildFileImage();
+  }
+
+  Widget _buildDataImage() {
+    final payload = path!.substring(path!.indexOf(',') + 1);
+    return Image.memory(
+      base64Decode(payload),
+      fit: fit,
+      height: height,
+      width: width,
+      errorBuilder: (_, _, _) => _placeholder(),
+    );
+  }
+
+  Widget _buildNetworkImage() {
+    return CachedNetworkImage(
+      imageUrl: path!,
+      fit: fit,
+      height: height,
+      width: width,
+      maxWidthDiskCache: 800,
+      memCacheWidth: 800,
+      fadeInDuration: const Duration(milliseconds: 200),
+      fadeOutDuration: const Duration(milliseconds: 100),
+      httpHeaders: const {'User-Agent': 'CitiSense/1.0'},
+      placeholder: (_, _) => _placeholder(),
+      errorWidget: (_, _, _) => _placeholder(),
+    );
+  }
+
+  Widget _buildFileImage() {
     final file = File(path!);
     if (file.existsSync()) {
       return Image.file(

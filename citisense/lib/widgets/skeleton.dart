@@ -197,9 +197,9 @@ class DashboardSkeleton extends StatelessWidget {
         const Text('Recent Reports',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
         const SizedBox(height: 12),
-        ...List.generate(cardCount, (i) => const Padding(
+        ...List.generate(cardCount, (i) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: CardSkeleton(),
+              child: const CardSkeleton(),
             )),
       ],
     );
@@ -242,9 +242,9 @@ class CitizenDashboardSkeleton extends StatelessWidget {
         const Text('Recent Reports',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
         const SizedBox(height: 12),
-        ...List.generate(3, (i) => const Padding(
+        ...List.generate(3, (i) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: CardSkeleton(),
+              child: const CardSkeleton(),
             )),
       ],
     );
@@ -279,9 +279,9 @@ class MyReportsSkeleton extends StatelessWidget {
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: 5,
-            itemBuilder: (_, __) => const Padding(
+            itemBuilder: (_, _) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: CardSkeleton(),
+              child: const CardSkeleton(),
             ),
           ),
         ),
@@ -323,9 +323,9 @@ class OfficerDashboardSkeleton extends StatelessWidget {
         const Text('Recent Complaints',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
         const SizedBox(height: 12),
-        ...List.generate(3, (i) => const Padding(
+        ...List.generate(3, (i) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: CardSkeleton(),
+              child: const CardSkeleton(),
             )),
       ],
     );
@@ -374,9 +374,9 @@ class OfficerComplaintsSkeleton extends StatelessWidget {
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: 5,
-            itemBuilder: (_, __) => const Padding(
+            itemBuilder: (_, _) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: CardSkeleton(),
+              child: const CardSkeleton(),
             ),
           ),
         ),
@@ -428,9 +428,9 @@ class AdminUsersSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: List.generate(5, (i) => const Padding(
+      children: List.generate(5, (i) => Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: CardSkeleton(),
+            child: const CardSkeleton(),
           )),
     );
   }
@@ -443,9 +443,9 @@ class AdminComplaintsSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: List.generate(5, (i) => const Padding(
+      children: List.generate(5, (i) => Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: CardSkeleton(),
+            child: const CardSkeleton(),
           )),
     );
   }
@@ -458,9 +458,9 @@ class AdminLogsSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: List.generate(10, (i) => const Padding(
+      children: List.generate(10, (i) => Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: ListTileSkeleton(),
+            child: const ListTileSkeleton(),
           )),
     );
   }
@@ -473,9 +473,9 @@ class SettingsSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: List.generate(8, (i) => const Padding(
-            padding: EdgeInsets.only(bottom: 16),
-            child: ListTileSkeleton(),
+children: List.generate(8, (i) => Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: const ListTileSkeleton(),
           )),
     );
   }

@@ -79,10 +79,10 @@ class FirebaseRepository implements AppRepository {
     if (uid == null) return [];
     final isStaff = await _isStaff(uid);
     final collection = _db.collection('complaints');
-    final snap = await (isStaff
-            ? collection.orderBy('createdAt', descending: true)
-            : collection.where('citizenId', isEqualTo: uid))
-        .get();
+    final query = isStaff
+        ? collection.orderBy('createdAt', descending: true).limit(100)
+        : collection.where('citizenId', isEqualTo: uid).limit(50);
+    final snap = await query.get();
     final complaints = snap.docs
         .map((d) => Complaint.fromMap({...d.data(), 'id': d.id}))
         .toList();
@@ -125,8 +125,8 @@ class FirebaseRepository implements AppRepository {
     return _isStaffStream(uid).asyncMap((isStaff) {
       final collection = _db.collection('complaints');
       final query = isStaff
-          ? collection.orderBy('createdAt', descending: true)
-          : collection.where('citizenId', isEqualTo: uid);
+          ? collection.orderBy('createdAt', descending: true).limit(100)
+          : collection.where('citizenId', isEqualTo: uid).limit(50);
       return query.snapshots().map((snap) {
         final complaints = snap.docs
             .map((d) => Complaint.fromMap({...d.data(), 'id': d.id}))
