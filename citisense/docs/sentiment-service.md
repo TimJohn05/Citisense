@@ -34,8 +34,8 @@ Two-stage plan (recommended):
 
 ### 1. Create a Python venv and install deps
 ```bash
-mkdir -p ~/SE2-Project/sentiment-service
-cd ~/SE2-Project/sentiment-service
+mkdir -p sentiment-service
+cd sentiment-service
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
@@ -43,7 +43,7 @@ pip install fastapi "uvicorn[standard]" transformers torch requests
 ```
 
 ### 2. Server script
-Copy `docs/sentiment_service.py` (below) into `~/SE2-Project/sentiment-service/server.py`.
+Copy `docs/sentiment_service.py` (below) into `sentiment-service/server.py`.
 
 ### 3. Run the server
 ```bash

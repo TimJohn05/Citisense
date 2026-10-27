@@ -291,10 +291,7 @@ roles across light/dark themes.
 
 Diagrams and documents for the SE2 paper (DFDs, use case, Gantt, architecture,
 mermaid sources) are copied into [`docs/`](docs/). The original prototype and style
-guide live in the user's backup at
-`/mnt/king/omarchy-backup/king/Documents/Figma/`.
-
----
+guide are in the project backup (Figma files).
 
 ## GitHub Release & Auto-Update
 

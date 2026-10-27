@@ -5,38 +5,42 @@ Scope: **Calamba City, Laguna** (Barangay Feedback & Resolution Platform).
 ## 1. Automated tests
 
 ```bash
-cd ~/SE2-Project/citisense
+cd citisense
 flutter analyze   # static checks — must be "No issues found"
-flutter test      # runs test/ (currently 13 tests)
+flutter test      # runs test/ (currently 70 tests)
 ```
 
 Current tests:
 - `test/widget_test.dart` — app boots to the login screen.
 - `test/login_test.dart` — demo citizen login succeeds, logout confirmation dialog works (Cancel + Sign out buttons).
 - `test/sentiment_engine_test.dart` — 10 Taglish sentiment tests (street-light, no-water, trash, construction noise, thanks/fixed, negation flip, neutral, etc.)
+- `test/admin_logs_screen_test.dart` — admin logs search, sort, detail dialog
+- `test/dashboard_navigation_test.dart` — officer/citizen/admin dashboard stat card navigation
+- `test/least_privilege_test.dart` — Firestore least-privilege read rules
 
 All tests run on `MockRepository` (no network, no device needed).
 
 Add more: `test/` uses `MockRepository` (no network needed), e.g. test officer resolving
 a complaint or admin adding an official. Pattern: `tester.pumpWidget(App(repository: MockRepository()))`.
 
-## 2. On-device (real phone, TECNO LJ6)
+## 2. On-device (real phone)
 
 ```bash
-cd ~/SE2-Project/citisense
-flutter run -d 14292255AE103649   # live hot-reload during development
+cd citisense
+flutter run -d <DEVICE_ID>   # live hot-reload during development
 flutter build apk --release       # build release APK
-~/Android/platform-tools/adb install -r build/app/outputs/flutter-apk/app-release.apk
-~/Android/platform-tools/adb shell am start -n com.citisense.citisense/.MainActivity
-cp build/app/outputs/flutter-apk/app-release.apk ~/Desktop/CitiSense.apk  # shareable copy
+adb install -r build/app/outputs/flutter-apk/app-release.apk
+adb shell am start -n com.citisense.citisense/.MainActivity
 ```
+
+Get your device ID with `adb devices`.
 
 ## 3. On emulator
 
 ```bash
-~/Android/emulator/emulator -avd citisense -ports 5554,5555 &
+emulator -avd citisense -ports 5554,5555 &
 # Wait for boot, then:
-~/Android/platform-tools/adb -s emulator-5554 shell am start -n com.citisense.citisense/.MainActivity
+adb -s emulator-5554 shell am start -n com.citisense.citisense/.MainActivity
 ```
 
 Requires explicit `-ports` flag — adb bridge does not register without it.
