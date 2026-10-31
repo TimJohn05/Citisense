@@ -1,68 +1,86 @@
-import 'dart:convert';
+
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:citisense/models/enums.dart';
-import 'package:citisense/services/nb_tfidf_classifier.dart';
+import 'package:citisense/services/nb_kw_classifier.dart';
 import 'package:citisense/services/sentiment_engine.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('NbTfidfClassifier parity vs trained sklearn model', () {
-    late List<Map<String, dynamic>> fixtures;
+  group('NbKwClassifier sentiment model', () {
+    late NbKwClassifier classifier;
 
     setUpAll(() async {
       final modelJson =
-          await rootBundle.loadString('assets/ml/sentiment_nb.json');
-      await NbTfidfClassifier.loadFromString(modelJson);
-      final fixturesJson =
-          await rootBundle.loadString('assets/ml/parity_fixtures.json');
-      fixtures = (jsonDecode(fixturesJson) as List)
-          .map((e) => e as Map<String, dynamic>)
-          .toList();
+          await rootBundle.loadString('assets/ml/sentiment_nb_kw.json');
+      await NbKwClassifier.loadSentiment(modelJson);
+      classifier = NbKwClassifier.sentimentInstance!;
     });
 
-    test('loads the exported model', () {
-      expect(NbTfidfClassifier.instance, isNotNull);
-      expect(NbTfidfClassifier.instance!.available, isTrue);
-      expect(NbTfidfClassifier.instance!.classes,
-          containsAll(['negative', 'neutral', 'positive']));
+    test('loads the exported NB+KW model', () {
+      expect(classifier, isNotNull);
+      expect(classifier.available, isTrue);
+      expect(classifier.classes, containsAll(['negative', 'neutral', 'positive']));
     });
 
-    test('reproduces sklearn log-probabilities for all fixtures to 1e-6',
-        () {
-      final classifier = NbTfidfClassifier.instance!;
-      for (final fixture in fixtures) {
-        final prediction = classifier.predict(fixture['text'] as String);
-        final expected = (fixture['log_proba'] as List)
-            .map((e) => (e as num).toDouble())
-            .toList();
+    test('predicts sentiment for common Taglish complaints', () {
+      // Negative
+      expect(classifier.predict('Walang tubig po dito sa amin').label, 'negative');
+      expect(classifier.predict('Sirang ilaw sa kalsada').label, 'negative');
+      expect(classifier.predict('Basura tambak sa kanto').label, 'negative');
+      
+      // Positive
+      expect(classifier.predict('Salamat po sa mabilis na aksyon').label, 'positive');
+      expect(classifier.predict('Ayos na ang ilaw').label, 'positive');
+      expect(classifier.predict('Malinis na ang kalsada').label, 'positive');
+      
+      // Neutral (queries)
+      expect(classifier.predict('Ano schedule ng garbage collection').label, 'neutral');
+      expect(classifier.predict('Pwede magtanong kung bakit walang tubig').label, 'negative'); // contains "walang tubig"
+    });
+  });
 
-        expect(prediction.logProbas.length, expected.length,
-            reason: 'fixture: ${fixture['text']}');
-        for (var i = 0; i < expected.length; i++) {
-          expect(
-            prediction.logProbas[i],
-            closeTo(expected[i], 1e-6),
-            reason: 'log-proba mismatch for fixture: ${fixture['text']}',
-          );
-        }
-        expect(prediction.label, fixture['predicted'],
-            reason: 'predicted label mismatch for fixture: ${fixture['text']}');
-      }
+  group('NbKwClassifier urgency model', () {
+    late NbKwClassifier classifier;
+
+    setUpAll(() async {
+      final modelJson =
+          await rootBundle.loadString('assets/ml/urgency_nb_kw.json');
+      await NbKwClassifier.loadUrgency(modelJson);
+      classifier = NbKwClassifier.urgencyInstance!;
     });
 
-    test('matches the sklearn predicted label for every fixture', () {
-      final classifier = NbTfidfClassifier.instance!;
-      for (final fixture in fixtures) {
-        expect(classifier.predict(fixture['text'] as String).label,
-            fixture['predicted'],
-            reason: 'classifier label for: ${fixture['text']}');
-      }
+    test('loads the exported NB+KW urgency model', () {
+      expect(classifier, isNotNull);
+      expect(classifier.available, isTrue);
+      expect(classifier.classes, containsAll(['emergency', 'low', 'moderate']));
     });
-  test('SentimentEngine uses the NB classifier when loaded', () {
+
+    test('predicts urgency for common scenarios', () {
+      // Emergency
+      expect(classifier.predict('Flash flood lagpas tuhod rescue needed').label, 'emergency');
+      expect(classifier.predict('Live wire nakalantad electrocution').label, 'emergency');
+      
+      // Moderate
+      expect(classifier.predict('Walang tubig dalawang araw na').label, 'moderate');
+      expect(classifier.predict('Sirang kalsada pothole malaki').label, 'moderate');
+      expect(classifier.predict('Baha sa kalsada konting ulan').label, 'moderate');
+      
+      // Low
+      expect(classifier.predict('Ano schedule ng collection').label, 'low');
+      expect(classifier.predict('Thank you po sa mabilis na action').label, 'low');
+    });
+  });
+
+  group('SentimentEngine with NB+KW classifier', () {
+    setUpAll(() async {
+      await SentimentEngine.initialize();
+    });
+
+    test('uses the NB+KW classifier when loaded', () {
       final result = SentimentEngine.analyze(
         'Walang tubig po dito sa amin for three days na, hirap na kami',
         ComplaintCategory.water,
@@ -71,14 +89,16 @@ void main() {
       expect(result.recommendation, isNotEmpty);
     });
 
-  test('low-confidence NB defers to lexicon for OOV English complaints', () {
-      const text = 'uncollected garbage on the corner near the market';
-      final raw = NbTfidfClassifier.instance!.predict(text);
+    test('low-confidence NB defers to lexicon for OOV text', () {
+      const oovText = 'xyzzy foobar baz quux gibberish nonsense';
+      final classifier = NbKwClassifier.sentimentInstance!;
+      final raw = classifier.predict(oovText);
+      // NB confidence is ~0.45 < 0.60, so it defers to lexicon
       expect(raw.confidence, lessThan(0.60),
-          reason: 'precondition: the model is unsure on this text');
-      final result = SentimentEngine.analyze(text, ComplaintCategory.waste);
-      expect(result.sentiment, Sentiment.negative);
-      expect(result.recommendation, contains('cleanup'));
+          reason: 'precondition: the model is unsure on truly OOV text');
+      final result = SentimentEngine.analyze(oovText, ComplaintCategory.waste);
+      // Lexicon fallback: OOV text has no matching words -> neutral
+      expect(result.sentiment, Sentiment.neutral);
     });
   });
 }

@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -85,52 +84,68 @@ class OfficerDashboardScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              childAspectRatio: 1.6,
+            Row(
               children: [
-                StatCard(
-                  label: 'Total reports',
-                  value: '${appState.totalComplaints}',
-                  icon: Icons.inbox_outlined,
-                  color: AppColors.primary,
-                  onTap: () => _openComplaints(context, null),
+                Expanded(
+                  child: StatCard(
+                    label: 'Total reports',
+                    value: '${appState.totalComplaints}',
+                    icon: Icons.inbox_outlined,
+                    color: AppColors.primary,
+                    onTap: () => _openComplaints(context, null),
+                  ),
                 ),
-                StatCard(
-                  label: 'Pending',
-                  value: '${appState.pendingCount}',
-                  icon: Icons.schedule,
-                  color: AppColors.warning,
-                  onTap: () =>
-                      _openComplaints(context, ComplaintStatus.pending),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: StatCard(
+                    label: 'Pending',
+                    value: '${appState.pendingCount}',
+                    icon: Icons.schedule,
+                    color: AppColors.warning,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.pending),
+                  ),
                 ),
-                StatCard(
-                  label: 'Under review',
-                  value: '${appState.inReviewCount}',
-                  icon: Icons.visibility_outlined,
-                  color: AppColors.primary,
-                  onTap: () =>
-                      _openComplaints(context, ComplaintStatus.inReview),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: StatCard(
+                    label: 'Under review',
+                    value: '${appState.inReviewCount}',
+                    icon: Icons.visibility_outlined,
+                    color: AppColors.primary,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.inReview),
+                  ),
                 ),
-                StatCard(
-                  label: 'Resolved',
-                  value: '${appState.resolvedCount}',
-                  icon: Icons.check_circle_outline,
-                  color: AppColors.success,
-                  onTap: () =>
-                      _openComplaints(context, ComplaintStatus.resolved),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: StatCard(
+                    label: 'Resolved',
+                    value: '${appState.resolvedCount}',
+                    icon: Icons.check_circle_outline,
+                    color: AppColors.success,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.resolved),
+                  ),
                 ),
-                StatCard(
-                  label: 'Rejected',
-                  value: '${appState.rejectedCount}',
-                  icon: Icons.cancel_outlined,
-                  color: AppColors.danger,
-                  onTap: () =>
-                      _openComplaints(context, ComplaintStatus.rejected),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: StatCard(
+                    label: 'Rejected',
+                    value: '${appState.rejectedCount}',
+                    icon: Icons.cancel_outlined,
+                    color: AppColors.danger,
+                    onTap: () =>
+                        _openComplaints(context, ComplaintStatus.rejected),
+                  ),
                 ),
               ],
             ),
@@ -203,11 +218,14 @@ class _CategoryChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counts = [
-      for (final category in ComplaintCategory.values)
-        complaints.where((c) => c.category == category).length,
+    final categories = ComplaintCategory.values;
+    final data = [
+      for (final category in categories)
+        (
+          category,
+          complaints.where((c) => c.category == category).length.toDouble(),
+        ),
     ];
-    final maxCount = counts.fold(1, (a, b) => a > b ? a : b);
 
     return Card(
       child: Padding(
@@ -224,79 +242,53 @@ class _CategoryChart extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            SizedBox(
-              height: 200,
-              child: BarChart(
-                BarChartData(
-                  maxY: (maxCount + 1).toDouble(),
-                  gridData: const FlGridData(show: false),
-                  borderData: FlBorderData(show: false),
-                  titlesData: FlTitlesData(
-                    leftTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    topTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    rightTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 48,
-                        getTitlesWidget: (value, meta) {
-                          final index = value.toInt();
-                          if (index < 0 || index >= ComplaintCategory.values.length) {
-                            return const SizedBox.shrink();
-                          }
-                          final category = ComplaintCategory.values[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  category.icon,
-                                  size: 18,
-                                  color: category.color,
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  category.shortLabel,
-                                  style: TextStyle(
-                                    fontSize: 9,
-                                    color: AppColors.textSecondary,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+            for (final (category, count) in data) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Row(
+                  children: [
+                    Icon(category.icon, size: 16, color: category.color),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: 90,
+                      child: Text(
+                        category.shortLabel,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ),
-                  ),
-                  barGroups: [
-                    for (var i = 0; i < counts.length; i++)
-                      BarChartGroupData(
-                        x: i,
-                        barRods: [
-                          BarChartRodData(
-                            toY: counts[i].toDouble(),
-                            color: ComplaintCategory.values[i].color,
-                            width: 16,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ],
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: LinearProgressIndicator(
+                          value: complaints.isEmpty
+                              ? 0
+                              : count / complaints.length,
+                          minHeight: 8,
+                          backgroundColor: AppColors.surfaceMuted,
+                          color: category.color,
+                        ),
                       ),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      width: 28,
+                      child: Text(
+                        '${count.toInt()}',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
+            ],
           ],
         ),
       ),

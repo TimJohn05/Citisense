@@ -164,7 +164,7 @@ extension ComplaintCategoryX on ComplaintCategory {
   }
 }
 
-enum ComplaintStatus { pending, inReview, resolved, rejected }
+enum ComplaintStatus { pending, inReview, acknowledged, resolved, rejected }
 
 extension ComplaintStatusX on ComplaintStatus {
   String get label {
@@ -173,6 +173,8 @@ extension ComplaintStatusX on ComplaintStatus {
         return 'Pending';
       case ComplaintStatus.inReview:
         return 'Under Review';
+      case ComplaintStatus.acknowledged:
+        return 'Acknowledged';
       case ComplaintStatus.resolved:
         return 'Resolved';
       case ComplaintStatus.rejected:
@@ -186,6 +188,8 @@ extension ComplaintStatusX on ComplaintStatus {
         return Icons.schedule;
       case ComplaintStatus.inReview:
         return Icons.visibility_outlined;
+      case ComplaintStatus.acknowledged:
+        return Icons.mark_email_read_outlined;
       case ComplaintStatus.resolved:
         return Icons.check_circle_outline;
       case ComplaintStatus.rejected:
@@ -199,6 +203,8 @@ extension ComplaintStatusX on ComplaintStatus {
         return AppColors.warning;
       case ComplaintStatus.inReview:
         return AppColors.primary;
+      case ComplaintStatus.acknowledged:
+        return AppColors.primary;
       case ComplaintStatus.resolved:
         return AppColors.success;
       case ComplaintStatus.rejected:
@@ -211,6 +217,8 @@ extension ComplaintStatusX on ComplaintStatus {
       case ComplaintStatus.pending:
         return AppColors.warningContainer;
       case ComplaintStatus.inReview:
+        return AppColors.primaryContainer;
+      case ComplaintStatus.acknowledged:
         return AppColors.primaryContainer;
       case ComplaintStatus.resolved:
         return AppColors.successContainer;
@@ -267,6 +275,50 @@ extension SentimentX on Sentiment {
     return Sentiment.values.firstWhere(
       (e) => e.name == value,
       orElse: () => Sentiment.neutral,
+    );
+  }
+}
+
+enum Urgency { low, moderate, emergency }
+
+extension UrgencyX on Urgency {
+  String get label {
+    switch (this) {
+      case Urgency.low:
+        return 'Low';
+      case Urgency.moderate:
+        return 'Moderate';
+      case Urgency.emergency:
+        return 'Emergency';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case Urgency.low:
+        return Icons.low_priority;
+      case Urgency.moderate:
+        return Icons.priority_high;
+      case Urgency.emergency:
+        return Icons.warning_amber_rounded;
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case Urgency.low:
+        return AppColors.success;
+      case Urgency.moderate:
+        return AppColors.warning;
+      case Urgency.emergency:
+        return AppColors.danger;
+    }
+  }
+
+  static Urgency fromString(String value) {
+    return Urgency.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => Urgency.moderate,
     );
   }
 }

@@ -1,0 +1,7 @@
+dataset rows: 35000
+vocab (df>=2, cap 15000): 11386
+template-grouped holdout: 6922/35000 (20%)
+
+[sentiment] ensemble accuracy: 0.9286
+[urgency] ensemble accuracy: 0.8656
+[category_3class] ensemble accuracy: 0.8226 (4 classes)

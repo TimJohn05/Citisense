@@ -41,6 +41,12 @@ class _LocationPickerState extends State<LocationPicker> {
     });
   }
 
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
+
   void _updateSelection(LatLng position) {
     setState(() => _selected = position);
     widget.onChanged(position);
@@ -152,6 +158,7 @@ class _LocationPickerState extends State<LocationPicker> {
                         heroTag: 'my-location',
                         backgroundColor: AppColors.surface,
                         onPressed: _locating ? null : _useMyLocation,
+                        tooltip: _locating ? 'Getting your location' : 'Use my current location',
                         child: _locating
                             ? const SizedBox(
                                 width: 18,

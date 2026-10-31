@@ -51,6 +51,17 @@ backups/
 *.zip
 *.rar
 
+# AI agent local files (keep out of repo)
+.agents/
+.scratch/
+skills-lock.json
+SCREEN_RECORDING_SCRIPT.md
+dataset/
+
+# Flutter app local files
+citisense/skills-lock.json
+citisense/gradle.properties
+
 # Firebase config — per-project values stay out of git history.
 # Use the committed .example templates as the source of truth for structure.
 citisense/android/app/google-services.json

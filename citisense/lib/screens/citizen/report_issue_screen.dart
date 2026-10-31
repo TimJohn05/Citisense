@@ -320,7 +320,7 @@ class _SubmissionResultScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'Sentiment: ${sentiment.label}',
+                          'Sentiment: ${sentiment.label} (Naive Bayes)',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,

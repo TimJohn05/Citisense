@@ -61,36 +61,50 @@ class _OfficerShellState extends State<OfficerShell> {
                   OfficerComplaintsScreen(filterNotifier: _complaintFilter),
                 ],
               );
-              return Scaffold(
-                body: Align(
-                  alignment: Alignment.topCenter,
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 1100),
-                    child: isWide
-                        ? Row(
-                            children: [
-                              NavigationRail(
-                                selectedIndex: index,
-                                onDestinationSelected: (value) =>
-                                    context.read<ValueNotifier<int>>().value = value,
-                                labelType: NavigationRailLabelType.all,
-                                destinations: _railDestinations,
-                              ),
-                              const VerticalDivider(thickness: 1, width: 1),
-                              Expanded(child: body),
-                            ],
-                          )
-                        : body,
+              return PopScope(
+                canPop: _index == 0,
+                onPopInvokedWithResult: (didPop, _) {
+                  if (!didPop && _index != 0) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      context.read<ValueNotifier<int>>().value = 0;
+                    });
+                  }
+                },
+                child: Scaffold(
+                  body: Align(
+                    alignment: Alignment.topCenter,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1100),
+                      child: isWide
+                          ? Row(
+                              children: [
+                                NavigationRail(
+                                  selectedIndex: index,
+                                  onDestinationSelected: (value) =>
+                                      context
+                                          .read<ValueNotifier<int>>()
+                                          .value = value,
+                                  labelType: NavigationRailLabelType.all,
+                                  destinations: _railDestinations,
+                                ),
+                                const VerticalDivider(thickness: 1, width: 1),
+                                Expanded(child: body),
+                              ],
+                            )
+                          : body,
+                    ),
                   ),
+                  bottomNavigationBar: isWide
+                      ? null
+                      : NavigationBar(
+                          selectedIndex: index,
+                          onDestinationSelected: (value) =>
+                              context
+                                  .read<ValueNotifier<int>>()
+                                  .value = value,
+                          destinations: _destinations,
+                        ),
                 ),
-                bottomNavigationBar: isWide
-                    ? null
-                    : NavigationBar(
-                        selectedIndex: index,
-                        onDestinationSelected: (value) =>
-                            context.read<ValueNotifier<int>>().value = value,
-                        destinations: _destinations,
-                      ),
               );
             },
           );

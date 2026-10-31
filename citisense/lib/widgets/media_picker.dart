@@ -163,17 +163,17 @@ class _MediaPickerState extends State<MediaPicker> {
       onTap: _showSourceSheet,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        width: 92,
-        height: 92,
-        decoration: BoxDecoration(
-          color: AppColors.surfaceMuted,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.add_a_photo_outlined,
+          width: 92,
+          height: 92,
+          decoration: BoxDecoration(
+            color: AppColors.surfaceMuted,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.add_a_photo_outlined,
                 size: 26, color: AppColors.primary),
             const SizedBox(height: 4),
             Text(

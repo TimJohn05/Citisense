@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
-enum ThemeStyle { system, light, dark }
+enum ThemeStyle { system, light, dark, highContrast }
 
 class AppTheme {
   AppTheme._();

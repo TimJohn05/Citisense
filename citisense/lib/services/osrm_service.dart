@@ -36,7 +36,21 @@ class OSRMRoute {
 class OSRMService {
   static const _endpoint = 'https://router.project-osrm.org/route/v1/driving';
 
+  // Offline cache: last successfully fetched route keyed by "from,to" coordinates.
+  OSRMRoute? _cachedRoute;
+  String? _cachedRouteKey;
+  bool _lastResultWasCached = false;
+
+  /// Whether the most recent fetchRoute result came from the offline cache.
+  bool get lastResultWasCached => _lastResultWasCached;
+
+  String _routeKey(LatLng from, LatLng to) =>
+      '${from.latitude},${from.longitude}|${to.latitude},${to.longitude}';
+
+  /// Fetches a route from OSRM. When the request fails (offline), returns the
+  /// last successfully cached route for the same origin/destination pair, if any.
   Future<OSRMRoute?> fetchRoute(LatLng from, LatLng to) async {
+    final key = _routeKey(from, to);
     final uri = Uri.parse(
       '$_endpoint/${from.longitude},${from.latitude};${to.longitude},${to.latitude}'
       '?overview=full&geometries=geojson&steps=true',
@@ -46,43 +60,61 @@ class OSRMService {
       final response = await client.get(uri).timeout(
             const Duration(seconds: 15),
           );
-      if (response.statusCode != 200) return null;
-      final data = json.decode(response.body);
-      if (data['code'] != 'Ok') return null;
-      final route = (data['routes'] as List).first;
-      final coords = (route['geometry']['coordinates'] as List)
-          .map((c) => LatLng(
-                (c[1] as num).toDouble(),
-                (c[0] as num).toDouble(),
-              ))
-          .toList();
-      final steps = <OSRMStep>[];
-      for (final leg in route['legs'] as List) {
-        for (final s in leg['steps'] as List) {
-          final maneuver = s['maneuver'] as Map<String, dynamic>? ?? const {};
-          final rawName = (s['name'] ?? '') as String;
-          final ref = (s['ref'] ?? '') as String;
-          steps.add(
-            OSRMStep(
-              maneuverType: (maneuver['type'] ?? 'continue') as String,
-              modifier: maneuver['modifier'] as String?,
-              name: rawName.isNotEmpty ? rawName : ref,
-              distance: ((s['distance'] as num?) ?? 0).toDouble(),
-            ),
-          );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['code'] == 'Ok') {
+          final route = _parseRoute(data);
+          _cachedRoute = route;
+          _cachedRouteKey = key;
+          _lastResultWasCached = false;
+          return route;
         }
       }
-      return OSRMRoute(
-        geometry: coords,
-        distanceMeters: ((route['distance'] as num?) ?? 0).toDouble(),
-        durationSeconds: ((route['duration'] as num?) ?? 0).toDouble(),
-        steps: steps,
-      );
     } catch (_) {
-      return null;
+      // fall through to cache fallback
     } finally {
       client.close();
     }
+
+    // Offline fallback: return cached route if it matches this origin/destination.
+    if (_cachedRoute != null && _cachedRouteKey == key) {
+      _lastResultWasCached = true;
+      return _cachedRoute;
+    }
+    _lastResultWasCached = false;
+    return null;
+  }
+
+  OSRMRoute _parseRoute(Map<String, dynamic> data) {
+    final route = (data['routes'] as List).first;
+    final coords = (route['geometry']['coordinates'] as List)
+        .map((c) => LatLng(
+              (c[1] as num).toDouble(),
+              (c[0] as num).toDouble(),
+            ))
+        .toList();
+    final steps = <OSRMStep>[];
+    for (final leg in route['legs'] as List) {
+      for (final s in leg['steps'] as List) {
+        final maneuver = s['maneuver'] as Map<String, dynamic>? ?? const {};
+        final rawName = (s['name'] ?? '') as String;
+        final ref = (s['ref'] ?? '') as String;
+        steps.add(
+          OSRMStep(
+            maneuverType: (maneuver['type'] ?? 'continue') as String,
+            modifier: maneuver['modifier'] as String?,
+            name: rawName.isNotEmpty ? rawName : ref,
+            distance: ((s['distance'] as num?) ?? 0).toDouble(),
+          ),
+        );
+      }
+    }
+    return OSRMRoute(
+      geometry: coords,
+      distanceMeters: ((route['distance'] as num?) ?? 0).toDouble(),
+      durationSeconds: ((route['duration'] as num?) ?? 0).toDouble(),
+      steps: steps,
+    );
   }
 
   static String instructionFor(OSRMStep step, bool isArrive) {

@@ -215,9 +215,14 @@ Widget _buildTimeline(Complaint complaint) {
     final steps = [
       (label: 'Submitted', done: true, icon: Icons.file_upload_outlined),
       (
+        label: 'Acknowledged',
+        done: complaint.status.index >= ComplaintStatus.acknowledged.index,
+        icon: Icons.visibility_outlined,
+      ),
+      (
         label: 'Under Review',
         done: complaint.status.index >= ComplaintStatus.inReview.index,
-        icon: Icons.visibility_outlined,
+        icon: Icons.edit_outlined,
       ),
       (
         label: 'Resolved',
@@ -227,7 +232,7 @@ Widget _buildTimeline(Complaint complaint) {
     ];
 
     if (complaint.status == ComplaintStatus.rejected) {
-      steps[2] = (
+      steps[3] = (
         label: 'Rejected',
         done: true,
         icon: Icons.cancel_outlined,
@@ -297,6 +302,7 @@ Widget _buildTimeline(Complaint complaint) {
   Widget _buildOfficerActions(Complaint complaint) {
     final isOpen =
         complaint.status == ComplaintStatus.pending ||
+        complaint.status == ComplaintStatus.acknowledged ||
         complaint.status == ComplaintStatus.inReview;
 
     if (!isOpen) {
@@ -312,32 +318,45 @@ Widget _buildTimeline(Complaint complaint) {
               HapticFeedback.lightImpact();
               _showAcknowledgeSheet(complaint);
             },
-            icon: const Icon(Icons.visibility_outlined),
-            label: const Text('Acknowledge & Under Review'),
+            icon: const Icon(Icons.visibility_outlined, semanticLabel: 'Acknowledge complaint'),
+            label: const Text('Acknowledge'),
           ),
           const SizedBox(height: 10),
         ],
-        FilledButton.icon(
-          onPressed: () {
-            HapticFeedback.lightImpact();
-            _showResolveSheet(complaint);
-          },
-          icon: const Icon(Icons.check_circle_outline),
-          label: const Text('Mark as Resolved with Proof'),
-        ),
-        const SizedBox(height: 10),
-        OutlinedButton.icon(
-          onPressed: () {
-            HapticFeedback.lightImpact();
-            _showRejectSheet(complaint);
-          },
-          icon: const Icon(Icons.cancel_outlined),
-          label: const Text('Reject Report'),
-          style: OutlinedButton.styleFrom(
-            foregroundColor: AppColors.danger,
-            side: BorderSide(color: AppColors.danger),
+        if (complaint.status == ComplaintStatus.acknowledged) ...[
+          FilledButton.icon(
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              _showMarkUnderReviewSheet(complaint);
+            },
+            icon: const Icon(Icons.visibility_outlined, semanticLabel: 'Mark under review'),
+            label: const Text('Mark as Under Review'),
           ),
-        ),
+          const SizedBox(height: 10),
+        ],
+        if (complaint.status == ComplaintStatus.inReview) ...[
+          FilledButton.icon(
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              _showResolveSheet(complaint);
+            },
+            icon: const Icon(Icons.check_circle_outline, semanticLabel: 'Resolve complaint'),
+            label: const Text('Mark as Resolved with Proof'),
+          ),
+          const SizedBox(height: 10),
+          OutlinedButton.icon(
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              _showRejectSheet(complaint);
+            },
+            icon: const Icon(Icons.cancel_outlined, semanticLabel: 'Reject complaint'),
+            label: const Text('Reject Report'),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppColors.danger,
+              side: BorderSide(color: AppColors.danger),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -392,6 +411,68 @@ Widget _buildTimeline(Complaint complaint) {
               ),
             ),
             const SizedBox(height: 16),
+              FilledButton(
+               onPressed: () {
+                 final notes = controller.text.trim();
+                 if (notes.isNotEmpty && looksLikeGibberish(notes)) {
+                   ScaffoldMessenger.of(context).showSnackBar(
+                     const SnackBar(
+                       content: Text(
+                           'You cannot submit gibberish text. Please enter clear review notes.'),
+                     ),
+                   );
+                   return;
+                 }
+                 final appState = context.read<AppState>();
+                 appState.acknowledgeComplaint(complaint, notes);
+                 Navigator.pop(context);
+               },
+               child: const Text('Acknowledge'),
+             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showMarkUnderReviewSheet(Complaint complaint) {
+    final controller = TextEditingController();
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'Mark as Under Review',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Add notes about the review process.',
+              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: controller,
+              maxLines: 2,
+              decoration: const InputDecoration(
+                labelText: 'Review notes (optional)',
+              ),
+            ),
+            const SizedBox(height: 16),
             FilledButton(
               onPressed: () {
                 final notes = controller.text.trim();
@@ -405,10 +486,10 @@ Widget _buildTimeline(Complaint complaint) {
                   return;
                 }
                 final appState = context.read<AppState>();
-                appState.acknowledgeComplaint(complaint, notes);
+                appState.markUnderReview(complaint, notes);
                 Navigator.pop(context);
               },
-              child: const Text('Acknowledge'),
+              child: const Text('Mark Under Review'),
             ),
           ],
         ),
@@ -522,7 +603,7 @@ Widget _buildTimeline(Complaint complaint) {
                         ),
                       )
                     : const Text('Reject Report'),
-              ),
+                ),
             ],
           ),
         ),
@@ -536,7 +617,9 @@ Widget _buildTimeline(Complaint complaint) {
       builder: (context) => AlertDialog(
         title: const Text('Remove complaint?'),
         content: Text(
-          'This will permanently remove the complaint "${complaint.description.substring(0, complaint.description.length.clamp(0, 40))}..."',
+          'This will permanently remove the complaint "${complaint.description.length > 40
+              ? '${complaint.description.substring(0, 40)}...'
+              : complaint.description}"',
         ),
         actions: [
           TextButton(
@@ -806,6 +889,7 @@ class _MediaTileRow extends StatelessWidget {
             itemCount: videos.length,
             separatorBuilder: (_, _) => const SizedBox(width: 10),
             itemBuilder: (context, index) => _ComplaintVideoPlayer(
+              key: ValueKey(videos[index]),
               path: videos[index],
             ),
           ),
@@ -818,7 +902,7 @@ class _MediaTileRow extends StatelessWidget {
 class _ComplaintVideoPlayer extends StatefulWidget {
   final String path;
 
-  const _ComplaintVideoPlayer({required this.path});
+  const _ComplaintVideoPlayer({super.key, required this.path});
 
   @override
   State<_ComplaintVideoPlayer> createState() => _ComplaintVideoPlayerState();
@@ -829,8 +913,16 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
   bool _initialized = false;
   bool _hasError = false;
   bool _playing = false;
+  bool _buffering = false;
   int _retryCount = 0;
   static const _maxRetries = 3;
+
+  @override
+  void initState() {
+    super.initState();
+    // Start loading immediately for faster playback (like YouTube pre-buffering)
+    _init();
+  }
 
   @override
   void dispose() {
@@ -843,6 +935,12 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
     if (!mounted) return;
     final c = _controller;
     if (c != null && c.value.isInitialized) {
+      // Track buffering state
+      final wasBuffering = _buffering;
+      final isBuffering = c.value.isBuffering;
+      if (wasBuffering != isBuffering) {
+        if (mounted) setState(() => _buffering = isBuffering);
+      }
       // When playback finishes, reset to start and show play button.
       if (c.value.position >= c.value.duration && c.value.duration > Duration.zero) {
         c.seekTo(Duration.zero);
@@ -855,7 +953,6 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
         if (mounted) setState(() => _hasError = true);
       }
     }
-    setState(() {});
   }
 
   Future<void> _init() async {
@@ -870,6 +967,8 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
         : VideoPlayerController.file(File(videoPath));
     _controller = controller;
     controller.addListener(_onStatus);
+    // Configure for faster start: allow background playback, mix with others
+    controller.setVolume(1.0);
     try {
       await controller.initialize().timeout(const Duration(seconds: 15));
       if (mounted) {
@@ -976,9 +1075,9 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
                 textAlign: TextAlign.center,
               ),
             ),
-],
-      ),
-  );
+          ],
+        ),
+      );
     }
 
     return SizedBox(
@@ -996,13 +1095,29 @@ class _ComplaintVideoPlayerState extends State<_ComplaintVideoPlayer> {
                 fit: StackFit.expand,
                 children: [
                   Container(color: Colors.black),
-                  if (_initialized && controller != null)
-                    VideoPlayer(controller)
-                  else
+                  // Loading / buffering indicator
+                  if (!_initialized)
                     const Center(
-                      child: Icon(Icons.videocam, color: Colors.white54, size: 40),
-                    ),
-                  if (_initialized && controller != null && !_playing)
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 3,
+                      ),
+                    )
+                  else if (_buffering)
+                    const Center(
+                      child: SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 3,
+                        ),
+                      ),
+                    )
+                  else if (_initialized && controller != null)
+                    VideoPlayer(controller),
+                  // Play/pause overlay
+                  if (_initialized && controller != null && !_playing && !_buffering)
                     Center(
                       child: IconButton(
                         onPressed: () async {

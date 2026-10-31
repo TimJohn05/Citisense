@@ -1,13 +1,13 @@
-dataset rows: 6000
-sentiment dist: {'neutral': 1782, 'positive': 1632, 'negative': 2586}
-category dist: {'peace_order': 588, 'waste': 600, 'electrical_hazard': 610, 'general_inquiry': 231, 'water': 588, 'traffic_obstruction': 591, 'road': 588, 'public_facilities': 579, 'flood_drainage': 577, 'health_sanitation': 572, 'lighting': 476}
-urgency dist: {'low': 3414, 'emergency': 861, 'moderate': 1725}
-vocab (df>=2, cap 12000): 5381
-template-grouped holdout: 1339/6000 (20%)
+dataset rows: 35000
+sentiment dist: {'neutral': 10017, 'negative': 15658, 'positive': 9325}
+category dist: {'public_facilities': 3394, 'road': 3589, 'health_sanitation': 3332, 'water': 3470, 'waste': 3490, 'electrical_hazard': 3410, 'lighting': 2802, 'traffic_obstruction': 3509, 'peace_order': 3344, 'flood_drainage': 3443, 'general_inquiry': 1217}
+urgency dist: {'low': 19342, 'emergency': 5732, 'moderate': 9926}
+vocab (df>=2, cap 12000): 11386
+template-grouped holdout: 6922/35000 (20%)
 
-[sentiment] group-holdout accuracy: 0.8514  (3 classes)
+[sentiment] group-holdout accuracy: 0.8615  (3 classes)
   saved: sentiment_nb.pkl
-[category] group-holdout accuracy: 0.4137  (11 classes)
+[category] group-holdout accuracy: 0.4941  (11 classes)
   saved: category_nb.pkl
-[urgency] group-holdout accuracy: 0.8865  (3 classes)
+[urgency] group-holdout accuracy: 0.8253  (3 classes)
   saved: urgency_nb.pkl

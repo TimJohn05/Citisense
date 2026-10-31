@@ -946,4 +946,4 @@ def generate_dataset(target_count=3000, output_file='dataset/citisense_civic_nlp
 
 
 if __name__ == '__main__':
-    generate_dataset(target_count=6000)
+    generate_dataset(target_count=25000)

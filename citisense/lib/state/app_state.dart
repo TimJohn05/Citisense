@@ -11,11 +11,14 @@ import '../models/citizen_notification.dart';
 import '../models/complaint.dart';
 import '../models/enums.dart';
 import '../models/media_item.dart';
+import '../models/notification_model.dart';
 import '../models/system_log.dart';
 import '../models/user_role.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../services/auth_error_messages.dart';
+import '../services/notification_repository.dart';
+import '../services/fcm_service.dart';
 import '../services/repository.dart';
 import '../services/sentiment_engine.dart';
 
@@ -50,6 +53,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   static const _kClearOnLaunch = 'session.clear_on_launch';
   static const _kReadNotifications = 'notifications.citizen_read';
   static const _kDismissedBanners = 'notifications.citizen_dismissed';
+  static const _kNotificationsEnabled = 'notifications.enabled';
   static const _kPendingDrafts = 'drafts.pending';
   static const _kSavedSearchQuery = 'search.saved_query';
 
@@ -68,15 +72,16 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   StreamSubscription? _complaintsSub;
   StreamSubscription? _usersSub;
   StreamSubscription? _logsSub;
-  StreamSubscription? _connectivitySub;
+  StreamSubscription<List<AppNotification>>? _notificationSubscription;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
 
   bool _isOnline = true;
+  bool _notificationsEnabled = true;
 
   AppState({required this.repository}) {
     WidgetsBinding.instance.addObserver(this);
     _loadSettings();
     _restoreSession();
-    _initConnectivity();
   }
 
   @override
@@ -86,33 +91,27 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     _complaintsSub?.cancel();
     _usersSub?.cancel();
     _logsSub?.cancel();
+    _notificationSubscription?.cancel();
     _connectivitySub?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
+  int get unreadNotificationCount {
+    if (_user == null) return 0;
+    final notifications = NotificationRepository.instance.getLocalNotifications(_user!.id);
+    return notifications.where((n) => !n.isRead).length;
+  }
+
   bool get isOnline => _isOnline;
   bool get isOffline => !_isOnline;
 
-  Future<void> _initConnectivity() async {
-    try {
-      final connectivity = Connectivity();
-      final results = await connectivity.checkConnectivity();
-      _isOnline = results.any((r) => r != ConnectivityResult.none);
-      _connectivitySub = connectivity.onConnectivityChanged.listen((results) {
-        final wasOnline = _isOnline;
-        _isOnline = results.any((r) => r != ConnectivityResult.none);
-        if (wasOnline != _isOnline) {
-          notifyListeners();
-          if (_isOnline && _pendingDrafts.isNotEmpty) {
-            _scheduleDraftRetry();
-          }
-        }
-      });
-    } catch (_) {
-      // Platform implementation not available (e.g., in tests) — assume online.
-      _isOnline = true;
-    }
+  bool get notificationsEnabled => _notificationsEnabled;
+
+  void setNotificationsEnabled(bool value) {
+    _notificationsEnabled = value;
+    notifyListeners();
+    _persistSettings();
   }
 
   @override
@@ -121,6 +120,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       case AppLifecycleState.resumed:
         _backgroundTimer?.cancel();
         _backgroundTimer = null;
+        _initConnectivity();
         break;
       case AppLifecycleState.detached:
         _backgroundTimer?.cancel();
@@ -138,7 +138,6 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
   bool get isRestoringSession => _restoringSession;
 
   ThemeStyle get themeStyle => _themeStyle;
-  bool get highContrast => _highContrast;
 
   ThemeMode get themeMode {
     switch (_themeStyle) {
@@ -148,19 +147,56 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
         return ThemeMode.light;
       case ThemeStyle.dark:
         return ThemeMode.dark;
+      case ThemeStyle.highContrast:
+        return ThemeMode.dark;
     }
   }
 
+  bool get highContrast => _themeStyle == ThemeStyle.highContrast || _highContrast;
+
   void setThemeStyle(ThemeStyle style) {
     _themeStyle = style;
+    _highContrast = style == ThemeStyle.highContrast;
     notifyListeners();
     _persistSettings();
   }
 
   void setHighContrast(bool value) {
     _highContrast = value;
+    if (value) {
+      _themeStyle = ThemeStyle.highContrast;
+    } else if (_themeStyle == ThemeStyle.highContrast) {
+      _themeStyle = ThemeStyle.system;
+    }
     notifyListeners();
     _persistSettings();
+  }
+
+  Future<void> _initConnectivity() async {
+    try {
+      final connectivity = Connectivity();
+      final results = await connectivity.checkConnectivity().timeout(
+        const Duration(seconds: 2),
+        onTimeout: () => <ConnectivityResult>[ConnectivityResult.none],
+      );
+      _updateOnlineState(results);
+      _connectivitySub = connectivity.onConnectivityChanged.listen((results) {
+        _updateOnlineState(results);
+      });
+    } catch (_) {
+      _isOnline = true;
+    }
+  }
+
+  void _updateOnlineState(List<ConnectivityResult> results) {
+    final wasOnline = _isOnline;
+    _isOnline = results.any((r) => r != ConnectivityResult.none);
+    if (wasOnline != _isOnline) {
+      notifyListeners();
+      if (_isOnline && _pendingDrafts.isNotEmpty) {
+        _scheduleDraftRetry();
+      }
+    }
   }
 
   Future<void> _loadSettings() async {
@@ -169,6 +205,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       final savedStyle = prefs.getString(_kThemeStyle);
       _themeStyle = ThemeStyle.values.asNameMap()[savedStyle] ?? ThemeStyle.system;
       _highContrast = prefs.getBool(_kHighContrast) ?? false;
+      _notificationsEnabled = prefs.getBool(_kNotificationsEnabled) ?? true;
       _readNotificationIds =
           (prefs.getStringList(_kReadNotifications) ?? []).toSet();
       _dismissedBannerIds =
@@ -185,6 +222,7 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_kThemeStyle, _themeStyle.name);
       await prefs.setBool(_kHighContrast, _highContrast);
+      await prefs.setBool(_kNotificationsEnabled, _notificationsEnabled);
     } catch (_) {
       // Best-effort persistence only.
     }
@@ -337,6 +375,13 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       }
       _user = user;
       await _persistSession(user);
+      // Register FCM push token for this user (Firebase mode only).
+      try {
+        await FcmService.instance.registerUserToken(user.id);
+      } catch (_) {
+        // Push unavailable — login continues without token registration.
+      }
+      _subscribeToNotifications();
       try {
         await _loadData();
       } catch (_) {
@@ -421,6 +466,9 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     _users = [];
     _pendingDrafts = [];
     await _persistPendingDrafts();
+    // Clear notification subscription
+    _notificationSubscription?.cancel();
+    _notificationSubscription = null;
     notifyListeners();
     await _clearSession();
     try {
@@ -429,6 +477,18 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
       // Repository may be offline — logout must still complete.
     }
     await _addLog('Logout', '$name signed out.');
+  }
+
+  void _subscribeToNotifications() {
+    _notificationSubscription?.cancel();
+    if (_user == null) return;
+
+    _notificationSubscription = NotificationRepository.instance
+        .watchNotifications(_user!.id)
+        .listen((notifications) {
+      // Trigger rebuild to update unread badge
+      notifyListeners();
+    });
   }
 
   Future<void> _secureSessionEnd() async {
@@ -715,10 +775,21 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     String notes,
   ) async {
     final updated = complaint.copyWith(
-      status: ComplaintStatus.inReview,
+      status: ComplaintStatus.acknowledged,
       officerNotes: notes,
     );
     await _persistComplaint(updated, 'Acknowledged by ${_user!.fullName}.');
+  }
+
+  Future<void> markUnderReview(
+    Complaint complaint,
+    String notes,
+  ) async {
+    final updated = complaint.copyWith(
+      status: ComplaintStatus.inReview,
+      officerNotes: notes,
+    );
+    await _persistComplaint(updated, 'Under review by ${_user!.fullName}.');
   }
 
   Future<void> resolveComplaint(
@@ -726,6 +797,9 @@ class AppState extends ChangeNotifier with WidgetsBindingObserver {
     required String notes,
     required List<MediaItem> proof,
   }) async {
+    if (proof.isEmpty) {
+      throw ArgumentError('At least one proof photo or video is required to resolve the complaint');
+    }
     final photos = <String>[];
     final videos = <String>[];
     for (final item in proof) {

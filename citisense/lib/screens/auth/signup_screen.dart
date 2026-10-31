@@ -60,6 +60,7 @@ class _SignupScreenState extends State<SignupScreen> {
     final appState = context.watch<AppState>();
 
     return Scaffold(
+      backgroundColor: AppColors.surface,
       appBar: AppBar(title: const Text('Create Account')),
       body: SafeArea(
         child: Center(

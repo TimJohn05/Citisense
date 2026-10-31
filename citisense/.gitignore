@@ -12,6 +12,9 @@
 .swiftpm/
 migrate_working_dir/
 
+# Graphify output cache
+graphify-out/
+
 # IntelliJ related
 *.iml
 *.ipr

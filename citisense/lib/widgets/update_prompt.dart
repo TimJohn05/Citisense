@@ -41,7 +41,7 @@ class _UpdatePromptWrapperState extends State<UpdatePromptWrapper> {
   void _showUpdateDialog(VersionStatus status) {
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (_) => _UpdateDialog(
         status: status,
         onDismiss: () => _dismissed = true,

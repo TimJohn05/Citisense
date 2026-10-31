@@ -39,13 +39,17 @@ class AppImage extends StatelessWidget {
 
   Widget _buildDataImage() {
     final payload = path!.substring(path!.indexOf(',') + 1);
-    return Image.memory(
-      base64Decode(payload),
-      fit: fit,
-      height: height,
-      width: width,
-      errorBuilder: (_, _, _) => _placeholder(),
-    );
+    try {
+      return Image.memory(
+        base64Decode(payload),
+        fit: fit,
+        height: height,
+        width: width,
+        errorBuilder: (_, _, _) => _placeholder(),
+      );
+    } catch (_) {
+      return _placeholder();
+    }
   }
 
   Widget _buildNetworkImage() {

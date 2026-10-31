@@ -24,6 +24,14 @@ service cloud.firestore {
                     && request.resource.data.role == resource.data.role;
 
       allow delete: if false;
+
+      // Notification subcollection: owner can read/write their own notifications.
+      match /notifications/{notificationId} {
+        allow read: if signedIn() && request.auth.uid == userId;
+        allow create: if signedIn() && request.auth.uid == userId;
+        allow update: if signedIn() && request.auth.uid == userId;
+        allow delete: if false;
+      }
     }
 
     match /complaints/{complaintId} {

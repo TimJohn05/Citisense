@@ -6,14 +6,15 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 import 'core/app_config.dart';
 import 'firebase_options.dart';
-import 'services/citisense_nlp.dart';
+import 'services/fcm_service.dart';
 import 'services/firebase_repository.dart';
 import 'services/mock_repository.dart';
+import 'services/sentiment_engine.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  CitiNlp.ensureLoaded();
+  await SentimentEngine.initialize();
 
   if (useFirebase) {
     if (kIsWeb) {
@@ -29,6 +30,8 @@ Future<void> main() async {
       persistenceEnabled: true,
       cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
     );
+    // Initialize FCM for push notifications
+    await FcmService.instance.initialize();
     runApp(App(repository: FirebaseRepository()));
   } else {
     runApp(App(repository: MockRepository()));

@@ -140,6 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final appState = context.watch<AppState>();
 
     return Scaffold(
+      backgroundColor: AppColors.surface,
       body: SafeArea(
         child: Stack(
           children: [

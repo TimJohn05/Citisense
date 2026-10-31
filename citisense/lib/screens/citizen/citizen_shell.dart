@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../models/enums.dart';
 import 'citizen_home_screen.dart';
 import 'my_reports_screen.dart';
+import 'notifications_screen.dart';
 import 'report_issue_screen.dart';
 
 class CitizenShell extends StatefulWidget {
@@ -34,6 +35,11 @@ class _CitizenShellState extends State<CitizenShell> {
       selectedIcon: Icon(Icons.article),
       label: 'My Reports',
     ),
+    NavigationDestination(
+      icon: Icon(Icons.notifications_outlined),
+      selectedIcon: Icon(Icons.notifications),
+      label: 'Notifications',
+    ),
   ];
 
   static const _railDestinations = [
@@ -51,6 +57,11 @@ class _CitizenShellState extends State<CitizenShell> {
       icon: Icon(Icons.article_outlined),
       selectedIcon: Icon(Icons.article),
       label: Text('My Reports'),
+    ),
+    NavigationRailDestination(
+      icon: Icon(Icons.notifications_outlined),
+      selectedIcon: Icon(Icons.notifications),
+      label: Text('Notifications'),
     ),
   ];
 
@@ -71,38 +82,53 @@ class _CitizenShellState extends State<CitizenShell> {
                   CitizenHomeScreen(reportFilter: _reportFilter),
                   const ReportIssueScreen(),
                   MyReportsScreen(filterNotifier: _reportFilter),
+                  const NotificationsScreen(),
                 ],
               );
-              return Scaffold(
-                body: Align(
-                  alignment: Alignment.topCenter,
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 1100),
-                    child: isWide
-                        ? Row(
-                            children: [
-                              NavigationRail(
-                                selectedIndex: index,
-                                onDestinationSelected: (value) =>
-                                    context.read<ValueNotifier<int>>().value = value,
-                                labelType: NavigationRailLabelType.all,
-                                destinations: _railDestinations,
-                              ),
-                              const VerticalDivider(thickness: 1, width: 1),
-                              Expanded(child: body),
-                            ],
-                          )
-                        : body,
+              return PopScope(
+                canPop: _index == 0,
+                onPopInvokedWithResult: (didPop, _) {
+                  if (!didPop && _index != 0) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      context.read<ValueNotifier<int>>().value = 0;
+                    });
+                  }
+                },
+                child: Scaffold(
+                  body: Align(
+                    alignment: Alignment.topCenter,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1100),
+                      child: isWide
+                          ? Row(
+                              children: [
+                                NavigationRail(
+                                  selectedIndex: index,
+                                  onDestinationSelected: (value) =>
+                                      context
+                                          .read<ValueNotifier<int>>()
+                                          .value = value,
+                                  labelType: NavigationRailLabelType.all,
+                                  destinations: _railDestinations,
+                                ),
+                                const VerticalDivider(thickness: 1, width: 1),
+                                Expanded(child: body),
+                              ],
+                            )
+                          : body,
+                    ),
                   ),
+                  bottomNavigationBar: isWide
+                      ? null
+                      : NavigationBar(
+                          selectedIndex: index,
+                          onDestinationSelected: (value) =>
+                              context
+                                  .read<ValueNotifier<int>>()
+                                  .value = value,
+                          destinations: _destinations,
+                        ),
                 ),
-                bottomNavigationBar: isWide
-                    ? null
-                    : NavigationBar(
-                        selectedIndex: index,
-                        onDestinationSelected: (value) =>
-                            context.read<ValueNotifier<int>>().value = value,
-                        destinations: _destinations,
-                      ),
               );
             },
           );

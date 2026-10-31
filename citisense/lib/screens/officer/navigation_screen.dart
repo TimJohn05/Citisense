@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
@@ -41,12 +42,14 @@ class _NavigationScreenState extends State<NavigationScreen> {
   LatLng? _position;
   LatLng? _routeOrigin;
   OSRMRoute? _route;
+  bool _usingCachedRoute = false;
   double _heading = 0.0;
   bool _loading = true;
   bool _mapReady = false;
   bool _arrived = false;
   String? _error;
   StreamSubscription<Position>? _posSub;
+  StreamSubscription<CompassEvent>? _compassSub;
   Timer? _rerouteTimer;
 
   LatLng get _dest => LatLng(widget.latitude, widget.longitude);
@@ -60,6 +63,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   void dispose() {
     _posSub?.cancel();
+    _compassSub?.cancel();
     _rerouteTimer?.cancel();
     _mapController.dispose();
     super.dispose();
@@ -98,6 +102,18 @@ class _NavigationScreenState extends State<NavigationScreen> {
         onError: (_) {},
       );
     }
+
+    // Start compass stream for device heading (works even when stationary)
+    _compassSub = FlutterCompass.events?.listen((event) {
+      if (!mounted) return;
+      if (event.heading != null && event.heading! > 0) {
+        // Use compass heading when GPS heading is unavailable or inaccurate
+        setState(() {
+          _heading = event.heading!;
+        });
+      }
+    });
+
     await _fetchRoute();
   }
 
@@ -141,6 +157,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     });
     final route = await _osrm.fetchRoute(from, _dest);
     if (!mounted) return;
+    _usingCachedRoute = _osrm.lastResultWasCached;
     setState(() {
       _loading = false;
       if (route == null) {
@@ -162,11 +179,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
     if (!_mapReady) return;
     final route = _route;
     final pos = _position;
-    final points = <LatLng>[
-      ...?route?.geometry,
-      _dest,
-      ?pos,
-    ];
+    final points = <LatLng>[];
+    if (route != null) points.addAll(route.geometry);
+    points.add(_dest);
+    if (pos != null) points.add(pos);
     try {
       _mapController.fitCamera(
         CameraFit.bounds(
@@ -333,13 +349,27 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 size: 18, color: AppColors.primary),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                '${_formatEta(route.durationSeconds)} '
-                '(${_formatDistance(route.distanceMeters)})',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${_formatEta(route.durationSeconds)} '
+                    '(${_formatDistance(route.distanceMeters)})',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  if (_usingCachedRoute)
+                    Text(
+                      'Cached route (offline)',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textMuted,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                ],
               ),
             ),
           ],
